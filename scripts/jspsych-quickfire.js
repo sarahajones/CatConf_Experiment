@@ -94,7 +94,6 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
 
     /* ----- Start trial then showing stimulus 1, gap, 2 -----*/
     plugin.trial = function (display_element, trial) {
-for (i)
         display_element.innerHTML = '<img class="jspsych-quickfire-stimulus" src="' + trial.stimuli[0] + '"</img>';
 
         var first_stim_info;
