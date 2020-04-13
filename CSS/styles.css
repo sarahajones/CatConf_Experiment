@@ -1,0 +1,289 @@
+/*Color Theme for CatConf Info*/
+
+/* Text color throughout
+.My-Color-Theme-2-1-hex { color: #1F1E1E; }
+.My-Color-Theme-2-1-rgba { color: rgba(31, 30, 30, 1); }
+.My-Color-Theme-2-1-hsla { color: hsla(0, 1, 11, 1); }
+*/
+
+
+/* Color Theme Swatches in Hex
+.My-Color-Theme-1-hex { color: #B9B5B3; } grey
+.My-Color-Theme-2-hex { color: #FFCAB0; } pink
+.My-Color-Theme-3-hex { color: #FA8043; } orange
+.My-Color-Theme-4-hex { color: #3BADA5; } green
+.My-Color-Theme-5-hex { color: #9BF2EC; } aqua
+*/
+
+/* Color Theme Swatches in RGBA
+.My-Color-Theme-1-rgba { color: rgba(185, 181, 179, 1); } grey
+.My-Color-Theme-2-rgba { color: rgba(255, 202, 176, 1); } pink
+.My-Color-Theme-3-rgba { color: rgba(250, 128, 67, 1); } orange
+.My-Color-Theme-4-rgba { color: rgba(59, 173, 165, 1); } green
+.My-Color-Theme-5-rgba { color: rgba(155, 242, 236, 1); } aqua
+*/
+
+/* Color Theme Swatches in HSLA
+.My-Color-Theme-1-hsla { color: hsla(20, 4, 71, 1); } grey
+.My-Color-Theme-2-hsla { color: hsla(19, 100, 84, 1); } pink
+.My-Color-Theme-3-hsla { color: hsla(20, 94, 62, 1); } orange
+.My-Color-Theme-4-hsla { color: hsla(175, 49, 45, 1); } green
+.My-Color-Theme-5-hsla { color: hsla(175, 76, 77, 1); } aqua
+*/
+
+.main  {
+    background-color: rgba(59, 173, 165, 1);
+    color: whitesmoke;
+    font-family:  europa, Arial, Helvetica, sans-serif;;
+
+}
+
+.h4 {
+    font-weight: bolder;
+}
+
+.a {
+    text-decoration: underline;
+}
+/*------------------------ PIS FORM -----------------------
+---------------------------------------------------------------- */
+#PIS-intro {
+    text-align: center;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-right: 150px;
+    margin-left: 150px;
+    margin-block-start: 100px;
+    margin-block-end: 100px;
+    line-height: 100px;
+}
+
+/*------------------------ CONSENT FORM -----------------------
+---------------------------------------------------------------- */
+#consent-intro {
+    text-align: center;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-right: 150px;
+    margin-left: 150px;
+    margin-block-start: 100px;
+    margin-block-end: 100px;
+    line-height: 100px;
+}
+
+/*------------------------ DEMO AND TUTORIALS -----------------------
+---------------------------------------------------------------- */
+#tutorial-intro {
+    text-align: center;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-right: 150px;
+    margin-left: 150px;
+    margin-block-start: 100px;
+    margin-block-end: 100px;
+    line-height: 100px;
+}
+
+#demo_instruction {
+    width: 15vmax;
+    height: 15vmax;
+    margin: auto;
+    background: url("../images/space_invaders.png"); /* swap this out for a gif of the experiment*/
+    background-size: 15vmax 15vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+#tutorial-form{
+    background-color: rgba(59, 173, 165, 1);
+    color: whitesmoke;
+}
+
+
+/*------------------------ QUICKFIRE ROUND-----------------------
+---------------------------------------------------------------- */
+.jspsych-quickfire-stimulus{
+    width: 25vmax;
+    height: 20vmax;
+    margin: auto;
+    background-size: 15vmax 15vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+/*------------------------ GENERAL FORM BUILDER-----------------------
+---------------------------------------------------------------- */
+.document-in-document {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80vw;
+    height: auto;
+    margin: auto;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.document-in-document .document-header {
+    flex-direction: row;
+    width: 40vw;
+    margin: 0 auto;
+    padding: 10vh 0vh 3vh;
+}
+
+.document-in-document .document-header .header-info {
+    text-align: center;
+}
+
+.document-in-document .document-header .header-info p {
+    font-size: 1.5vmax;
+}
+
+.document-in-document .document-title {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.document-in-document .document-text {
+    width: 60vw;
+    margin: 5vh auto 0;
+}
+
+.document-in-document .document-text textarea {
+    width: 60vw;
+    height: 20vh;
+    margin: auto;
+    color: black;
+    font-family: europa, Arial, Helvetica, sans-serif;
+    font-size: 1.5vmax;
+}
+
+.document-in-document .document-text .document-form-row {
+    display: flex;
+    flex-direction: row !important;
+}
+
+.document-in-document .document-text .document-form-question {
+    width: 43vw;
+}
+
+.document-in-document .document-text .document-form-answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+}
+
+.document-in-document .document-text .document-form-answer input[type=checkbox] {
+    display: none;
+}
+
+.document-in-document .document-text .document-form-answer .custom-checkbox {
+    z-index: 5;
+    width: 25px;
+    height: 25px;
+    background: url("../images/checkmark-white.svg");
+    background-size: 22px 22px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 3px solid #aaaaaa;
+    transition: border 0.25s linear;
+    -webkit-transition: border 0.25s linear;
+}
+
+.document-in-document .document-text .document-form-answer .custom-checkbox:hover {
+    background-color: #aaaaaa;
+}
+
+.document-in-document .document-footer {
+    height: 10vh;
+}
+/*------------------------ INSTRUCTIONS PAGES -----------------------
+---------------------------------------------------------------- */
+
+#demo_instruction{
+    float: left;
+    margin: 20px;
+    margin-right: 100px;
+}
+
+#tutorial-header{
+    width: 60vw;
+    margin: 0 auto;
+    padding: 10vh 0vh 3vh;
+}
+
+#tutorial-text{
+    text-align: justify;
+    padding: 5vh 0vh 5vh;
+
+}
+/*------------------------ BUTTONS & ICONS -----------------------
+---------------------------------------------------------------- */
+button, .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: 0;
+    padding: 1.5vmax;
+    font-family: europa, Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bolder;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+button.large-button, .button.large-button {
+    width: 30vmax;
+    margin: 5vh auto;
+    background-color: rgba(155, 242, 236, 1);
+    color: black;
+    font-size: 1.5vmax;
+}
+
+button.large-button:hover, .button.large-button:hover {
+    background-color:rgba(155, 242, 236, .7);
+    animation: glowy-box 0.5s infinite alternate;
+}
+
+button.mini-button, .button.mini-button {
+    width: 4vmin;
+    height: 4vmin;
+    margin: 3vh auto;
+    padding: 1vmin;
+    border-radius: 100%;
+    background-color: rgba(155, 242, 236, 1);
+    color:  black;
+    font-size: 2vmin;
+}
+
+#Oxford-logo {
+    width: 25vmax;
+    height: 20vmax;
+    margin: auto;
+    background: url("../images/oxford-logo.jpg");
+    background-size: 15vmax 15vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fixation-cross {
+    z-index: 100;
+    width: 70vw;
+    margin: -13vh auto 0vmin;
+    text-align: center;
+    font-size: 5vmin;
+    color: white !important;
+}
