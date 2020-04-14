@@ -28,108 +28,188 @@
 
 
 </head>
-    <body class="main">
-    </body>
-        <script>
+<body class="main">
+</body>
+<script>
 
-            function createGeneral(name, parent, type, classNames, idName, innerHTML) {
-                var name = parent.appendChild(document.createElement(type));
-                if (classNames !== undefined) {
-                    name.setAttribute('class', classNames);
-                }
-                if (idName !== undefined) {
-                    name.setAttribute('id', idName);
-                }
-                name.innerHTML = innerHTML;
-                return name;
+
+    //HELPER FUNCTIONS - MOVE TO EXTERNAL FILE ASAP
+    function createGeneral(name, parent, type, classNames, idName, innerHTML) {
+        var name = parent.appendChild(document.createElement(type));
+        if (classNames !== undefined) {
+            name.setAttribute('class', classNames);
+        }
+        if (idName !== undefined) {
+            name.setAttribute('id', idName);
+        }
+        name.innerHTML = innerHTML;
+        return name;
+    }
+
+    /* https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+    * @param array {[]}
+    * @return {[]}*/
+    function shuffle(array) {
+        let counter = array.length;
+
+        if(counter === 2)
+            return Math.random() < .5? array : array.reverse();
+
+        // While there are elements in the array
+        while (counter > 0) {
+            // Pick a random index
+            let index = Math.floor(Math.random() * counter);
+
+            // Decrease counter by 1
+            counter--;
+
+            // And swap the last element with it
+            let temp = array[counter];
+            array[counter] = array[index];
+            array[index] = temp;
+        }
+
+        return array;
+    }
+
+    /*
+     * Return a single array containing deckCount copies of deck shuffled together
+     */
+    function shuffle_shoe(deck, deckCount=1) {
+        let shoe = [];
+        for (let d=0; d<deck.length; d++) {
+            let item = deck[d];
+            for (let i=0; i<deckCount; i++) {
+                shoe.push(item);
             }
-
-            /* EXPERIMENT INFORMATION */
-            var CUREC_studyName = 'An investigation into decision confidence and category choices';
-            var CUREC_ID = '___________';
-            var PIS_version = '1.0';
-            var PIS_date = 'March 2020'
-            var consent_version = '1.0';
-            var consent_date = 'March 2020';
-
-            /* PreLOAD IMAGES FOR SPEED */
-            var images = [
-                'images/oxford-logo.jpg' +
-                'images/checkmark-black.svg' +
-                'images/checkmark-white.svg' +
-                'images/space_invaders.png' +
-                'images/green_spaceship.png' +
-                'images/blue_spaceship.png' +
-                'images/orange_spaceship.png'
-                ];
-
-            var dataObject = {
-                CUREC_ID: CUREC_ID,
-                PIS_version: PIS_version,
-                PIS_date: PIS_date,
-                PIS_acknowledged: undefined,
-                consent_version: consent_version,
-                consent_date: consent_date,
-                consented: undefined,
-            };
-
-                       /* EXPERIMENTAL PAGES */
-            // PIS
-            var PIS = {
-                type: 'jspsych-PIS',
-                studyName: CUREC_studyName,
-                CUREC_ID: CUREC_ID,
-                version: PIS_version,
-                date: PIS_date
-            };
-
-            var consent = {
-                type: 'jspsych-consent',
-                studyName: CUREC_studyName,
-                CUREC_ID: CUREC_ID,
-                version: consent_version,
-                date: consent_date
-            };
-
-                    /* TRAINING AND INSTRUCTION*/
-            var tutorial_1 = {
-                type: "jspsych-tutorial",
-                isFirstTime: true
-            };
-
-            var tutorial_2 = {
-                type: "jspsych-tutorial",
-                isFirstTime: false
-            };
-
-                    /*QUICK FIRE ROUND*/
-            var quick_fire = {
-                type: 'jspsych-quickfire',
-                stimuli: ['images/orange_spaceship.png', 'images/package_image.png'],
-                trial_number: 10,
-                choices: ['Retrieve Package'],
-                stimulus1_duration: 1500,
-                gap_duration: 0,
-                stimulus2_duration: 1500,
-                trial_duration: 3500,
-                response_ends_trial: true
-            };
+        }
+        return shuffle(shoe);
+    }
+    //END OF HELPER FUNCTIONS
 
 
+    /* EXPERIMENT INFORMATION */
+    var CUREC_studyName = 'An investigation into decision confidence and category choices';
+    var CUREC_ID = '___________';
+    var PIS_version = '1.0';
+    var PIS_date = 'March 2020'
+    var consent_version = '1.0';
+    var consent_date = 'March 2020';
 
-                    /* EXPERIMENT TIMELINE*/
-            var timeline = [
-                PIS,
-                consent,
-                tutorial_1,
-                tutorial_2,
-                quick_fire,
-             ];
+    /* PreLOAD IMAGES FOR SPEED */
+    var images = [
+        'images/oxford-logo.jpg' +
+        'images/checkmark-black.svg' +
+        'images/checkmark-white.svg' +
+        'images/space_invaders.png' +
+        'images/green_spaceship.png' +
+        'images/blue_spaceship.png' +
+        'images/orange_spaceship.png' +
+        'images/bomb.png' +
+        'images/coins.png'
+    ];
 
-             /* start the experiment */
-            jsPsych.init({
-                timeline: timeline,
-            });
-        </script>
+    var dataObject = {
+        CUREC_ID: CUREC_ID,
+        PIS_version: PIS_version,
+        PIS_date: PIS_date,
+        PIS_acknowledged: undefined,
+        consent_version: consent_version,
+        consent_date: consent_date,
+        consented: undefined,
+    };
+
+    /* EXPERIMENTAL PAGES */
+    // PIS
+    var PIS = {
+        type: 'jspsych-PIS',
+        studyName: CUREC_studyName,
+        CUREC_ID: CUREC_ID,
+        version: PIS_version,
+        date: PIS_date
+    };
+
+    var consent = {
+        type: 'jspsych-consent',
+        studyName: CUREC_studyName,
+        CUREC_ID: CUREC_ID,
+        version: consent_version,
+        date: consent_date
+    };
+
+    /* TRAINING AND INSTRUCTION*/
+    var tutorial_1 = {
+        type: "jspsych-tutorial",
+        isFirstTime: true
+    };
+
+    var tutorial_2 = {
+        type: "jspsych-tutorial",
+        isFirstTime: false
+    };
+    /* EXPERIMENT TIMELINE*/
+    const timeline = [
+
+        tutorial_1,
+        tutorial_2
+    ];
+
+    /*QUICK FIRE ROUND*/
+    const trial_number = 4; // No magic numbers! :)
+
+    // construct deck
+    quickfire_stimuli = [
+        'images/orange_spaceship.png',
+        'images/blue_spaceship.png'
+    ];
+
+    const deck_count = trial_number / quickfire_stimuli.length;
+
+    // shuffle deck
+    quickfire_stimuli = shuffle_shoe(quickfire_stimuli, deck_count);
+
+    const trial_contents = quickfire_stimuli.map(
+        s => {
+            const outcome_chance = .8;
+            const good = 'coins.png';
+            const bad = 'bomb.png';
+            let r;
+
+            if(/orange/i.test(s)) {
+                r = Math.random() < outcome_chance ? good : bad;
+            } else if(/blue/i.test(s)) {
+                r = Math.random() > outcome_chance ? good : bad;
+            } else {
+                console.warn(`Unrecognised spaceship colour in ${s}.`);
+                return;
+            }
+            return {
+                stimulus: s,
+                result: r
+            }
+        });
+
+    for(let i=1; i <= trial_number; i++) {
+        const trial_details = trial_contents.pop();
+        timeline.push({
+            type: 'jspsych-quickfire',
+            // deal cards
+            stimuli: [trial_details.stimulus, 'images/package_image.png'],
+            feedback: trial_details.result,
+            trial_number: i,
+            choices: ['Retrieve Package'],
+            stimulus1_duration: 1500,
+            gap_duration: 0,
+            stimulus2_duration: 1500,
+            trial_duration: 3500,
+            response_ends_trial: false,
+        });
+    }
+
+    /* start the experiment
+    jsPsych.init({
+        timeline: timeline,
+    });*/
+</script>
 
 </html>

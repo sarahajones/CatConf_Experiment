@@ -1,8 +1,6 @@
-jsPsych.plugins['jspsych-quickfire'] = function () {
+jsPsych.plugins['jspsych-quickfire'] = (function () {
 
     var plugin = {};
-
-    jsPsych.pluginAPI.registerPreload('same-different-image', 'stimuli', 'image')
 
     /*------ Define plugin information ----- */
     plugin.info = {
@@ -18,6 +16,14 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
                 description: 'The images to be displayed.'
             },
 
+            feedback: {
+                type: jsPsych.plugins.parameterType.IMAGE,
+                pretty_name: 'Trial Feedback',
+                default: undefined,
+                array: true,
+                description: 'Trial by trial feedback.'
+            },
+
             trial_number: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Trial Number',
@@ -26,13 +32,6 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
                 description: 'Number of trials to be looped.'
             },
 
-            answer: {
-                type: jsPsych.plugins.parameterType.SELECT,
-                pretty_name: 'Answer',
-                options: ['retrieve', 'leave'],
-                default: 75,
-                description: 'Either "retrieve" or "leave".'
-            },
             choices: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Choices',
@@ -49,19 +48,13 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
                 description: 'The html of the button.'
             },
 
-            prompt: {
-                type: jsPsych.plugins.parameterType.STRING,
-                pretty_name: 'Prompt',
-                default: null,
-                description: 'Any content here will be displayed under the button.'
-            },
-
             stimulus1_duration: {
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'Stimulus1 duration',
                 default: null,
                 description: 'How long to hide the stimulus.'
             },
+
             gap_duration: {
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'Gap duration',
@@ -89,52 +82,44 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
                 default: true,
                 description: 'If true, then trial will end when user responds.'
             },
+
         }
     };
 
     /* ----- Start trial then showing stimulus 1, gap, 2 -----*/
-    plugin.trial = function (display_element, trial) {
-        display_element.innerHTML = '<img class="jspsych-quickfire-stimulus" src="' + trial.stimuli[0] + '"</img>';
+    plugin.trial = (function (display_element, trial) {
 
-        var first_stim_info;
-        if (trial.stimulus1_duration > 0) {
-            jsPsych.pluginAPI.setTimeout(function () {
-                showBlankScreen();
-            }, trial.stimulus1_duration);
-        } else {
-            function afterKeyboardResponse(info) {
-                first_stim_info = info;
-                showBlankScreen();
-            }
-            jsPsych.pluginAPI.getKeyboardResponse({
-                callback_function: afterKeyboardResponse,
-                valid_responses: trial.advance_key,
-                rt_method: 'performance',
-                persist: false,
-                allow_held_key: false
-            });
+        const response = {
+            stimuli: trial.stimuli,
+            number: trial_number,
+            start_time: performance.now(),
+            response_time: null,
+            end_time: null,
+            delta_response_time: null,
+            delta_feedback_time: null,
+            button: null,
+            button_label: trial.choices,
+        };
+
+        // SHOW IMAGE:  generalised function for use and reuse
+        function displayImage(imgSrc, duration, callback) {
+            display_element.querySelector('img').src = imgSrc;
+            setTimeout(callback, duration);
         }
 
-            function showBlankScreen() {
-                display_element.innerHTML = '';
-                jsPsych.pluginAPI.setTimeout(function () {
-                    showSecondStim();
-                }, trial.gap_duration);
-            }
+        // SHOW FIRST STIMULUS (set by procedural code below)
+        /*function showFirstStimulus() {
+            displayImage(trial.stimuli[0], stimulus1_duration, showSecondStimulus);
+        }*/
 
+        // BLANK SCREEN
+        function showBlankScreen() {
+            displayImage(display_element.innerHTML = '', trial.gap_duration, showSecondStimulus);
+        }
 
-        function showSecondStim() {
-            display_element.innerHTML = '<img class="jspsych-quickfire_stimulus" src="' + trial.stimuli[1] + '"></img>';
-            //show prompt
-            if (trial.prompt !== null) {
-                html += trial.prompt;
-            }
-
-            if (trial.stimulus2_duration > 0) {
-                jsPsych.pluginAPI.setTimeout(function () {
-                    display_element.querySelector('.jspsych-quickfire-stimulus').style.visibility = 'hidden';
-                }, trial.stimulus2_duration);
-            }
+        // SHOW 2ND STIMULUS + BUTTON/s
+        function showSecondStimulus() {
+            displayImage(trial.stimuli[1], 1000, awaitResponse);
 
             //display buttons
             var buttons = [];
@@ -157,45 +142,43 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
             }
             display_element.innerHTML += '</div>';
 
-
-            var start_time = performance.now();
-
             for (var i = 0; i < trial.choices.length; i++) {
                 display_element.querySelector('#jspsych-quickfire-button-' + i).addEventListener('click', function (e) {
                     var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
                     after_response(choice);
                 });
             }
-
         }
-            // store response
-            var response = {
-                rt: null,
-                button: null
-            };
-
-            // function to handle responses by the subject
-            function after_response(choice) {
-
-                // measure rt
-                var end_time = performance.now();
-                var rt = end_time - start_time;
-                response.button = choice;
-                response.rt = rt;
 
 
-                // disable all the buttons after a response
-                var btns = document.querySelectorAll('.jspsych-quickfire-button button');
-                for (var i = 0; i < btns.length; i++) {
-                    //btns[i].removeEventListener('click');
-                    btns[i].setAttribute('disabled', 'disabled');
-                }
+        // BUTTON RESPONSE
+        // function to handle responses by the subject
+        function after_response(choice) {
 
-                if (trial.response_ends_trial) {
-                    end_trial();
-                }
+            // measure response information
+            response.response_time = performance.now();
+            response.delta_response_time = response_time - start_time;
+            response.button = choice;
+            response.button_label = trial.choices[choice];
+
+
+            // disable all the buttons after a response
+            var btns = document.querySelectorAll('.jspsych-quickfire-button button');
+            for (var i = 0; i < btns.length; i++) {
+                //btns[i].removeEventListener('click');
+                btns[i].setAttribute('disabled', 'disabled');
             }
 
+            if (trial.response_ends_trial) {
+                end_trial();
+            }
+        }
+        // Feedback
+        function showFeedback() {
+            displayImage(trial.feedback, 1000, end_trial)
+
+
+        //END TRIAL
         // function to end trial when it is time
         function end_trial() {
 
@@ -203,11 +186,7 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
             jsPsych.pluginAPI.clearAllTimeouts();
 
             // gather the data to store for the trial
-            var trial_data = {
-                "rt": response.rt,
-                "stimulus": trial.stimulus,
-                "button_pressed": response.button
-            };
+            var trial_data = response;
 
             // clear the display
             display_element.innerHTML = '';
@@ -215,8 +194,6 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
             // move on to the next trial
             jsPsych.finishTrial(trial_data);
         }
-
-
 
         // hide image if timing is set
         if (trial.stimulus2_duration !== null) {
@@ -232,8 +209,10 @@ jsPsych.plugins['jspsych-quickfire'] = function () {
             }, trial.trial_duration);
         }
 
+        // Procedural code
+        // displayImage(trial.stimuli[0], trial.stimulus1_duration, showBlankScreen);
     };
 
-
-        return plugin;
-}();
+    })();
+    return plugin;
+})();
