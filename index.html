@@ -147,12 +147,26 @@
         type: "jspsych-tutorial",
         isFirstTime: false
     };
+
+    var test = {
+        type: 'same-different-image',
+        stimuli: ['images/orange_spaceship.png', 'images/package_image.png'],
+        prompt: "<p>Press S to retrieve the package</p>",
+        same_key: 'S',
+        different_key: 'D',
+        answer: 'different'
+    };
+
     /* EXPERIMENT TIMELINE*/
     const timeline = [
-
+        PIS,
+        consent,
         tutorial_1,
-        tutorial_2
+        tutorial_2,
+        test
     ];
+
+
 
     /*QUICK FIRE ROUND*/
     const trial_number = 4; // No magic numbers! :)
@@ -193,7 +207,6 @@
         const trial_details = trial_contents.pop();
         timeline.push({
             type: 'jspsych-quickfire',
-            // deal cards
             stimuli: [trial_details.stimulus, 'images/package_image.png'],
             feedback: trial_details.result,
             trial_number: i,
@@ -206,10 +219,10 @@
         });
     }
 
-    /* start the experiment
+    /* start the experiment */
     jsPsych.init({
         timeline: timeline,
-    });*/
+    });
 </script>
 
 </html>

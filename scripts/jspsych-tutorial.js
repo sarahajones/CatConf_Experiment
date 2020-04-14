@@ -15,10 +15,11 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         if (trial.isFirstTime) {
             var tutorial_text =
                 '<p> During this study, you will see a game-screen with spaceships dropping packages to the earth. You can use your mouse to click on a package when it lands safely. </p>' +
-                '<p>Clicking on a package when it has landed will retrieve its contents. The packages will contain either coins or a bomb. Collected coins will collect in your reward jar, whereas retrieving bombs will lose you coins from your jar. Your goal is to figure out which of the packages to retrieve and to collect as many coins as possible by the end of the game. </p>';
+                '<p>Clicking on a package when it has landed will retrieve its contents. The packages will contain either coins or a bomb. Collected coins will collect in your reward jar, whereas retrieving bombs will lose you coins from your jar. </p> ' +
+                '<p>Your goal is to figure out which of the packages to retrieve and to collect as many coins as possible by the end of the game. </p>';
         } else {
             var tutorial_text =
-                '<p> To practice the retrieval process and become familiar with the kinds of images you will see in the game we will begin with some quick-fire rounds. ' +
+                '<p> To practice the retrieval process and become familiar with the kinds of images you will see in the game, we will begin with some "quick-fire" rounds. ' +
                 'In these rounds you will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth.  </p>' +
                 '<p> You must decide whether or not to retrieve the package that has been dropped - this round will help teach you about the different spaceships. </p>';
         }

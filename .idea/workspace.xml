@@ -20,7 +20,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ISTc-DDTi" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -44,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586787996183</updated>
-      <workItem from="1586787997681" duration="13055000" />
+      <workItem from="1586787997681" duration="20729000" />
     </task>
     <servers />
   </component>
@@ -56,10 +56,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="872" y="358" key="#Notifications/0.0.2560.1400@0.0.2560.1400" timestamp="1586788021906" />
-    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1586788129976">
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1586872074285">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586788129976" />
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586872074285" />
     <state x="781" y="342" key="SettingsEditor" timestamp="1586788392989">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

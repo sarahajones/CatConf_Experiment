@@ -115,6 +115,16 @@
     background-repeat: no-repeat;
 
 }
+
+.jspsych-same-different-stimulus{
+    width: 25vmax;
+    height: 20vmax;
+    margin: auto;
+    background-size: 15vmax 15vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
 /*------------------------ GENERAL FORM BUILDER-----------------------
 ---------------------------------------------------------------- */
 .document-in-document {
@@ -217,13 +227,17 @@
 #tutorial-header{
     width: 60vw;
     margin: 0 auto;
-    padding: 10vh 0vh 3vh;
+    padding: 5vh 0vh 3vh;
 }
 
 #tutorial-text{
     text-align: justify;
-    padding: 5vh 0vh 5vh;
-
+    font-size: 1.5em;
+    line-height: 1.25em;
+    margin: 3vh auto 0;
+}
+#tutorial-text p{
+    margin-block-start: .5em;
 }
 /*------------------------ BUTTONS & ICONS -----------------------
 ---------------------------------------------------------------- */

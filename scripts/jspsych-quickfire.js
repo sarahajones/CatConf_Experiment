@@ -4,7 +4,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
 
     /*------ Define plugin information ----- */
     plugin.info = {
-        name: "jspsych-quickfire",
+        name: 'jspsych-quickfire',
         description: '',
         parameters: {
 
@@ -89,8 +89,8 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
     /* ----- Start trial then showing stimulus 1, gap, 2 -----*/
     plugin.trial = (function (display_element, trial) {
 
-        const response = {
-            stimuli: trial.stimuli,
+       /* const response = {
+            stimulus: trial.stimuli,
             number: trial_number,
             start_time: performance.now(),
             response_time: null,
@@ -99,7 +99,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             delta_feedback_time: null,
             button: null,
             button_label: trial.choices,
-        };
+        };*/
 
         // SHOW IMAGE:  generalised function for use and reuse
         function displayImage(imgSrc, duration, callback) {
@@ -111,6 +111,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
         /*function showFirstStimulus() {
             displayImage(trial.stimuli[0], stimulus1_duration, showSecondStimulus);
         }*/
+        displayImage(trial.stimuli[0], trial.stimulus1_duration, showBlankScreen);
 
         // BLANK SCREEN
         function showBlankScreen() {
@@ -209,9 +210,10 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             }, trial.trial_duration);
         }
 
-        // Procedural code
-        // displayImage(trial.stimuli[0], trial.stimulus1_duration, showBlankScreen);
-    };
+
+    }
+
+    // Procedural code
 
     })();
     return plugin;
