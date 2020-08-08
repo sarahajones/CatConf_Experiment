@@ -39,25 +39,31 @@ jsPsych.plugins["jspsych-experimentscreen"] = (function() {
     plugin.trial = function(display_element, trial) {
         display_element.innerHTML = '';
 
+        const response = {
+            stimulus: null,
+            number: null,
+            start_time: performance.now(),
+            response_time: null,
+            end_time: null,
+            delta_response_time: null,
+            delta_feedback_time: null,
+            button: null,
+            button_label: trial.choices,
+        };
+
         //draw "canvas" to screen
         var canvasDiv = document.createElement("div", id="jspsych-experimentscreen");
         canvasDiv.classList.add('gameboard');
         display_element.appendChild(canvasDiv);
 
-
-
-        // set up positions for drops
-        function getDropPosition() {
-            position = Math.floor(Math.random() * trial.xPosition1st)
-            return position
-        }
         //spaceship
         var spaceship = document.createElement("div");
-        spaceship.classList.add('spaceship');
-        document.documentElement.style.setProperty('--xPosition', getDropPosition());
-        canvasDiv.appendChild(spaceship);
+        spaceship.classList.add('spaceship');;
+        spaceship.style.left =`${trial.xPosition1st}px`;
+        canvasDiv.appendChild(spaceship)
 
         //drop spaceship at specific x position
+
 
 
         //draw buttons to screen
@@ -80,30 +86,63 @@ jsPsych.plugins["jspsych-experimentscreen"] = (function() {
             display_element.innerHTML += '<div class="jspsych-quickfire-button-" style= "display: inline-block; margin:' + trial.margin_vertical + ' ' + trial.margin_horizontal + '" id="jspsych-quickfire-button-' + i + '" data-choice="' + i + '">' + str + '</div>';
         }
         display_element.innerHTML += '</div>';
+
+
         awaitResponse();
 
-        //wait until trial times out or response is given
+
+
+        /**
+         * waits for button response until response or timeout
+         */
         function awaitResponse() {
             for (var i = 0; i < trial.choices.length; i++) {
                 display_element.querySelector('#jspsych-quickfire-button-' + i).addEventListener('click', function (e) {
                     var choice = e.currentTarget.getAttribute('data-choice');
-                    afterResponse(choice);
+                    afterResponse(parseInt(choice));
                 });
             }
-            // end trial if time limit is set
+
+            // timeout: end trial if time limit is set
             if (trial.trial_duration !== null) {
                 jsPsych.pluginAPI.setTimeout(function () {
                     end_trial();
                 }, trial.trial_duration);
             }
-
-            // data saving
-            var trial_data = {
-                parameter_name: 'parameter value'
-            };
         }
-        // end trial
-        jsPsych.finishTrial(trial_data);
+
+        /**
+         * do stuff after button press
+         * @param choice {int} tells us which button was pressed
+         */
+        function afterResponse(choice) {
+            // measure response information
+            response.response_time = performance.now();
+            response.delta_response_time = response.response_time - response.start_time;
+            response.button = choice;
+            response.button_label = trial.choices[choice];
+
+            // disable all the buttons after a response
+            var btns = document.querySelectorAll('#jspsych-quickfire-button-');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].setAttribute('disabled', 'disabled');
+            }
+            end_trial()
+        }
+
+        /**
+         * Cleanly end a jsPsych trial
+         */
+        function end_trial() {
+            // clear the display
+            display_element.innerHTML = '';
+
+            // kill any remaining setTimeout handlers
+            jsPsych.pluginAPI.clearAllTimeouts();
+
+            // move on to the next trial
+            jsPsych.finishTrial(response);
+        }
     };
 
     return plugin;

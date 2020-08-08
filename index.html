@@ -160,48 +160,29 @@
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS*/
-    /*const drop_number = 4; //amount of drops
+    const test_timeline = [];
 
-    //var gaussian = require('gaussian');
-    
-    const var1 = 2; //variance of 1st spaceship
-    const mu1 = 100; //mu of 1st spaceship is 100
-    const var2 = 4;
-    const mu2 = 150;
-
-    const normDist = new NormalDistribution(mean, standardDeviation);
-    dropTrials_stimuli = [
-        'images/orange_spaceship.png',
-        'images/blue_spaceship.png'
+    const drop_number = 4; //amount of drops
+    const distributions = [
+        gaussian(200, 20),
+        gaussian(500, 50)
     ];
-    const deck_count1 = drop_number / dropTrials_stimuli.length;
-    // shuffle deck
-    dropTrials_stimuli = shuffle_shoe(dropTrials_stimuli, deck_count1);
 
-    xPosition1 = [100,200,300,400];
+    distributions.forEach(d => {
+        d.random(drop_number).forEach(x => {
+            test_timeline.push({
+                type: "jspsych-experimentscreen",
+                xPosition1st: x,
+                choices: ['Retrieve', 'Zap']
+            });
+        })
+    });
 
-    let trial_contents1 = dropTrials_stimuli.map(
-        s => {
-            let x = Math.random()
-            return {
-                xPosition1: x,
-                stimulus: dropTrials_stimuli,
-            }
-        });
-
-    for(let i=1; i <= drop_number; i++) {
-        const trial_details = trial_contents1.pop();
-        timeline.push({
-            type: "jspsych-experimentscreen",
-            xPosition1st: trial_details.xPosition1,
-            choices: ['Retrieve', 'Zap'],
-        });
-    }
 
 
     /* start the experiment */
     jsPsych.init({
-        timeline: timeline,
+        timeline: test_timeline,
     })
 
 

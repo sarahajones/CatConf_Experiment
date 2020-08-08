@@ -111,6 +111,10 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             button_label: trial.choices,
         };
 
+        displayImage(trial.stimuli[0], trial.stimulus1_duration, showISI);
+
+        // Functions
+
         // SHOW IMAGE:  generalised function for use and reuse
         function displayImage(imgSrc, duration, callback) {
             const img = display_element.appendChild(document.createElement('img'));
@@ -229,8 +233,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             jsPsych.finishTrial(response);
         }
 
-        //procedural code
-        displayImage(trial.stimuli[0], trial.stimulus1_duration, showISI);
+
 
     };
 
