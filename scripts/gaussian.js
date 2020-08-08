@@ -1,6 +1,6 @@
 (function(exports) {
 
-    const generateGaussian = require('box-muller');
+    const generateGaussian = boxmuller;
 
     // Complementary error function
     // From Numerical Recipes in C 2e p221
