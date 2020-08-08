@@ -247,6 +247,7 @@ button, .button {
     align-items: center;
     align-content: center;
     border: 0;
+    border-radius: 20px;
     padding: 1.5vmax;
     font-family: europa, Arial, Helvetica, sans-serif;
     text-align: center;
@@ -257,6 +258,7 @@ button, .button {
     -ms-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
+    animation: glowy-box 0.5s infinite alternate
 }
 
 button.large-button, .button.large-button {
@@ -265,6 +267,7 @@ button.large-button, .button.large-button {
     background-color: rgba(155, 242, 236, 1);
     color: black;
     font-size: 1.5vmax;
+    animation: glowy-box 0.5s infinite alternate
 }
 
 button.large-button:hover, .button.large-button:hover {
@@ -272,15 +275,20 @@ button.large-button:hover, .button.large-button:hover {
     animation: glowy-box 0.5s infinite alternate;
 }
 
-button.mini-button, .button.mini-button {
-    width: 4vmin;
-    height: 4vmin;
-    margin: 3vh auto;
-    padding: 1vmin;
-    border-radius: 100%;
-    background-color: rgba(155, 242, 236, 1);
-    color:  black;
-    font-size: 2vmin;
+button.small-button, .button.small-button {
+    width: 8vmax;
+    margin: 5vh auto;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    padding: 1vmax;
+    background-color:rgba(155, 242, 236, 1);
+    color: black;
+    font-size: 1.5vmax;
+    animation: glowy-box 0.5s infinite alternate
+}
+button.small-button:hover, .button.small-button:hover {
+    background-color:rgba(155, 242, 236, .7);
+    animation: glowy-box 0.5s infinite alternate;
 }
 
 #Oxford-logo {
@@ -300,4 +308,45 @@ button.mini-button, .button.mini-button {
     text-align: center;
     font-size: 5vmin;
     color: white !important;
+}
+
+/* -------------------------------------------------------------
+-------------------------- GAME CANVAS ---------------------------
+---------------------------------------------------------------- */
+canvas.gameboard_canvas{
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80vw;
+    height: 60vh;
+    margin: auto;
+    background-color: rgba(185, 181, 179, 1);
+    border: 4px solid black;
+    color: black;
+    font-size: 20px;
+    text-align: justify;
+}
+
+/*.gameboard {
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
+    width: var(--gameboardSize);
+    height: var(--gameboardSize);
+    margin: 5vh auto 0;
+    border: 0.5vmin solid white;
+    background-color: white;
+    box-shadow: 0vmin 0vmin 1.5vmin white;
+    -moz-box-shadow: 0vmin 0vmin 1.5vmin white;
+    -ms-box-shadow: 0vmin 0vmin 1.5vmin white;
+    -webkit-box-shadow: 0vmin 0vmin 1.5vmin white;
+}*/
+canvas.footer{
+    height: 10vh;
+    background-color: rgba(59, 173, 165, 1);
+    color: black;
+    font-size: 20px;
+    text-align: justify;
 }

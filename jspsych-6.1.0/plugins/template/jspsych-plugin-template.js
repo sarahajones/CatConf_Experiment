@@ -13,10 +13,12 @@ jsPsych.plugins["PLUGIN-NAME"] = (function() {
         type: jsPsych.plugins.parameterType.INT, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
-      parameter_name: {
-        type: jsPsych.plugins.parameterType.IMAGE,
-        default: undefined
-      }
+      trial_duration: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Trial duration',
+        default: null,
+        description: 'How long to show the trial.'
+      },
     }
   }
 

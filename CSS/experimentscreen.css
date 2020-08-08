@@ -1,0 +1,50 @@
+
+
+.gameboard {
+    width: 800px;
+    height: 600px;
+    background-color: rgba(185, 181, 179, 1);
+    position: relative;
+    border: 10px whitesmoke;
+}
+
+.gameboard.footer{
+    height: 100px;
+    background-color: #555555;
+}
+.spaceship {
+    --spaceshipsize: 30px;
+    --xPosition: []  ;
+    height: var(--spaceshipsize);
+    width: var(--spaceshipsize);
+    background: url("../images/green_spaceship.png");
+    background-color: greenyellow;
+    position: absolute;
+    transform: translateX(var(--xPosition)px);
+    animation: flying 1s ease-in forwards;
+}
+
+.experiment-btn {
+    width: 8vmax;
+    margin: 5vh auto;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    padding: 1vmax;
+    background-color: rgba(155, 242, 236, 1);
+    color: black;
+    font-size: 1.5vmax;
+    animation: glowy-box 0.5s infinite alternate
+}
+
+button.experiment-btn:hover, .button.experiment-btn:hover {
+    background-color:rgba(155, 242, 236, .7);
+    animation: glowy-box 0.5s infinite alternate;
+}
+
+
+@keyframes flying {
+    0%{top: 0%}
+    100%{top: calc(100% - var(--spaceshipsize))}
+}
+
+

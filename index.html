@@ -22,77 +22,28 @@
     <script src="scripts/jspsych-consent.js"></script>
     <script src="scripts/jspsych-tutorial.js"></script>
     <script src="scripts/jspsych-quickfire.js"></script>
+    <script src="scripts/jspsych-experimentscreen.js"></script>
+
+    <script src="scripts/trial.js"></script>
+    <script src="scripts/helper-functions.js"></script>
+    <script src="scripts/box-muller.js"></script>
+    <script src="scripts/gaussian.js"></script>
 
     <!--custom CSS-->
-    <link href="CSS/styles.css" rel="stylesheet" type="text/css"></link>
-
+    <link href="CSS/styles.css" rel="stylesheet" type="text/css">
+    <link href="CSS/experimentscreen.css" rel="stylesheet" type="text/css">
 
 </head>
+
 <body class="main">
-</body>
+
 <script>
-
-
-    //HELPER FUNCTIONS - MOVE TO EXTERNAL FILE ASAP
-    function createGeneral(name, parent, type, classNames, idName, innerHTML) {
-        var name = parent.appendChild(document.createElement(type));
-        if (classNames !== undefined) {
-            name.setAttribute('class', classNames);
-        }
-        if (idName !== undefined) {
-            name.setAttribute('id', idName);
-        }
-        name.innerHTML = innerHTML;
-        return name;
-    }
-
-    /* https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-    * @param array {[]}
-    * @return {[]}*/
-    function shuffle(array) {
-        let counter = array.length;
-
-        if(counter === 2)
-            return Math.random() < .5? array : array.reverse();
-
-        // While there are elements in the array
-        while (counter > 0) {
-            // Pick a random index
-            let index = Math.floor(Math.random() * counter);
-
-            // Decrease counter by 1
-            counter--;
-
-            // And swap the last element with it
-            let temp = array[counter];
-            array[counter] = array[index];
-            array[index] = temp;
-        }
-
-        return array;
-    }
-
-    /*
-     * Return a single array containing deckCount copies of deck shuffled together
-     */
-    function shuffle_shoe(deck, deckCount=1) {
-        let shoe = [];
-        for (let d=0; d<deck.length; d++) {
-            let item = deck[d];
-            for (let i=0; i<deckCount; i++) {
-                shoe.push(item);
-            }
-        }
-        return shuffle(shoe);
-    }
-    //END OF HELPER FUNCTIONS
-
 
     /* EXPERIMENT INFORMATION */
     var CUREC_studyName = 'An investigation into decision confidence and category choices';
     var CUREC_ID = '___________';
     var PIS_version = '1.0';
-    var PIS_date = 'March 2020'
+    var PIS_date = 'March 2020';
     var consent_version = '1.0';
     var consent_date = 'March 2020';
 
@@ -118,7 +69,7 @@
         consent_date: consent_date,
         consented: undefined,
     };
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENTAL PAGES */
     // PIS
     var PIS = {
@@ -136,7 +87,7 @@
         version: consent_version,
         date: consent_date
     };
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* TRAINING AND INSTRUCTION*/
     var tutorial_1 = {
         type: "jspsych-tutorial",
@@ -147,29 +98,17 @@
         type: "jspsych-tutorial",
         isFirstTime: false
     };
-
-    var test = {
-        type: 'same-different-image',
-        stimuli: ['images/orange_spaceship.png', 'images/package_image.png'],
-        prompt: "<p>Press S to retrieve the package</p>",
-        same_key: 'S',
-        different_key: 'D',
-        answer: 'different'
-    };
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const timeline = [
         PIS,
         consent,
         tutorial_1,
         tutorial_2,
-        test
     ];
-
-
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*QUICK FIRE ROUND*/
-    const trial_number = 4; // No magic numbers! :)
+    const trial_number = 2; // No magic numbers! :)
 
     // construct deck
     quickfire_stimuli = [
@@ -182,11 +121,11 @@
     // shuffle deck
     quickfire_stimuli = shuffle_shoe(quickfire_stimuli, deck_count);
 
-    const trial_contents = quickfire_stimuli.map(
+    let trial_contents = quickfire_stimuli.map(
         s => {
-            const outcome_chance = .8;
-            const good = 'coins.png';
-            const bad = 'bomb.png';
+            const outcome_chance = 1;
+            const good = 'images/coins.png';
+            const bad = 'images/bomb.png';
             let r;
 
             if(/orange/i.test(s)) {
@@ -210,19 +149,62 @@
             stimuli: [trial_details.stimulus, 'images/package_image.png'],
             feedback: trial_details.result,
             trial_number: i,
-            choices: ['Retrieve Package'],
+            choices: ['Retrieve', 'Zap'],
             stimulus1_duration: 1500,
             gap_duration: 0,
             stimulus2_duration: 1500,
-            trial_duration: 3500,
+            trial_duration: 5000,
+            feedback_duration: 2000,
             response_ends_trial: false,
         });
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*TEST TRIALS*/
+    /*const drop_number = 4; //amount of drops
+
+    //var gaussian = require('gaussian');
+    
+    const var1 = 2; //variance of 1st spaceship
+    const mu1 = 100; //mu of 1st spaceship is 100
+    const var2 = 4;
+    const mu2 = 150;
+
+    const normDist = new NormalDistribution(mean, standardDeviation);
+    dropTrials_stimuli = [
+        'images/orange_spaceship.png',
+        'images/blue_spaceship.png'
+    ];
+    const deck_count1 = drop_number / dropTrials_stimuli.length;
+    // shuffle deck
+    dropTrials_stimuli = shuffle_shoe(dropTrials_stimuli, deck_count1);
+
+    xPosition1 = [100,200,300,400];
+
+    let trial_contents1 = dropTrials_stimuli.map(
+        s => {
+            let x = Math.random()
+            return {
+                xPosition1: x,
+                stimulus: dropTrials_stimuli,
+            }
+        });
+
+    for(let i=1; i <= drop_number; i++) {
+        const trial_details = trial_contents1.pop();
+        timeline.push({
+            type: "jspsych-experimentscreen",
+            xPosition1st: trial_details.xPosition1,
+            choices: ['Retrieve', 'Zap'],
+        });
+    }
+
 
     /* start the experiment */
     jsPsych.init({
         timeline: timeline,
-    });
-</script>
+    })
 
+
+</script>
+</body>
 </html>
