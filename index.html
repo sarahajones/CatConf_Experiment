@@ -163,18 +163,29 @@
     const test_timeline = [];
 
     const drop_number = 4; //amount of drops
+
+
     const distributions = [
-        gaussian(200, 20),
-        gaussian(500, 50)
+        gaussian(200, 5000),
+        gaussian(500, 10000)
     ];
+
+    const spaceships = [
+        'spaceship1',
+        'spaceship2'
+    ];
+
+
 
     distributions.forEach(d => {
         d.random(drop_number).forEach(x => {
             test_timeline.push({
                 type: "jspsych-experimentscreen",
                 xPosition1st: x,
-                choices: ['Retrieve', 'Zap']
-            });
+                choices: ['Retrieve', 'Zap'],
+                distribution: d,
+
+            })
         })
     });
 

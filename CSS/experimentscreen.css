@@ -19,8 +19,9 @@
     background: url("../images/green_spaceship.png");
     background-color: greenyellow;
     position: absolute;
-    animation: flying 1s ease-in forwards;
+    animation: flying 1s ease-in forwards, color_change 1.5s forwards;
 }
+
 
 .experiment-btn {
     width: 8vmax;
@@ -46,3 +47,7 @@ button.experiment-btn:hover, .button.experiment-btn:hover {
 }
 
 
+@keyframes color_change {
+    from { background-color: greenyellow; }
+    to { background-color: saddlebrown; }
+}

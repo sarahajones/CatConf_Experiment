@@ -1,12 +1,15 @@
 //this relies on css animation
 
-jsPsych.plugins["jspsych-experimentscreen"] = (function() {
+jsPsych.plugins['jspsych-experimentscreen'] = (function() {
 
     var plugin = {};
 
     plugin.info = {
-        name: "jspsych-experimentscreen",
+        name: 'jspsych-experimentscreen',
+        description: '',
+
         parameters: {
+
             trial_duration: {
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'Trial duration',
@@ -33,8 +36,22 @@ jsPsych.plugins["jspsych-experimentscreen"] = (function() {
                 array: true,
                 description: 'The html of the button.'
             },
-        }
-    };
+            spaceship: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Stimulus CSS',
+                default: null,
+                array: true,
+                description: 'The css for the spaceship.'
+            },
+                d: {
+                    type: jsPsych.plugins.parameterType.INT,
+                    pretty_name: 'distribution used to draw position',
+                    default: null,
+                    description: 'distribution used to make xPosition'
+                }
+            }
+        };
+
 
     plugin.trial = function(display_element, trial) {
         display_element.innerHTML = '';
@@ -56,11 +73,12 @@ jsPsych.plugins["jspsych-experimentscreen"] = (function() {
         canvasDiv.classList.add('gameboard');
         display_element.appendChild(canvasDiv);
 
-        //spaceship
-        var spaceship = document.createElement("div");
-        spaceship.classList.add('spaceship');;
-        spaceship.style.left =`${trial.xPosition1st}px`;
-        canvasDiv.appendChild(spaceship)
+
+            //spaceship1
+            var spaceship = document.createElement("div");
+            spaceship.classList.add('spaceship');
+            spaceship.style.left = `${trial.xPosition1st}px`;
+            canvasDiv.appendChild(spaceship)
 
         //drop spaceship at specific x position
 
