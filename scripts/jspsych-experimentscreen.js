@@ -16,6 +16,12 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 default: null,
                 description: 'How long to show the trial.'
             },
+            stimulus_duration:{
+                type: jsPsych.plugins.parameterType.INT,
+                pretty_name: 'Stimulus duration',
+                default: null,
+                description: 'How long the parcel rests on the ground for'
+            },
             xPosition1st: {
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'xPosition of spaceship1',
@@ -74,12 +80,11 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
         display_element.appendChild(canvasDiv);
 
 
-            //spaceship1
-            var spaceship = document.createElement("div");
-            spaceship.classList.add('spaceship');
-            spaceship.style.left = `${trial.xPosition1st}px`;
-            canvasDiv.appendChild(spaceship)
-
+        //spaceship
+        var spaceship = document.createElement("div");
+        spaceship.classList.add('spaceship');
+        spaceship.style.left = `${trial.xPosition1st}px`;
+        canvasDiv.appendChild(spaceship);
         //drop spaceship at specific x position
 
 
@@ -105,21 +110,25 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
         }
         display_element.innerHTML += '</div>';
 
-
         awaitResponse();
-
 
 
         /**
          * waits for button response until response or timeout
+         * remove the box from screen on stimulus duration is reached but hold trial to wait on buttons and/or trial timeout.
          */
+
         function awaitResponse() {
+
+
             for (var i = 0; i < trial.choices.length; i++) {
                 display_element.querySelector('#jspsych-quickfire-button-' + i).addEventListener('click', function (e) {
                     var choice = e.currentTarget.getAttribute('data-choice');
                     afterResponse(parseInt(choice));
                 });
             }
+
+
 
             // timeout: end trial if time limit is set
             if (trial.trial_duration !== null) {

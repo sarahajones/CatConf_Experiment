@@ -43,50 +43,6 @@ function shuffle_shoe(deck, deckCount=1) {
 
 }
 
-/*
-//calculating normal distributions for dropzones
-
-// Models the normal distribution
-var Gaussian = function (mean, variance){
-    if (variance <= 0) {
-        throw new Error('Variance must be > 0 (but was ' + variance + ')');
-    }
-    this.mean = mean;
-    this.variance = variance;
-    this.standardDeviation = Math.sqrt(variance);
-}
-
-// Generate [num] random samples
-Gaussian.prototype.random = function(num){
-    let mean = this.mean;
-    let std = this.standardDeviation;
-    return Array(num).fill(0).map(() => {
-        return generateGaussian(mean,std)
-    })
-};
-
-var gaussian = function(mean, variance) {
-    return new Gaussian(mean, variance);
-};
-
-var fromPrecisionMean = function(precision, precisionmean) {
-    return gaussian(precisionmean / precision, 1 / precision);
-};
-
-exports(gaussian);
-})
-/*var distribution = gaussian(mean, variance);
-// Take a random sample using inverse transform sampling method.
-var sample = distribution.ppf(Math.random());
-
-function dropZone (nPoints, mu, sigma) {
-    distribution = (1/(Math.sqrt(2*Math.PI)))*Math.log*Math.exp((-1/2)(((x - mu)/sigma)*Math.exp(2)))
-
-    numbers.random.distribution.boxMuller(n, mu, sigma, rc)
-}
-*/
-
-
 
 //DISPLAY HELPERS
 //create a doc/form on screen to fill
