@@ -13,20 +13,14 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
             trial_duration: {
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'Trial duration',
-                default: null,
+                default: undefined,
                 description: 'How long to show the trial.'
             },
             stimulus_duration:{
                 type: jsPsych.plugins.parameterType.INT,
                 pretty_name: 'Stimulus duration',
-                default: null,
+                default: undefined,
                 description: 'How long the parcel rests on the ground for'
-            },
-            xPosition1st: {
-                type: jsPsych.plugins.parameterType.INT,
-                pretty_name: 'xPosition of spaceship1',
-                default: null,
-                description: 'where to drop the spaceship1 from'
             },
             choices: {
                 type: jsPsych.plugins.parameterType.STRING,
@@ -42,27 +36,26 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 array: true,
                 description: 'The html of the button.'
             },
-            spaceship: {
-                type: jsPsych.plugins.parameterType.STRING,
-                pretty_name: 'Stimulus CSS',
-                default: null,
-                array: true,
-                description: 'The css for the spaceship.'
+            location: {
+                type: jsPsych.plugins.parameterType.FLOAT,
+                pretty_name: 'position of the dropped parcel',
+                default: undefined,
+                description: 'horizontal position of the dropped parcel'
             },
-            d: {
-                type: jsPsych.plugins.parameterType.INT,
-                pretty_name: 'distribution used to draw position',
-                default: null,
-                description: 'distribution used to make xPosition'
-            },
-            spaceship_color: {
+            spaceship_class: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'color of spaceship',
-                default: null,
+                default: undefined,
                 description: 'color of spaceship that links to d'
+            },
+            distribution_name: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'distribution from which location was drawn',
+                default: undefined,
+                description: 'names the distribution from which drop locations are drawn'
             }
-            }
-        };
+        }
+    };
 
 
     plugin.trial = function(display_element, trial) {
@@ -71,6 +64,10 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
         const response = {
             stimulus: null,
             number: null,
+            trial_type: null,
+            distribution_name: trial.distribution_name,
+            spaceship_class: trial.spaceship_class,
+            location: trial.location,
             start_time: performance.now(),
             response_time: null,
             end_time: null,
@@ -88,8 +85,8 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
 
         //spaceship
         var spaceship = document.createElement("div");
-        spaceship.classList.add('spaceship');
-        spaceship.style.left = `${trial.xPosition1st}px`;
+        spaceship.classList.add('spaceship', trial.spaceship_class);
+        spaceship.style.left = `${trial.location}px`;
         canvasDiv.appendChild(spaceship);
         //drop spaceship at specific x position
 

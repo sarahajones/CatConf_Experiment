@@ -165,31 +165,27 @@
     const drop_number = 4; //amount of drops
 
     const distribution = [
-        gaussian(200, 5000),
-        gaussian(500, 10000)
-    ];
-    const distributions = shuffle_shoe(distribution, drop_number);
-    shuffle(distributions)
-
-
-    const spaceship_color = [
-        'greenyellow',
-        'red'
+        {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'red'}
     ];
 
-    distributions.forEach(d => {
+    // create deck count for spaceship drops
+    const spaceship_deck_count = drop_number / distribution.length;
 
-        d.random(drop_number).forEach(x => {
-            test_timeline.push({
-                type: "jspsych-experimentscreen",
-                trial_duration: 5000,
-                xPosition1st: x,
-                choices: ['Retrieve', 'Zap'],
-                distribution: d,
-                stimulus_duration: 3000,
-                spaceship_color: spaceship_color[d],
+    // shuffle deck
+    const spaceship_stimuli = shuffle_shoe(distribution, spaceship_deck_count);
 
-            })
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    spaceship_stimuli.forEach(s => {
+        test_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_duration: 5000,
+            choices: ['Retrieve', 'Zap'],
+            location: s.value.random(1),
+            stimulus_duration: 3000,
+            spaceship_class: s.color,
+            distribution_name: s.name,
+            trial_type: ,
         })
     });
 

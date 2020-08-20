@@ -17,7 +17,6 @@
     height: var(--spaceshipsize);
     width: var(--spaceshipsize);
     background: url("../images/green_spaceship.png");
-    background-color: blueviolet;
     position: absolute;
     animation:
             flying 1s ease-in forwards,
@@ -25,6 +24,13 @@
             hides 1s ease-out 1.2s forwards;
 }
 
+.greenyellow {
+    background-color: greenyellow;
+}
+
+.red {
+    background-color: red;
+}
 
 .experiment-btn {
     width: 8vmax;
@@ -51,7 +57,6 @@ button.experiment-btn:hover, .button.experiment-btn:hover {
 
 
 @keyframes color_change {
-    from { background-color: greenyellow; }
     to { background-color: saddlebrown; }
 }
 
