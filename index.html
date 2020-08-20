@@ -100,7 +100,7 @@
     };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
-    const timeline = [
+    const intro_timeline = [
         PIS,
         consent,
         tutorial_1,
@@ -108,6 +108,7 @@
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*QUICK FIRE ROUND*/
+    const quickfire_timeline = [];
     const trial_number = 2; // No magic numbers! :)
 
     // construct deck
@@ -144,7 +145,7 @@
 
     for(let i=1; i <= trial_number; i++) {
         const trial_details = trial_contents.pop();
-        timeline.push({
+        quickfire_timeline.push({
             type: 'jspsych-quickfire',
             stimuli: [trial_details.stimulus, 'images/package_image.png'],
             feedback: trial_details.result,
@@ -160,7 +161,7 @@
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS*/
-    const test_timeline = [];
+    const clear_timeline = [];
 
     const drop_number = 4; //amount of drops
 
@@ -175,25 +176,32 @@
     // shuffle deck
     const spaceship_stimuli = shuffle_shoe(distribution, spaceship_deck_count);
 
+
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli.forEach(s => {
-        test_timeline.push({
+        clear_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 5000,
             choices: ['Retrieve', 'Zap'],
-            location: s.value.random(1),
+            location: s.value.random(1)[0],
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
-            trial_type: ,
+
         })
     });
 
-
+    const timeline = [
+        //intro_timeline,
+        ...quickfire_timeline,
+        ...clear_timeline,
+        ...quickfire_timeline
+    ];
+    console.log({timeline});
 
     /* start the experiment */
     jsPsych.init({
-        timeline: test_timeline,
+        timeline: timeline
     })
 
 

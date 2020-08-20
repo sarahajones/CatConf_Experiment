@@ -48,6 +48,12 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 default: undefined,
                 description: 'color of spaceship that links to d'
             },
+            trial_type: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'type of trial',
+                default: undefined,
+                description: 'trial type, clear-training or cloudy-testing'
+            },
             distribution_name: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'distribution from which location was drawn',
