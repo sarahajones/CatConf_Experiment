@@ -49,12 +49,18 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 array: true,
                 description: 'The css for the spaceship.'
             },
-                d: {
-                    type: jsPsych.plugins.parameterType.INT,
-                    pretty_name: 'distribution used to draw position',
-                    default: null,
-                    description: 'distribution used to make xPosition'
-                }
+            d: {
+                type: jsPsych.plugins.parameterType.INT,
+                pretty_name: 'distribution used to draw position',
+                default: null,
+                description: 'distribution used to make xPosition'
+            },
+            spaceship_color: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'color of spaceship',
+                default: null,
+                description: 'color of spaceship that links to d'
+            }
             }
         };
 

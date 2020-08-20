@@ -17,7 +17,7 @@
     height: var(--spaceshipsize);
     width: var(--spaceshipsize);
     background: url("../images/green_spaceship.png");
-    background-color: greenyellow;
+    background-color: blueviolet;
     position: absolute;
     animation:
             flying 1s ease-in forwards,

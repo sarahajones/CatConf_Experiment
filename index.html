@@ -172,13 +172,10 @@
     shuffle(distributions)
 
 
-    const spaceships = [
-        'spaceship1',
-        'spaceship2'
+    const spaceship_color = [
+        'greenyellow',
+        'red'
     ];
-
-    let pairwise = [distributions, spaceships];
-
 
     distributions.forEach(d => {
 
@@ -190,6 +187,7 @@
                 choices: ['Retrieve', 'Zap'],
                 distribution: d,
                 stimulus_duration: 3000,
+                spaceship_color: spaceship_color[d],
 
             })
         })
