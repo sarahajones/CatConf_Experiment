@@ -87,11 +87,11 @@
 }
 
 #demo_instruction {
-    width: 15vmax;
-    height: 15vmax;
+    width: 25vmax;
+    height: 25vmax;
     margin: auto;
-    background: url("../images/space_invaders.png"); /* swap this out for a gif of the experiment*/
-    background-size: 15vmax 15vmax;
+    background: url("../images/orange_spaceship.png"); /* swap this out for a gif of the experiment*/
+    background-size: 20vmax 20vmax;
     background-position: center;
     background-repeat: no-repeat;
 }

@@ -14,14 +14,16 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
 
         if (trial.isFirstTime) {
             var tutorial_text =
-                '<p> During this study, you will see a game-screen with spaceships dropping packages to the earth. You can use your mouse to click on a package when it lands safely. </p>' +
-                '<p>Clicking on a package when it has landed will retrieve its contents. The packages will contain either coins or a bomb. Collected coins will collect in your reward jar, whereas retrieving bombs will lose you coins from your jar. </p> ' +
-                '<p>Your goal is to figure out which of the packages to retrieve and to collect as many coins as possible by the end of the game. </p>';
+                '<p> During this study, you will play a game where different spaceships drop packages down to the earth. You can decide whether or not to retrieve a package when it lands safely. ' +
+                'The packages will contain either coins or a bomb. Collected coins will accumulate in your reward jar, whereas retrieving bombs will lose you coins from your jar. </p> ' +
+                '<p>Your goal is to collect as many coins as possible by the end of the game. </p>';
         } else {
             var tutorial_text =
-                '<p> To practice the retrieval process and become familiar with the kinds of images you will see in the game, we will begin with some "quick-fire" rounds. ' +
-                'In these rounds you will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth.  </p>' +
-                '<p> You must decide whether or not to retrieve the package that has been dropped - this round will help teach you about the different spaceships. </p>';
+                '<p> Let\'s start with some "quick-fire" rounds to get things moving. ' +
+                'You will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
+                'Press "retrieve" to collect the contents -  "zap" the package to destroy the contents. </p>' +
+                '</p>Remember, packages could contain coins or may hold bombs that will lose you coins from your jar.' +
+                'You must decide whether or not to retrieve the package that has been dropped. This game round will help teach you about the different spaceships and their packages. </p>';
         }
 
         // create page elements
@@ -31,7 +33,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             'div',
             'titlepage document-intro',
             'tutorial-intro',
-            '<h1>The following pages will help guide you through the upcoming experiment, please read them carefully. </h1>'
+            '<h1>The following pages will help guide you through the upcoming study, please read them carefully. </h1>'
         );
 
         var ethicsForm = createGeneral(
