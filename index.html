@@ -159,6 +159,40 @@
             response_ends_trial: false,
         });
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*FAST DROP LEARNING*/
+    const fastdrop_timeline = [];
+    const fastdrop_number = 10; //amount of drops
+
+    const fastdrop_distribution = [
+        {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'red'}
+    ];
+
+    // create deck count for spaceship drops
+    const fastdrop_deck_count = fastdrop_number / fastdrop_distribution.length;
+
+    // shuffle deck
+    const fastdrop_stimuli = shuffle_shoe(fastdrop_distribution, fastdrop_deck_count);
+
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli.forEach(s => {
+        fastdrop_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_type: 'clear_training',
+            trial_duration: 2000,
+            choices: [],
+            location: s.value.random(1)[0],
+            stimulus_duration: 1500,
+            spaceship_class: s.color,
+            distribution_name: s.name,
+            banner: 1,
+            banner_text:'Please<br>watch<br>carefully',
+        })
+    });
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS*/
     const clear_timeline = [];
@@ -192,10 +226,11 @@
     });
 
     const timeline = [
-        //intro_timeline,
-        ...quickfire_timeline,
+        //...intro_timeline,
+        //...quickfire_timeline,
+        ...fastdrop_timeline,
         ...clear_timeline,
-        ...quickfire_timeline
+
     ];
     console.log({timeline});
 

@@ -59,6 +59,19 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 pretty_name: 'distribution from which location was drawn',
                 default: undefined,
                 description: 'names the distribution from which drop locations are drawn'
+            },
+            banner: {
+                type: jsPsych.plugins.parameterType.BOOL,
+                pretty_name: 'banner or no - boolean',
+                default: undefined,
+                description: 'indicates if banner will be presented onscreen instead of buttons'
+            },
+            banner_text: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Banner text',
+                default: undefined,
+                array: true,
+                description: 'The banner text to be displayed.'
             }
         }
     };
@@ -70,7 +83,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
         const response = {
             stimulus: null,
             number: null,
-            trial_type: null,
+            trial_type: trial.trial_type,
             distribution_name: trial.distribution_name,
             spaceship_class: trial.spaceship_class,
             location: trial.location,
@@ -83,11 +96,18 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
             button_label: trial.choices,
         };
 
+
         //draw "canvas" to screen
         var canvasDiv = document.createElement("div", id="jspsych-experimentscreen");
         canvasDiv.classList.add('gameboard');
         display_element.appendChild(canvasDiv);
 
+        // if fast learning trial display banner underneath screen.
+        if (trial.banner === 1){
+            var banner = document.createElement("div", id="banner");
+            banner.classList.add('banner');
+            display_element.appendChild(banner);
+        }
 
         //spaceship
         var spaceship = document.createElement("div");
@@ -163,9 +183,143 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
             for (var i = 0; i < btns.length; i++) {
                 btns[i].setAttribute('disabled', 'disabled');
             }
-            end_trial()
+            showConfidence()
         }
 
+
+        // confidence slider preamble
+        var backendConfidence = 50;
+        var displayedConfidence;
+        var sliderActive;
+        var lastSelection = false;
+        var showPercentage = false;
+
+        // tooltip labels
+            var confidenceQuestion = 'How confident are you of your choice?';
+            var tooltipLabels = [
+                'probably<br>wrong',
+                'maybe<br>wrong',
+                'maybe<br>correct',
+                'probably<br>correct'
+            ];
+            var endLabels = [
+                '<div>certainly<br>WRONG</div>',
+                '<div>certainly<br>CORRECT</div>'
+            ];
+
+
+        // set confidence scroll direction == because scrolling up is always associated with the right response button and down with the left response button, we can determine which end of the confidence scale the majority choice lies on too
+            var upperColor = 'rgb(13,180,13)'; // green
+            var lowerColor = 'rgb(255,50,50)'; // red
+            $('.tooltip-left, #overlay-label-left').css('color', lowerColor);
+            $('.tooltip-right, #overlay-label-right').css('color', upperColor);
+
+        document.body.style.setProperty('--displayedColor', upperColor);
+
+        /** LOCAL HELPER FUNCTIONS
+         * @function showConfidence()
+         * @function hideConfidence()
+         * @function endTrial()
+         */
+
+        function showConfidence() {
+            // disable Scrollify
+            $.scrollify.disable();
+            // make confidence question visible
+            $('.noDragSlider, .confidence-question').css('visibility', 'visible');
+            // hide response buttons
+            $('.response-button, .scoreboard')
+                .css('pointer-events', 'none')
+                .addClass('hidden');
+
+            // activate the confidence slider and restart the tile selection timer
+            sliderActive = true;
+            overlay_start_time = Date.now();
+        }
+
+
+        function hideConfidence() {
+            // regrow margin-top if in tutorial mode
+            switch(confidenceFrequency) {
+                case 'randomInt':
+                    if (lastSelection) {
+                        // calculate trial RT
+                        var trialRT = calculateRT(start_time, confidence_end);
+                        trialDataVariable['IST_trialRT'].push(trialRT);
+                        // hide confidence question
+                        $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
+                        // expand response area height
+                        $('.response-area').css('height', '10vmin');
+                        // expand scoreboard height and width
+                        $('.scoreboard').css('height', '10vmin')
+                            .css('width', '30vmin')
+                            .removeClass('preliminary')
+                            .removeClass('hidden')
+                            .css('visibility', 'visible');
+
+                        endTrial();
+                    } else {
+                        // re-enable Scrollify
+                        $.scrollify.enable();
+                        // readjust gameboard size to standard size
+                        $('.gameboard')
+                            .css('width', gameboardSize)
+                            .css('height', gameboardSize)
+                            .css('pointer-events', 'auto');
+                        // reset response area
+                        if (!showScoreboard) {
+                            noScoreboard();
+                        }
+                        // hide slider and confidence question
+                        $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
+                        // unhide response buttons and scoreboard
+                        $('.response-button, .scoreboard')
+                            .css('pointer-events', 'auto')
+                            .removeClass('hidden');
+
+                        tile_start_time = Date.now();
+                    }
+                    break;
+                case 'tile':
+                    // re-enable Scrollify
+                    $.scrollify.enable();
+                    // readjust gameboard size to standard size
+                    $('.gameboard')
+                        .css('width', gameboardSize)
+                        .css('height', gameboardSize)
+                        .css('pointer-events', 'auto');
+                    // reset response area
+                    if (!showScoreboard) {
+                        noScoreboard();
+                    }
+                    // hide slider and confidence question
+                    $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
+                    // unhide response buttons and scoreboard
+                    $('.response-button, .scoreboard')
+                        .css('pointer-events', 'auto')
+                        .removeClass('hidden');
+
+                    tile_start_time = Date.now();
+                    break;
+                case 'trial':
+                    // calculate trial RT
+                    var trialRT = calculateRT(start_time, confidence_end);
+                    trialDataVariable['IST_trialRT'].push(trialRT);
+                    // hide confidence question
+                    $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
+                    // expand response area height
+                    $('.response-area').css('height', '10vmin');
+                    // expand scoreboard height and width
+                    $('.scoreboard').css('height', '10vmin')
+                        .css('width', '30vmin')
+                        .removeClass('preliminary')
+                        .removeClass('hidden')
+                        .css('visibility', 'visible');
+
+                    endTrial();
+                    break;
+            }
+        }
         /**
          * Cleanly end a jsPsych trial
          */
