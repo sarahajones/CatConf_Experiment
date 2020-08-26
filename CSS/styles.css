@@ -98,8 +98,9 @@
 
 
 #tutorial-form{
-    background-color: rgba(59, 173, 165, 1);
+    background: repeating-linear-gradient(to bottom, #0f0a1e, #0f0a1e 2px, #140e29 2px, #140e29 4px);
     color: whitesmoke;
+    font-family:  europa, Arial, Helvetica, sans-serif;;
 }
 
 
