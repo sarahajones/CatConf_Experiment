@@ -121,7 +121,8 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             img.src = imgSrc;
             img.className = 'jspsych-quickfire-stimulus';
             img.style = display_element;
-            setTimeout(callback, duration);
+            if(typeof callback === 'function')
+                setTimeout(callback, duration);
         }
 
         //SHOW BLANK SCREEN
@@ -129,7 +130,8 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             // Blank out the screen
             display_element.innerHTML = '';
             // Callback after delay
-            setTimeout(callback, duration);
+            if(typeof callback === 'function')
+                setTimeout(callback, duration);
         }
 
         // SHOW FIRST STIMULUS (set by procedural code below)
@@ -141,7 +143,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
 
         // SHOW 2ND STIMULUS + BUTTON/s
         function showSecondStimulus() {
-            displayImage(trial.stimuli[1], trial.stimulus2_duration, awaitResponse);
+            displayImage(trial.stimuli[1], trial.stimulus2_duration, null);
 
             //display buttons
             var buttons = [];
@@ -163,6 +165,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
                 display_element.innerHTML += '<div class="jspsych-quickfire-button-" style= "display: inline-block; margin:' + trial.margin_vertical + ' ' + trial.margin_horizontal + '" id="jspsych-quickfire-button-' + i + '" data-choice="' + i + '">' + str + '</div>';
             }
             display_element.innerHTML += '</div>';
+
             awaitResponse();
         }
 
