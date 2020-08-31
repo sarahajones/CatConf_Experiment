@@ -9,6 +9,7 @@
     <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-image-button-response.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-same-different-image.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-image-slider-response.js"></script>
     <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
 
     <!--jQuery and jQuery plugins -->
@@ -227,16 +228,26 @@
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
+            confidence_trial: true,
+            trial_type: 'unclear',
 
         })
     });
 
-    const timeline = [
-        ...intro_timeline,
-        ...quickfire_timeline,
-        ...fastdrop_timeline,
-        ...clear_timeline,
+    const confidence_timeline = [
+        {
+            type:'image-slider-response',
+            stimulus: 'images/bomb.png'
+        }
+    ];
 
+
+    const timeline = [
+        //...intro_timeline,
+        //...quickfire_timeline,
+        //...fastdrop_timeline,
+        ...clear_timeline,
+        // ...confidence_timeline
     ];
     console.log({timeline});
 

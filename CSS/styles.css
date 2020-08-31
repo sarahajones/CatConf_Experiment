@@ -103,6 +103,9 @@
     font-family:  europa, Arial, Helvetica, sans-serif;;
 }
 
+#jspsych-content {
+    position: relative;
+}
 
 /*------------------------ QUICKFIRE ROUND-----------------------
 ---------------------------------------------------------------- */

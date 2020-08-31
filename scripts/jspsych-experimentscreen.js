@@ -29,13 +29,6 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 array: true,
                 description: 'The labels for the buttons.'
             },
-            button_html: {
-                type: jsPsych.plugins.parameterType.STRING,
-                pretty_name: 'Button HTML',
-                default: '<button class="experiment-btn">%choice%</button>',
-                array: true,
-                description: 'The html of the button.'
-            },
             location: {
                 type: jsPsych.plugins.parameterType.FLOAT,
                 pretty_name: 'position of the dropped parcel',
@@ -60,18 +53,20 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
                 default: undefined,
                 description: 'names the distribution from which drop locations are drawn'
             },
-            banner: {
-                type: jsPsych.plugins.parameterType.BOOL,
-                pretty_name: 'banner or no - boolean',
-                default: undefined,
-                description: 'indicates if banner will be presented onscreen instead of buttons'
-            },
+
             banner_text: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Banner text',
-                default: undefined,
+                default: null,
                 array: true,
-                description: 'The banner text to be displayed.'
+                description: 'if banner text is specified it overrides the buttons to be displayed.'
+            },
+
+            confidence_trial: {
+                type: jsPsych.plugins.parameterType.BOOL,
+                pretty_name: 'confidence trial',
+                default: undefined,
+                description: 'whether confidence is collected or not'
             }
         }
     };
@@ -94,17 +89,27 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
             delta_feedback_time: null,
             button: null,
             button_label: trial.choices,
+            confidence: null,
         };
 
 
         //draw "canvas" to screen
-        var canvasDiv = document.createElement("div", id="jspsych-experimentscreen");
+        var canvasDiv = document.createElement("div");
+        canvasDiv.id ="jspsych-experimentscreen";
         canvasDiv.classList.add('gameboard');
         display_element.appendChild(canvasDiv);
 
+        if (trial.trial_type !== 'clear') {
+            var cloudbank = document.createElement('div');
+            cloudbank.classList.add('cloudbank');
+            display_element.appendChild(cloudbank);
+        }
+
+
+
         // if fast learning trial display banner underneath screen.
-        if (trial.banner === 1){
-            var banner = document.createElement("div", id="banner");
+        if (trial.banner_text !== null) {
+            var banner = document.createElement("div");
             banner.classList.add('banner');
             display_element.appendChild(banner);
         }
@@ -119,52 +124,29 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
 
 
         //draw buttons to screen
-        var buttons = [];
-        if (Array.isArray(trial.button_html)) {
-            if (trial.button_html.length == trial.choices.length) {
-                buttons = trial.button_html;
-            } else {
-                console.error('Error in image-button-response plugin. The length of the button_html array does not equal the length of the choices array');
-            }
-        } else {
-            for (var i = 0; i < trial.choices.length; i++) {
-                buttons.push(trial.button_html);
-            }
-        }
-        display_element.innerHTML += '<div id="jspsych-quickfire-btngroup">';
+        var buttons = document.createElement("div")
+        buttons.id = 'jspsych-quickfire-btngroup';
 
-        for (var i = 0; i < trial.choices.length; i++) {
-            var str = buttons[i].replace(/%choice%/g, trial.choices[i]);
-            display_element.innerHTML += '<div class="jspsych-quickfire-button-" style= "display: inline-block; margin:' + trial.margin_vertical + ' ' + trial.margin_horizontal + '" id="jspsych-quickfire-button-' + i + '" data-choice="' + i + '">' + str + '</div>';
-        }
-        display_element.innerHTML += '</div>';
+        trial.choices.forEach((c, i) => {
+            var button = document.createElement('div');
+            button.id = 'button';
+            button.classList.add('button');
+            button.innerHTML = c;
+            button.dataset.choice = i;
+            buttons.appendChild(button);
+            button.addEventListener(
+                'click',
+                (e)=> afterResponse(parseInt(c))
+            );
+        });
 
-        awaitResponse();
+        display_element.appendChild(buttons);
 
-
-        /**
-         * waits for button response until response or timeout
-         * remove the box from screen on stimulus duration is reached but hold trial to wait on buttons and/or trial timeout.
-         */
-
-        function awaitResponse() {
-
-
-            for (var i = 0; i < trial.choices.length; i++) {
-                display_element.querySelector('#jspsych-quickfire-button-' + i).addEventListener('click', function (e) {
-                    var choice = e.currentTarget.getAttribute('data-choice');
-                    afterResponse(parseInt(choice));
-                });
-            }
-
-
-
-            // timeout: end trial if time limit is set
-            if (trial.trial_duration !== null) {
-                jsPsych.pluginAPI.setTimeout(function () {
-                    end_trial();
-                }, trial.trial_duration);
-            }
+        // timeout: end trial if time limit is set
+        if (trial.trial_duration !== null) {
+            jsPsych.pluginAPI.setTimeout(function () {
+                end_trial();
+            }, trial.trial_duration);
         }
 
         /**
@@ -183,147 +165,40 @@ jsPsych.plugins['jspsych-experimentscreen'] = (function() {
             for (var i = 0; i < btns.length; i++) {
                 btns[i].setAttribute('disabled', 'disabled');
             }
-            showConfidence()
+
+            jsPsych.pluginAPI.clearAllTimeouts();
+
+            if (trial.confidence_trial)
+                getConfidence();
+            else
+                end_trial();
         }
 
-
-        // confidence slider preamble
-        var backendConfidence = 50;
-        var displayedConfidence;
-        var sliderActive;
-        var lastSelection = false;
-        var showPercentage = false;
-
-        // tooltip labels
-            var confidenceQuestion = 'How confident are you of your choice?';
-            var tooltipLabels = [
-                'probably<br>wrong',
-                'maybe<br>wrong',
-                'maybe<br>correct',
-                'probably<br>correct'
-            ];
-            var endLabels = [
-                '<div>certainly<br>WRONG</div>',
-                '<div>certainly<br>CORRECT</div>'
-            ];
-
-
-        // set confidence scroll direction == because scrolling up is always associated with the right response button and down with the left response button, we can determine which end of the confidence scale the majority choice lies on too
-            var upperColor = 'rgb(13,180,13)'; // green
-            var lowerColor = 'rgb(255,50,50)'; // red
-            $('.tooltip-left, #overlay-label-left').css('color', lowerColor);
-            $('.tooltip-right, #overlay-label-right').css('color', upperColor);
-
-        document.body.style.setProperty('--displayedColor', upperColor);
-
-        /** LOCAL HELPER FUNCTIONS
-         * @function showConfidence()
-         * @function hideConfidence()
-         * @function endTrial()
+        /**
+         * display a confidence slider to collect a confidence report on confidence trials
          */
+        function getConfidence() {
 
-        function showConfidence() {
-            // disable Scrollify
-            $.scrollify.disable();
-            // make confidence question visible
-            $('.noDragSlider, .confidence-question').css('visibility', 'visible');
-            // hide response buttons
-            $('.response-button, .scoreboard')
-                .css('pointer-events', 'none')
-                .addClass('hidden');
+            buttons.innerHTML = '';
 
-            // activate the confidence slider and restart the tile selection timer
-            sliderActive = true;
-            overlay_start_time = Date.now();
+            var confidenceSlider = document.createElement("input");
+            confidenceSlider.classList.add('slider');
+            confidenceSlider.type = 'range';
+            buttons.appendChild(confidenceSlider);
+
+            var confirm = document.createElement('div');
+            confirm.classList.add = 'button';
+            confirm.innerHTML = 'Confirm';
+            buttons.appendChild(confirm);
+            confirm.addEventListener('click', end_trial);
         }
 
-
-        function hideConfidence() {
-            // regrow margin-top if in tutorial mode
-            switch(confidenceFrequency) {
-                case 'randomInt':
-                    if (lastSelection) {
-                        // calculate trial RT
-                        var trialRT = calculateRT(start_time, confidence_end);
-                        trialDataVariable['IST_trialRT'].push(trialRT);
-                        // hide confidence question
-                        $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
-                        // expand response area height
-                        $('.response-area').css('height', '10vmin');
-                        // expand scoreboard height and width
-                        $('.scoreboard').css('height', '10vmin')
-                            .css('width', '30vmin')
-                            .removeClass('preliminary')
-                            .removeClass('hidden')
-                            .css('visibility', 'visible');
-
-                        endTrial();
-                    } else {
-                        // re-enable Scrollify
-                        $.scrollify.enable();
-                        // readjust gameboard size to standard size
-                        $('.gameboard')
-                            .css('width', gameboardSize)
-                            .css('height', gameboardSize)
-                            .css('pointer-events', 'auto');
-                        // reset response area
-                        if (!showScoreboard) {
-                            noScoreboard();
-                        }
-                        // hide slider and confidence question
-                        $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
-                        // unhide response buttons and scoreboard
-                        $('.response-button, .scoreboard')
-                            .css('pointer-events', 'auto')
-                            .removeClass('hidden');
-
-                        tile_start_time = Date.now();
-                    }
-                    break;
-                case 'tile':
-                    // re-enable Scrollify
-                    $.scrollify.enable();
-                    // readjust gameboard size to standard size
-                    $('.gameboard')
-                        .css('width', gameboardSize)
-                        .css('height', gameboardSize)
-                        .css('pointer-events', 'auto');
-                    // reset response area
-                    if (!showScoreboard) {
-                        noScoreboard();
-                    }
-                    // hide slider and confidence question
-                    $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
-                    // unhide response buttons and scoreboard
-                    $('.response-button, .scoreboard')
-                        .css('pointer-events', 'auto')
-                        .removeClass('hidden');
-
-                    tile_start_time = Date.now();
-                    break;
-                case 'trial':
-                    // calculate trial RT
-                    var trialRT = calculateRT(start_time, confidence_end);
-                    trialDataVariable['IST_trialRT'].push(trialRT);
-                    // hide confidence question
-                    $('.noDragSlider, .confidence-question').css('visibility', 'hidden');
-                    // expand response area height
-                    $('.response-area').css('height', '10vmin');
-                    // expand scoreboard height and width
-                    $('.scoreboard').css('height', '10vmin')
-                        .css('width', '30vmin')
-                        .removeClass('preliminary')
-                        .removeClass('hidden')
-                        .css('visibility', 'visible');
-
-                    endTrial();
-                    break;
-            }
-        }
         /**
          * Cleanly end a jsPsych trial
          */
         function end_trial() {
+            response.confidence = display_element.querySelector('input.slider').value;
+
             // clear the display
             display_element.innerHTML = '';
 
