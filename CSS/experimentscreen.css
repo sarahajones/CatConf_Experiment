@@ -23,12 +23,12 @@
             hides 1s ease-out 1.2s forwards;
 }
 
-.greenyellow {
-    background-color: greenyellow;
+.blue {
+    background-color: cornflowerblue;
 }
 
-.red {
-    background-color: red;
+.orange {
+    background-color: darkorange;
 }
 
 .experiment-btn {

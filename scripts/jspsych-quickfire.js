@@ -223,6 +223,12 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
         //END TRIAL
         // function to end trial when it is time
         function end_trial() {
+            // disable all the buttons after a response
+            var btns = document.querySelectorAll('#jspsych-quickfire-button-');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].setAttribute('disabled', 'disabled');
+            }
+
             // clear the display
             display_element.innerHTML = '';
 

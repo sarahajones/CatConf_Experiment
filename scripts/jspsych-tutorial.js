@@ -17,13 +17,20 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
                 '<p> During this study, you will play a game where different spaceships drop packages down to the earth. You can decide whether or not to retrieve a package when it lands safely. ' +
                 'The packages will contain either coins or a bomb. Collected coins will accumulate in your reward jar, whereas retrieving bombs will lose you coins from your jar. </p> ' +
                 '<p>Your goal is to collect as many coins as possible by the end of the game. </p>';
-        } else {
-            var tutorial_text =
+        } else if(trial.isSecondTime)
+        {var tutorial_text =
                 '<p> Let\'s start with some "quick-fire" rounds to get things moving. ' +
                 'You will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
                 'Press "retrieve" to collect the contents -  "zap" the package to destroy the contents. </p>' +
-                '</p>Remember, packages could contain coins or may hold bombs that will lose you coins from your jar.' +
+                '</p>Remember, packages could contain coins or may hold bombs that will lose you coins from your jar. ' +
                 'You must decide whether or not to retrieve the package that has been dropped. This game round will help teach you about the different spaceships and their packages. </p>';
+        } else if(trial.isThirdTime)
+        { var tutorial_text =
+            '<p> Press the continue button to start the round. ' +
+            'Remember, you will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
+            'Press "retrieve" to collect the contents -  "zap" the package to destroy the contents. </p>' +
+            '<p>You are trying to collect coins and avoid bombs - good luck!</p>'
+
         }
 
         // create page elements

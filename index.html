@@ -43,9 +43,9 @@
     var CUREC_studyName = 'An investigation into decision confidence and category choices';
     var CUREC_ID = '___________';
     var PIS_version = '1.0';
-    var PIS_date = 'March 2020';
+    var PIS_date = 'August 2020';
     var consent_version = '1.0';
-    var consent_date = 'March 2020';
+    var consent_date = 'August 2020';
 
     /* PreLOAD IMAGES FOR SPEED */
     var images = [
@@ -96,20 +96,26 @@
 
     var tutorial_2 = {
         type: "jspsych-tutorial",
-        isFirstTime: false
+        isSecondTime: true
+    };
+
+    var tutorial_3 = {
+        type: "jspsych-tutorial",
+        isThirdTime: true
     };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
         //PIS,
         //consent,
-        tutorial_1,
-        tutorial_2,
+        //tutorial_1,
+        //tutorial_2,
+        tutorial_3,
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*QUICK FIRE ROUND*/
     const quickfire_timeline = [];
-    const trial_number = 2; // No magic numbers! :)
+    const trial_number = 6; // No magic numbers! :)
 
     // construct deck
     quickfire_stimuli = [
@@ -166,8 +172,8 @@
     const fastdrop_number = 10; //amount of drops
 
     const fastdrop_distribution = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'red'}
+        {name: 'narrow', value: gaussian(200, 5000), color: 'blue'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'orange'}
     ];
 
     // create deck count for spaceship drops
