@@ -1,4 +1,46 @@
 //HELPER FUNCTIONS
+/* calculate RT to a certain number of decimal points */
+function calculateRT(start, end) {
+    start = parseFloat(start);
+    end = parseFloat(end);
+    var rt = end - start;
+    return rt;
+}
+
+/* scroll to top of a page when page finishes loading. requires jQuery */
+function scrollTop() {
+    $(document).ready(function () {
+        $(this).scrollTop(0);
+    });
+}
+
+
+/* remove hash from URL without reloading the page */
+function removeHash() {
+    var scrollV, scrollH, loc = window.location;
+    if ("pushState" in history) {
+        history.pushState("", document.title, loc.pathname + loc.search);
+    } else {
+        // Prevent scrolling by storing the page's current scroll offset
+        scrollV = document.body.scrollTop;
+        scrollH = document.body.scrollLeft;
+
+        loc.hash = "";
+
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scrollV;
+        document.body.scrollLeft = scrollH;
+    }
+}
+
+/* remove the query string */
+function removeQueryString() {
+    var url = window.location.href;
+    if (url.indexOf("?") > 0) {
+        var updatedUri = url.substring(0, url.indexOf("?"));
+        window.history.replaceState({}, document.title, updatedUri);
+    }
+}
 
 //GENERAL HELPERS
 

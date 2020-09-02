@@ -2,9 +2,8 @@
 .gameboard {
     width: 800px;
     height: 600px;
-    background-color: rgba(185, 181, 179, 1);
+    background-color: lightskyblue;
     position: relative;
-    border: 10px whitesmoke;
     animation: glowy-box 1s infinite alternate;
 }
 
@@ -20,8 +19,28 @@
     position: absolute;
     animation:
             flying 1s ease-in forwards,
-            color_change 1s forwards,
+            color_change 1.5s forwards,
             hides 1s ease-out 1.2s forwards;
+}
+
+.blue_spaceship_image {
+    height: 20vmin;
+    width: 20vmin;
+    position: relative;
+    background: url("../images/blue_spaceship.png");
+    animation:
+            flying 1s ease-in forwards,
+            hides 1s ease-out .2s forwards;
+}
+
+.orange_spaceship_image {
+    height: 20vmin;
+    width: 20vmin;
+    position: relative;
+    background: url("../images/orange_spaceship.png");
+    animation:
+            flying 1s ease-in forwards,
+            hides 1s ease-out .2s forwards;
 }
 
 .blue {
@@ -108,6 +127,14 @@
     position: absolute;
     --smooth-corners: 3;
     top: 0;
+}
+
+.grassbank {
+    width: 100%;
+    height: 20px;
+    background-color: lightgreen;
+    position: absolute;
+    bottom: 0;
 }
 
 @font-face{

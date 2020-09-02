@@ -28,7 +28,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ISTc-DDTi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -40,6 +40,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\scripts" />
       <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\images" />
     </key>
   </component>
@@ -75,7 +76,7 @@
       <workItem from="1597657156883" duration="20426000" />
       <workItem from="1598433522409" duration="4671000" />
       <workItem from="1598860455019" duration="3272000" />
-      <workItem from="1598960804049" duration="21356000" />
+      <workItem from="1598960804049" duration="32340000" />
     </task>
     <servers />
   </component>

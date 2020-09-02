@@ -37,6 +37,7 @@
     font-family:  europa, Arial, Helvetica, sans-serif;;
 }
 
+
 .h4 {
     font-weight: bolder;
 }
@@ -70,6 +71,178 @@
     margin-block-start: 100px;
     margin-block-end: 100px;
     line-height: 100px;
+}
+
+
+/*------------------------ DEMOGRAPHICS FORM -----------------------
+---------------------------------------------------------------- */
+.question {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    margin: auto;
+    color: white;
+    font-size: 2vmax;
+    text-align: center;
+}
+
+.question.demographics-question {
+    margin-block-start: 7.5em;
+    margin-block-end: 5em;
+    width: 70vw;
+}
+
+.question.demographics-question#demographics-question1 {
+    margin-block-start: 7.5em;
+    margin-block-end: 5em;
+    width: 70vw;
+}
+
+
+.question#feedback-title {
+    margin: 5vh auto;
+}
+
+.question.feedback-text {
+    width: 50vw;
+    margin: 1vh auto;
+    font-size: 1.5vmax;
+    text-align: left;
+}
+
+.question.feedback-text-small {
+    width: 50vw;
+    margin: 1vh auto;
+    font-size: 1.8vmin;
+    text-align: center;
+}
+
+.question.textarea {
+    display: flex;
+    width: 49vw;
+    height: 20vh;
+    margin: 0 auto 5vh;
+    padding: 0.5vmax;
+    border: 1px solid #323232;
+    background-color: black;
+    color: white;
+    font-family: europa, Arial, Helvetica, sans-serif;
+    font-size: 1.2vmax;
+    text-align: left;
+}
+
+.question input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8vmax;
+    height: 5vmax;
+    margin: 2vh auto 0vh;
+    background: repeating-linear-gradient(to bottom, #0f0a1e, #0f0a1e 2px, #140e29 2px, #140e29 4px);
+    color: white;
+    font-family: europa, Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 3vmax;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.question input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 70vw;
+    margin: 0vh auto;
+    opacity: 0.8;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.question input[type=range]:hover {
+    opacity: 1;
+}
+
+.question input[type=range]::-webkit-slider-runnable-track {
+    width: 45vw;
+    background: #aaaaaa;
+    border: none;
+    border-radius: 1vmin;
+}
+
+.question input[type=range]::-moz-range-track {
+    width: 45vw;
+    background: #aaaaaa;
+    border: none;
+    border-radius: 1vmin;
+}
+
+.question input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 3vmin;
+    height: 3vmin;
+    border: none;
+    border-radius: 100%;
+    background: #0dff92;
+}
+
+.question input[type=range]::-moz-range-thumb {
+    -moz-apperance: none;
+    appearance: none;
+    width: 3vmin;
+    height: 3vmin;
+    border: none;
+    border-radius: 100%;
+    background: #0dff92;
+}
+
+.question input[type=text] {
+    width: 20vw;
+    font-size: 3vh;
+}
+
+.question input[type=number] {
+    appearance: textfield;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.question input[type=number]:hover {
+    border: 1px solid lightgray;
+}
+
+.question input[type=number]::-webkit-inner-spin-button, .question input[type=number]::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.question input[disabled] {
+    color: gray !important;
+}
+
+.question select {
+    width: 35vw;
+    height: 7vh;
+    margin: 0vh auto 0vh;
+    background-color: gray;
+    border: 0vmin solid black;
+    color: white;
+    font-family: europa, Arial, Helvetica, sans-serif;
+    font-size: 3vh;
+    text-align: center;
+    text-align-last: center;
+    cursor: pointer;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.question select::-ms-expand {
+    display: none;
 }
 
 /*------------------------ DEMO AND TUTORIALS -----------------------

@@ -41,6 +41,12 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 default: undefined,
                 description: 'color of spaceship that links to d'
             },
+            spaceship_image: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'spaceship image',
+                default: undefined,
+                description: 'picture of spaceship that links to d'
+            },
             trial_type: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'type of trial',
@@ -99,6 +105,11 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
         canvasDiv.classList.add('gameboard');
         display_element.appendChild(canvasDiv);
 
+        var grassbank = document.createElement("div");
+        grassbank.id = "grassbank";
+        grassbank.classList.add('grassbank');
+        canvasDiv.appendChild(grassbank)
+
         if (trial.trial_type !== 'clear') {
             var cloudbank = document.createElement('div');
             cloudbank.classList.add('cloudbank');
@@ -114,8 +125,23 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             canvasDiv.appendChild(spaceship);
             //drop spaceship at specific x position
 
-
-            //draw buttons to screen
+            //add overlay of spaceship image onto the spaceship
+        if (trial.trial_type ==="clear") {
+            if (trial.spaceship_class === 'blue') {
+                var bluespaceshipimage = document.createElement("div");
+                bluespaceshipimage.classList.add('blue_spaceship_image', trial.spaceship_image);
+                bluespaceshipimage.style.left = `${trial.location}px`;
+                bluespaceshipimage.style.zIndex = '51';
+                spaceship.appendChild(bluespaceshipimage);
+            } else {
+                var orangespaceshipimage = document.createElement("div");
+                orangespaceshipimage.classList.add('orange_spaceship_image', trial.spaceship_image);
+                orangespaceshipimage.style.left = `${trial.location}px`;
+                orangespaceshipimage.style.zIndex = '51';
+                spaceship.appendChild(orangespaceshipimage);
+            }
+        }
+        //draw buttons to screen
 
             var buttons = document.createElement("div")
             buttons.id = 'jspsych-quickfire-btngroup';

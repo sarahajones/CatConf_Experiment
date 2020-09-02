@@ -25,11 +25,13 @@
     <script src="scripts/jspsych-splashmessage.js"></script>
     <script src="scripts/jspsych-quickfire.js"></script>
     <script src="scripts/jspsych-experimentscreen.js"></script>
+    <script src="scripts/jspsych-demographics.js"></script>
 
     <script src="scripts/trial.js"></script>
     <script src="scripts/helper-functions.js"></script>
     <script src="scripts/box-muller.js"></script>
     <script src="scripts/gaussian.js"></script>
+
 
     <!--custom CSS-->
     <link href="CSS/styles.css" rel="stylesheet" type="text/css">
@@ -97,6 +99,12 @@
         version: consent_version,
         date: consent_date
     };
+
+    //DEMOGRAPHICS
+    var demographics = {
+        type: 'jspsych-demographics'
+    };
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* TRAINING AND INSTRUCTION*/
     var tutorial_1 = {
@@ -126,6 +134,8 @@
         splash_0,
         PIS,
         consent,
+        splash_0,
+        demographics,
         tutorial_1,
         tutorial_2,
         tutorial_3,
@@ -225,6 +235,11 @@
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli.forEach(s => {
+        if (s.color ==='blue'){
+            s.spaceship_image = "../images/blue_spaceship.png"
+        } else {
+            s.spaceship_image = "../images/orange_spaceship.png"
+        }
         fastdrop_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -234,6 +249,7 @@
             location: s.value.random(1)[0],
             stimulus_duration: 1500,
             spaceship_class: s.color,
+            spaceship_image: s.spaceship_image,
             distribution_name: s.name,
             banner: 1,
             banner_text: 'Please watch carefully'
@@ -277,10 +293,10 @@
 
     const timeline = [
         ...intro_timeline,
-        ...quickfire_timeline,
-        ...interim1_timeline,
+        //...quickfire_timeline,
+        //...interim1_timeline,
         ...fastdrop_timeline,
-        ...cloud_timeline,
+       //...cloud_timeline,
     ];
     console.log({timeline});
 
