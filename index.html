@@ -43,7 +43,7 @@
 
     /* EXPERIMENT INFORMATION */
     var CUREC_studyName = 'An investigation into decision confidence and category choices';
-    var CUREC_ID = '___________';
+    var CUREC_ID = 'R68879/RE001';
     var PIS_version = '1.0';
     var PIS_date = 'August 2020';
     var consent_version = '1.0';
@@ -73,6 +73,14 @@
     };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENTAL PAGES */
+    //splash loading screen
+    var splash_0 = {
+        type: "jspsych-splashmessage",
+        trial_type: 'Loading',
+        //display_duration: 3500,
+        trial_duration: 3750,
+    };
+
     // PIS
     var PIS = {
         type: 'jspsych-PIS',
@@ -81,7 +89,7 @@
         version: PIS_version,
         date: PIS_date
     };
-
+    // CONSENT
     var consent = {
         type: 'jspsych-consent',
         studyName: CUREC_studyName,
@@ -115,11 +123,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
-        //PIS,
-        //consent,
-        //tutorial_1,
-        //tutorial_2,
-        //tutorial_3,
+        splash_0,
+        PIS,
+        consent,
+        tutorial_1,
+        tutorial_2,
+        tutorial_3,
         splash_1,
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////

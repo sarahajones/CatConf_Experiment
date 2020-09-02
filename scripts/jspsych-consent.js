@@ -32,7 +32,9 @@ jsPsych.plugins['jspsych-consent'] = (function () {
 
             '(8) I understand how to raise a concern or make a complaint.',
 
-            '(9) I agree to take part in the above study.'
+            '(9) I certify that I am 18 years of age or over and fluent in English.',
+
+            '(10) I agree to take part in the above study.'
         ];
 
         // create page elements
@@ -93,8 +95,9 @@ jsPsych.plugins['jspsych-consent'] = (function () {
             '<h1>ELECTRONIC PARTICIPANT CONSENT FORM</h1>'
             + '<h3>V' + consent_version + ' (revised: ' + consent_date + ')</h3>'
             + '<br>'
+            + '<h3> Central University Research Ethics Committee (CUREC) Approval Reference: ' + CUREC_ID + ' </h3>'
             + '<h2>"' + CUREC_studyName + '"</h2>'
-            + '<i>This study is aimed at studying the mechanisms behind decision-making and confidence. Please refer to the Participant Information Sheet for further details.</i>'
+            + '<i>Purpose of Study: This study is aimed at studying the mechanisms behind decision-making and confidence. Please refer to the Participant Information Sheet for further details.</i>'
         );
         var instructText = createGeneral(
             instructText,
@@ -104,7 +107,7 @@ jsPsych.plugins['jspsych-consent'] = (function () {
             'consent-text',
             ''
         );
-        for (var row = 0; row < 9; row++) {
+        for (var row = 0; row < 10; row++) {
             var consentRow = createGeneral(
                 consentRow,
                 instructText,
