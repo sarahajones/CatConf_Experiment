@@ -261,7 +261,7 @@ button, .button {
     -ms-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
-    animation: glowy-box 0.5s infinite alternate
+    animation: glowy-box 0.5s infinite alternate;
 }
 
 button.large-button, .button.large-button {

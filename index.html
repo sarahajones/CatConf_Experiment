@@ -22,6 +22,7 @@
     <script src="scripts/jspsych-PIS.js"></script>
     <script src="scripts/jspsych-consent.js"></script>
     <script src="scripts/jspsych-tutorial.js"></script>
+    <script src="scripts/jspsych-splashmessage.js"></script>
     <script src="scripts/jspsych-quickfire.js"></script>
     <script src="scripts/jspsych-experimentscreen.js"></script>
 
@@ -104,6 +105,13 @@
         type: "jspsych-tutorial",
         isThirdTime: true
     };
+
+    var splash_1 = {
+        type: "jspsych-splashmessage",
+        trial_type: 'Loading',
+        //display_duration: 3500,
+        trial_duration: 3750,
+    };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
@@ -111,8 +119,10 @@
         //consent,
         //tutorial_1,
         //tutorial_2,
-        tutorial_3,
+        //tutorial_3,
+        splash_1,
     ];
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*QUICK FIRE ROUND*/
     const quickfire_timeline = [];
@@ -166,6 +176,26 @@
             response_ends_trial: false,
         });
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*Next set of instructions and splash message while loading screen*/
+
+    var tutorial_4 = {
+        type: "jspsych-tutorial",
+        isFourthTime: true
+    };
+
+    var splash_2 = {
+        type: "jspsych-splashmessage",
+        trial_type: 'Loading',
+        //display_duration: 3500,
+        trial_duration: 3750,
+    };
+
+    const interim1_timeline = [
+      tutorial_4,
+      splash_2
+    ];
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING*/
@@ -188,7 +218,8 @@
     fastdrop_stimuli.forEach(s => {
         fastdrop_timeline.push({
             type: "jspsych-experimentscreen",
-            trial_type: 'clear_training',
+            trial_type: 'clear',
+            confidence_trial: false,
             trial_duration: 2000,
             choices: [],
             location: s.value.random(1)[0],
@@ -196,13 +227,13 @@
             spaceship_class: s.color,
             distribution_name: s.name,
             banner: 1,
-            banner_text:'Please<br>watch<br>carefully',
+            banner_text: 'Please watch carefully'
         })
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS*/
-    const clear_timeline = [];
+    const cloud_timeline = [];
 
     const drop_number = 4; //amount of drops
 
@@ -220,7 +251,7 @@
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli.forEach(s => {
-        clear_timeline.push({
+        cloud_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 5000,
             choices: ['Retrieve', 'Zap'],
@@ -229,25 +260,18 @@
             spaceship_class: s.color,
             distribution_name: s.name,
             confidence_trial: true,
-            trial_type: 'unclear',
-
+            trial_type: 'unclear'
         })
     });
 
-    const confidence_timeline = [
-        {
-            type:'image-slider-response',
-            stimulus: 'images/bomb.png'
-        }
-    ];
 
 
     const timeline = [
-        //...intro_timeline,
-        //...quickfire_timeline,
-        //...fastdrop_timeline,
-        ...clear_timeline,
-        // ...confidence_timeline
+        ...intro_timeline,
+        ...quickfire_timeline,
+        ...interim1_timeline,
+        ...fastdrop_timeline,
+        ...cloud_timeline,
     ];
     console.log({timeline});
 

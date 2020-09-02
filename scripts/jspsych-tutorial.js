@@ -30,8 +30,14 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             'Remember, you will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
             'Press "retrieve" to collect the contents -  "zap" the package to destroy the contents. </p>' +
             '<p>You are trying to collect coins and avoid bombs - good luck!</p>'
-
+        } else if(trial.isFourthTime)
+        { var tutorial_text =
+            '<p> Well done so far - now it is time to see the spaceships in action. ' +
+            'Please watch the next screen closely to see where each spaceship is dropping their packages to earth. ' +
+            'You will not have to press any buttons, or respond in any way. </p>' +
+            '<p>This information will help you in the upcoming rounds!</p>'
         }
+
 
         // create page elements
         var intro = createGeneral(
