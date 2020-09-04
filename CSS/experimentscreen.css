@@ -53,6 +53,8 @@
             hides .75s ease-out forwards;
 
 }
+
+
 .experiment-btn {
 
     display: inline-flex;
@@ -73,6 +75,7 @@
     -webkit-user-select: none;
     animation: glowy-box 1s infinite alternate;
     width: 8vmax;
+    margin-block-start: 20px;
     margin: 5vh auto;
     margin-left: 3vmax;
     margin-right: 3vmax;
@@ -123,7 +126,7 @@
 }
 
 .cloudbank {
-    width: 100%;
+    width: 800px;
     height: 100px;
     background-color: slategrey;
     position: absolute;
@@ -138,6 +141,60 @@
     position: absolute;
     bottom: 0;
 }
+
+
+.slider{
+    display: block;
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    margin-top: 15px;
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    position: relative;
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+
+}
+
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+    animation: glowy-box 1s infinite alternate;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.confidenceQuestion {
+    font-family: europa, Arial, Helvetica, sans-serif;
+    width: 70vmin;
+    text-align: center;
+    color: white;
+    line-height: 1.2em;
+}
+
 
 @font-face{
     font-family: gameFont;
@@ -174,57 +231,3 @@
         opacity: 0;
     }
 }
-
-.slider{
-    display: inline-flex;
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    margin: 15px;
-    width: 100vmin; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    position: relative;
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-}
-
-.slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #4CAF50; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-}
-
-.slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #4CAF50; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-.confidence-question {
-    z-index: 51;
-    width: 70vmin;
-    visibility: hidden;
-    text-align: center;
-    position: absolute;
-    margin: -2vh auto 2vh;
-    color: white;
-    line-height: 1.2em;
-}
-

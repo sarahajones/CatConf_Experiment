@@ -41,12 +41,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 default: undefined,
                 description: 'color of spaceship that links to d'
             },
-            spaceship_image: {
-                type: jsPsych.plugins.parameterType.STRING,
-                pretty_name: 'spaceship image',
-                default: undefined,
-                description: 'picture of spaceship that links to d'
-            },
+
             trial_type: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'type of trial',
@@ -187,8 +182,18 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
          */
         function getConfidence() {
 
+            //clear buttons and realign botton group to fit confidence question
             buttons.innerHTML = '';
+            buttons.style.marginBlockStart = '20px';
 
+            //define confidence question here
+            var confidenceQuestion = document.createElement("string");
+            confidenceQuestion.classList.add('confidenceQuestion');
+            confidenceQuestion.innerHTML = "<b>How confident are you of your choice?</b>";
+            confidenceQuestion.style.fontSize= '30px'
+            buttons.appendChild(confidenceQuestion);
+
+            //insert a slider for the confidence report
             var confidenceSlider = document.createElement("input");
             confidenceSlider.classList.add('slider');
             confidenceSlider.id = "slider";
@@ -196,41 +201,26 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             confidenceSlider.min = "0";
             confidenceSlider.max = "100";
             confidenceSlider.step = "1";
+            confidenceSlider.value = "50";
+            confidenceSlider.label = "Sure INCORRECT";
+            //confidenceSlider.onchange(confidenceSlider.value=(this.value()));
+
             confidenceSlider.requireInteraction = true;
             buttons.appendChild(confidenceSlider);
 
             var tooltips = document.createElement("div");
             tooltips.classList.add('tooltip');
-            confidenceSlider.appendChild(tooltips)
+            confidenceSlider.appendChild(tooltips);
 
             var confirm = document.createElement('div');
-            confirm.id = "small-button"
-            confirm.classList.add('button');
+            confirm.id = 'experiment-btn';
+            confirm.classList.add('experiment-btn');
             confirm.style.position = 'flex';
             confirm.innerHTML = 'Confirm';
             buttons.appendChild(confirm);
             confirm.addEventListener('click', end_trial);
 
 
-            var tooltip = $('<div id="tooltip" />').css({
-                position: 'absolute',
-                top: -25,
-                left: -10
-            }).hide();
-            $("#slider").slider({
-                value: 50,
-                min: 0,
-                max: 100,
-                step: 1,
-                slide: function(event, ui) {
-                    tooltip.text(ui.value);
-                },
-                change: function(event, ui) {}
-            }).find(".ui-slider-handle").append(tooltip).hover(function() {
-                tooltip.show()
-            }, function() {
-                tooltip.hide()
-            });
             response.confidence = display_element.querySelector('input.slider').value;
         }
 
