@@ -255,7 +255,32 @@
             banner_text: 'Please watch carefully'
         })
     });
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*Next set of instructions and splash message while loading screen*/
 
+    var tutorial_5 = {
+        type: "jspsych-tutorial",
+        isFifthTime: true
+    };
+
+    var tutorial_6 = {
+        type: "jspsych-tutorial",
+        isSixthTime: true
+    };
+
+    var splash_3= {
+        type: "jspsych-splashmessage",
+        trial_type: 'Next',
+        //display_duration: 3500,
+        trial_duration: 3750,
+    };
+
+    const interim2_timeline = [
+        splash_2,
+        tutorial_5,
+        tutorial_6,
+        splash_3
+    ];
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS*/
     const cloud_timeline = [];
@@ -292,11 +317,12 @@
 
 
     const timeline = [
-        ...intro_timeline,
+        //...intro_timeline,
         //...quickfire_timeline,
         //...interim1_timeline,
         ...fastdrop_timeline,
-       //...cloud_timeline,
+        ...interim2_timeline,
+       ...cloud_timeline,
     ];
     console.log({timeline});
 

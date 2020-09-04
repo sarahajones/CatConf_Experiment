@@ -116,50 +116,32 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             display_element.appendChild(cloudbank);
         }
 
+        //spaceship
+        var spaceship = document.createElement("div");
+        spaceship.classList.add('spaceship', trial.spaceship_class);
+        spaceship.style.left = `${trial.location}px`;
+        canvasDiv.appendChild(spaceship);
+        //drop spaceship at specific x position
+        //overlay with image of spaceship
 
-
-            //spaceship
-            var spaceship = document.createElement("div");
-            spaceship.classList.add('spaceship', trial.spaceship_class);
-            spaceship.style.left = `${trial.location}px`;
-            canvasDiv.appendChild(spaceship);
-            //drop spaceship at specific x position
-
-            //add overlay of spaceship image onto the spaceship
-        if (trial.trial_type ==="clear") {
-            if (trial.spaceship_class === 'blue') {
-                var bluespaceshipimage = document.createElement("div");
-                bluespaceshipimage.classList.add('blue_spaceship_image', trial.spaceship_image);
-                bluespaceshipimage.style.left = `${trial.location}px`;
-                bluespaceshipimage.style.zIndex = '51';
-                spaceship.appendChild(bluespaceshipimage);
-            } else {
-                var orangespaceshipimage = document.createElement("div");
-                orangespaceshipimage.classList.add('orange_spaceship_image', trial.spaceship_image);
-                orangespaceshipimage.style.left = `${trial.location}px`;
-                orangespaceshipimage.style.zIndex = '51';
-                spaceship.appendChild(orangespaceshipimage);
-            }
-        }
         //draw buttons to screen
+        var buttons = document.createElement("div")
+        buttons.id = 'jspsych-quickfire-btngroup';
 
-            var buttons = document.createElement("div")
-            buttons.id = 'jspsych-quickfire-btngroup';
+        trial.choices.forEach((c, i) => {
+            var button = document.createElement('div');
+            button.id = 'experiment-btn';
+            button.classList.add('experiment-btn');
+            button.innerHTML = c;
+            button.dataset.choice = i;
+            buttons.appendChild(button);
+            button.addEventListener(
+                'click',
+                (e) => afterResponse(parseInt(c))
+            );
+        });
 
-            trial.choices.forEach((c, i) => {
-                var button = document.createElement('div');
-                button.id = 'experiment-btn';
-                button.classList.add('experiment-btn');
-                button.innerHTML = c;
-                button.dataset.choice = i;
-                buttons.appendChild(button);
-                button.addEventListener(
-                    'click',
-                    (e) => afterResponse(parseInt(c))
-                );
-            });
-
-            display_element.appendChild(buttons);
+        display_element.appendChild(buttons);
         // if fast learning trial display banner underneath screen.
 
         if (trial.banner_text !== null) {
@@ -168,109 +150,109 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             banner.innerHTML = trial.banner_text;
             buttons.appendChild(banner);
         }
-            // timeout: end trial if time limit is set
-            if (trial.trial_duration !== null) {
-                jsPsych.pluginAPI.setTimeout(function () {
-                    end_trial();
-                }, trial.trial_duration);
-            }
-
-            /**
-             * do stuff after button press
-             * @param choice {int} tells us which button was pressed
-             */
-            function afterResponse(choice) {
-                // measure response information
-                response.response_time = performance.now();
-                response.delta_response_time = response.response_time - response.start_time;
-                response.button = choice;
-                response.button_label = trial.choices[choice];
-
-                // disable all the buttons after a response
-                var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
-                for (var i = 0; i < btns.length; i++) {
-                    btns[i].setAttribute('disabled', 'disabled');
-                }
-
-                jsPsych.pluginAPI.clearAllTimeouts();
-
-                if (trial.confidence_trial)
-                    getConfidence();
-                else
-                    end_trial();
-            }
-
-            /**
-             * display a confidence slider to collect a confidence report on confidence trials
-             */
-            function getConfidence() {
-
-                buttons.innerHTML = '';
-
-                var confidenceSlider = document.createElement("input");
-                confidenceSlider.classList.add('slider');
-                confidenceSlider.id = "slider";
-                confidenceSlider.type = 'range';
-                confidenceSlider.min = "0";
-                confidenceSlider.max = "100";
-                confidenceSlider.step = "1";
-                confidenceSlider.requireInteraction = true;
-                buttons.appendChild(confidenceSlider);
-
-                var tooltips = document.createElement("div");
-                tooltips.classList.add('tooltip');
-                confidenceSlider.appendChild(tooltips)
-
-                var confirm = document.createElement('div');
-                confirm.id = "small-button"
-                confirm.classList.add('button');
-                confirm.style.position = 'flex';
-                confirm.innerHTML = 'Confirm';
-                buttons.appendChild(confirm);
-                confirm.addEventListener('click', end_trial);
-
-
-                var tooltip = $('<div id="tooltip" />').css({
-                    position: 'absolute',
-                    top: -25,
-                    left: -10
-                }).hide();
-                $("#slider").slider({
-                    value: 50,
-                    min: 0,
-                    max: 100,
-                    step: 1,
-                    slide: function(event, ui) {
-                        tooltip.text(ui.value);
-                    },
-                    change: function(event, ui) {}
-                }).find(".ui-slider-handle").append(tooltip).hover(function() {
-                    tooltip.show()
-                }, function() {
-                    tooltip.hide()
-                });
-                response.confidence = display_element.querySelector('input.slider').value;
-            }
-
-            /**
-             * Cleanly end a jsPsych trial
-             */
-            function end_trial() {
-
-
-                // clear the display
-                display_element.innerHTML = '';
-
-                // kill any remaining setTimeout handlers
-                jsPsych.pluginAPI.clearAllTimeouts();
-
-                // move on to the next trial
-                jsPsych.finishTrial(response);
-            }
+        // timeout: end trial if time limit is set
+        if (trial.trial_duration !== null) {
+            jsPsych.pluginAPI.setTimeout(function () {
+                end_trial();
+            }, trial.trial_duration);
         }
-        ;
 
-        return plugin;
+        /**
+         * do stuff after button press
+         * @param choice {int} tells us which button was pressed
+         */
+        function afterResponse(choice) {
+            // measure response information
+            response.response_time = performance.now();
+            response.delta_response_time = response.response_time - response.start_time;
+            response.button = choice;
+            response.button_label = trial.choices[choice];
+
+            // disable all the buttons after a response
+            var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].setAttribute('disabled', 'disabled');
+            }
+
+            jsPsych.pluginAPI.clearAllTimeouts();
+
+            if (trial.confidence_trial)
+                getConfidence();
+            else
+                end_trial();
+        }
+
+        /**
+         * display a confidence slider to collect a confidence report on confidence trials
+         */
+        function getConfidence() {
+
+            buttons.innerHTML = '';
+
+            var confidenceSlider = document.createElement("input");
+            confidenceSlider.classList.add('slider');
+            confidenceSlider.id = "slider";
+            confidenceSlider.type = 'range';
+            confidenceSlider.min = "0";
+            confidenceSlider.max = "100";
+            confidenceSlider.step = "1";
+            confidenceSlider.requireInteraction = true;
+            buttons.appendChild(confidenceSlider);
+
+            var tooltips = document.createElement("div");
+            tooltips.classList.add('tooltip');
+            confidenceSlider.appendChild(tooltips)
+
+            var confirm = document.createElement('div');
+            confirm.id = "small-button"
+            confirm.classList.add('button');
+            confirm.style.position = 'flex';
+            confirm.innerHTML = 'Confirm';
+            buttons.appendChild(confirm);
+            confirm.addEventListener('click', end_trial);
+
+
+            var tooltip = $('<div id="tooltip" />').css({
+                position: 'absolute',
+                top: -25,
+                left: -10
+            }).hide();
+            $("#slider").slider({
+                value: 50,
+                min: 0,
+                max: 100,
+                step: 1,
+                slide: function(event, ui) {
+                    tooltip.text(ui.value);
+                },
+                change: function(event, ui) {}
+            }).find(".ui-slider-handle").append(tooltip).hover(function() {
+                tooltip.show()
+            }, function() {
+                tooltip.hide()
+            });
+            response.confidence = display_element.querySelector('input.slider').value;
+        }
+
+        /**
+         * Cleanly end a jsPsych trial
+         */
+        function end_trial() {
+
+
+            // clear the display
+            display_element.innerHTML = '';
+
+            // kill any remaining setTimeout handlers
+            jsPsych.pluginAPI.clearAllTimeouts();
+
+            // move on to the next trial
+            jsPsych.finishTrial(response);
+        }
+    }
+    ;
+
+    return plugin;
 
 }
 ();

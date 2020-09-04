@@ -16,41 +16,43 @@
     height: var(--spaceshipsize);
     width: var(--spaceshipsize);
     background: url("../images/green_spaceship.png");
+    visibility: visible;
     position: absolute;
     animation:
             flying 1s ease-in forwards,
-            color_change 1.5s forwards,
-            hides 1s ease-out 1.2s forwards;
+            color_change 1s forwards,
+            hides 1s ease-in-out 1.2s forwards;
 }
 
-.blue_spaceship_image {
-    height: 20vmin;
-    width: 20vmin;
-    position: relative;
-    background: url("../images/blue_spaceship.png");
-    animation:
-            flying 1s ease-in forwards,
-            hides 1s ease-out .2s forwards;
-}
 
-.orange_spaceship_image {
-    height: 20vmin;
-    width: 20vmin;
-    position: relative;
-    background: url("../images/orange_spaceship.png");
-    animation:
-            flying 1s ease-in forwards,
-            hides 1s ease-out .2s forwards;
-}
 
 .blue {
     background-color: cornflowerblue;
+}
+
+.blue::after {
+    content: url("../images/resized_blue_spaceship.png");
+    position: relative;
+    left: -50px;
+    animation:
+            flying .5s ease-out .2s forwards,
+            hides .75s ease-out forwards;
+
 }
 
 .orange {
     background-color: darkorange;
 }
 
+.orange::after {
+    content: url("../images/resized_orange_spaceship.png");
+    position: relative;
+    left: -50px;
+    animation:
+            flying .5s ease-out .2s forwards,
+            hides .75s ease-out forwards;
+
+}
 .experiment-btn {
 
     display: inline-flex;
