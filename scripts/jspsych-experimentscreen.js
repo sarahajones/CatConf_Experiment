@@ -241,14 +241,19 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
             response.confidence_response_time = performance.now();
             response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
-            response.confidence = display_element.querySelector('input.slider').value.now();
+            response.confidence = display_element.querySelector('input.slider').value;
         }
 
         /**
          * Cleanly end a jsPsych trial
          */
         function end_trial() {
-
+            // record the slider's final value
+            const conf = display_element.querySelector('input.slider');
+            if(conf)
+                response.confidence = conf.value;
+            else
+                response.confidence = null;
 
             // clear the display
             display_element.innerHTML = '';

@@ -328,7 +328,7 @@
     let Block_score_correct = [];
     let Block_score_incorrect = [];
 
-    const drop_number1 = 10; //amount of drops
+    const drop_number1 = 3; //amount of drops
 
     const distribution1 = [
         {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
@@ -357,29 +357,29 @@
         })
     });
 
-    var Block1_ScoreCorrect = Block_score_correct;
-    var Block1_ScoreIncorrect = Block_score_incorrect;
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* block feedback */
-    var feedback1_timeline = [];
-
-    let correct = Block1_ScoreCorrect.reduce((a, b) => a + b);
-    let incorrect = Block1_ScoreIncorrect.reduce((a, b) => a + b);
-
-    var feedback1 = {
-        type: "jspsych-feedback",
-        isFirstTime: true,
-        correct: correct,
-        incorrect: incorrect,
-        total: correct,
-        trials: drop_number1,
-    };
-
-    feedback1_timeline = [
-        feedback1
-    ];
+    // var Block1_ScoreCorrect = Block_score_correct;
+    // var Block1_ScoreIncorrect = Block_score_incorrect;
+    //
+    //
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /* block feedback */
+    // var feedback1_timeline = [];
+    //
+    // let correct = Block1_ScoreCorrect.reduce((a, b) => a + b);
+    // let incorrect = Block1_ScoreIncorrect.reduce((a, b) => a + b);
+    //
+    // var feedback1 = {
+    //     type: "jspsych-feedback",
+    //     isFirstTime: true,
+    //     correct: correct,
+    //     incorrect: incorrect,
+    //     total: correct,
+    //     trials: drop_number1,
+    // };
+    //
+    // feedback1_timeline = [
+    //     feedback1
+    // ];
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 2*/
     const cloud2_timeline = [];
@@ -416,28 +416,6 @@
         })
     });
 
-    var Block2_ScoreCorrect = Block_score_correct;
-    var Block2_ScoreIncorrect = Block_score_incorrect;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* block feedback */
-    var feedback2_timeline = [];
-
-    let correct2 = Block2_ScoreCorrect.reduce((a, b) => a + b);
-    let incorrect2 = Block2_ScoreIncorrect.reduce((a, b) => a + b);
-
-    var feedback2 = {
-        type: "jspsych-feedback",
-        isFirstTime: true,
-        correct: correct2,
-        incorrect: incorrect2,
-        total: correct2,
-        trials: drop_number2,
-    };
-
-    feedback2_timeline = [
-        feedback2
-    ];
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 3*/
     const cloud3_timeline = [];
@@ -474,28 +452,6 @@
         })
     });
 
-    var Block3_ScoreCorrect = Block_score_correct;
-    var Block3_ScoreIncorrect = Block_score_incorrect;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* block feedback */
-    var feedback3_timeline = [];
-
-    let correct3 = Block3_ScoreCorrect.reduce((a, b) => a + b);
-    let incorrect3 = Block3_ScoreIncorrect.reduce((a, b) => a + b);
-
-    var feedback3 = {
-        type: "jspsych-feedback",
-        isFirstTime: true,
-        correct: correct3,
-        incorrect: incorrect3,
-        total: correct3,
-        trials: drop_number3,
-    };
-
-    feedback3_timeline = [
-        feedback3
-    ];
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Set up timeline and launch experiment*/
 
@@ -507,19 +463,70 @@
         //...interim2_timeline,
         ...cloud1_timeline,
         //...feedback1_timeline,
-        ...cloud2_timeline,
+        // ...cloud2_timeline,
         //...feedback2_timeline,
-        ...cloud3_timeline,
+        // ...cloud3_timeline,
         //...feedback3_timeline
     ];
     console.log({timeline});
 
+    test_save();
+
     /* start the experiment */
     jsPsych.init({
-        timeline: timeline
-    })
+        timeline: timeline,
+        on_finish: save_csv
+    });
 
+    /**
+     * Save the jsPsych CSV output to the server
+     */
+    function save_csv() {
+        // Get a user ID
+        let id = jsPsych.data.getURLVariable('PROLIFIC_ID');
+        if(typeof id !== "string")
+            id = "ID" + Math.floor(Math.random() * 100) +
+                "T" + Math.floor(performance.timeOrigin);
 
+        jsPsych.data.addProperties({user_id: id});
+
+        // Fetch all the experiment data and send it to the server
+        const data = {
+            user_id: id,
+            csv: jsPsych.data.get().csv()
+        };
+
+        fetch(
+            "savecsv.php",
+            {
+                method: "POST",
+                body: JSON.stringify(data),
+                type: 'application/json'
+            }
+        )
+            .then(r => r.text())
+            .then(b => console.log(b));
+    }
+
+    /**
+     * Test the ability to save files on the server
+     */
+    function test_save() {
+        fetch(
+            "savecsv.php",
+            {
+                method: "POST",
+                body: JSON.stringify({user_id: "test_id"}),
+                type: 'application/json'
+            }
+        )
+            .then(r => {
+                if(r.status !== 200)
+                    console.error('Problem saving data');
+                else
+                    console.log('Save data test okay!');
+            });
+    }
 </script>
 </body>
 </html>

@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8eb95e0-4bf5-4c99-ba58-05abcf65c6b4" name="Default Changelist" comment="" />
+    <list default="true" id="b8eb95e0-4bf5-4c99-ba58-05abcf65c6b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/savecsv.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/jspsych-experimentscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/jspsych-experimentscreen.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -17,6 +28,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="8c9a7efb-1e35-4d53-8a6d-527a85efb0cc" name="localhost" />
+    </servers>
   </component>
   <component name="ProjectId" id="1Zth5aqGS1rCxrZNPM5OHz1MOm2" />
   <component name="ProjectViewState">
@@ -39,6 +55,9 @@
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\xampp\htdocs\CatConf_Experiment" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\scripts" />
       <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\images" />
@@ -77,6 +96,7 @@
       <workItem from="1598433522409" duration="4671000" />
       <workItem from="1598860455019" duration="3272000" />
       <workItem from="1598960804049" duration="32340000" />
+      <workItem from="1599401219194" duration="2800000" />
     </task>
     <servers />
   </component>
@@ -88,6 +108,42 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1500" y="455" key="FileChooserDialogImpl/0.0.2560.1400/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1598963141014" />
+    <state width="1877" height="346" key="GridCell.Tab.0.bottom" timestamp="1599403346748">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.0.bottom/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346748" />
+    <state width="1877" height="346" key="GridCell.Tab.0.center" timestamp="1599403346747">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.0.center/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346747" />
+    <state width="1877" height="346" key="GridCell.Tab.0.left" timestamp="1599403346747">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.0.left/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346747" />
+    <state width="1877" height="346" key="GridCell.Tab.0.right" timestamp="1599403346747">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.0.right/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346747" />
+    <state width="1877" height="346" key="GridCell.Tab.1.bottom" timestamp="1599403346748">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.1.bottom/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346748" />
+    <state width="1877" height="346" key="GridCell.Tab.1.center" timestamp="1599403346748">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.1.center/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346748" />
+    <state width="1877" height="346" key="GridCell.Tab.1.left" timestamp="1599403346748">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.1.left/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346748" />
+    <state width="1877" height="346" key="GridCell.Tab.1.right" timestamp="1599403346748">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="346" key="GridCell.Tab.1.right/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599403346748" />
+    <state x="794" y="464" key="NewPhpFileDialog" timestamp="1599401740830">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="794" y="464" key="NewPhpFileDialog/0.-1200.1920.1200/0.0.1920.1080@0.0.1920.1080" timestamp="1599401740830" />
     <state x="-1617" y="315" key="search.everywhere.popup" timestamp="1595944948670">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
