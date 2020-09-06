@@ -242,8 +242,14 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             jsPsych.finishTrial(response);
         }
 
-
-
+        // save data
+        dataObject.quickfire_stimulus.push(response.stimulus);
+        dataObject.quickfire_feedback.push(response.feedback);
+        dataObject.quickfire_response_time.push(response.response_time);
+        dataObject.quickfire_delta_response_time.push(response.delta_response_time);
+        dataObject.quickfire_delta_feedback_time.push(response.delta_feedback_time);
+        dataObject.quickfire_response.push(response.button);
+        dataObject.quickfire_response_button_label.push(response.button_label);
     };
 
     return plugin;

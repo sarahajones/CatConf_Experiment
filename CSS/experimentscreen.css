@@ -2,6 +2,7 @@
 .gameboard {
     width: 800px;
     height: 600px;
+    margin-block-start: 30px;
     background-color: lightskyblue;
     position: relative;
     animation: glowy-box 1s infinite alternate;
@@ -130,8 +131,8 @@
     height: 100px;
     background-color: slategrey;
     position: absolute;
-    --smooth-corners: 3;
-    top: 0;
+    --smooth-corners: 2;
+    top: 30px;
 }
 
 .grassbank {
@@ -141,10 +142,11 @@
     position: absolute;
     bottom: 0;
 }
-
-
+.slider_area{
+    display: flex;
+}
 .slider{
-    display: block;
+    display: flex;
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
     margin-top: 15px;
@@ -187,9 +189,9 @@
     border-bottom: 1px dotted black;
 }
 
-.confidenceQuestion {
+#confidenceQuestion {
+    font-size: x-large;
     font-family: europa, Arial, Helvetica, sans-serif;
-    width: 70vmin;
     text-align: center;
     color: white;
     line-height: 1.2em;

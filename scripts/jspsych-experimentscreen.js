@@ -85,12 +85,16 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             location: trial.location,
             start_time: performance.now(),
             response_time: null,
+            confidence_response_time: null,
             end_time: null,
             delta_response_time: null,
+            delta_confidence_response_time: null,
             delta_feedback_time: null,
             button: null,
             button_label: trial.choices,
             confidence: null,
+            correct: null,
+            incorrect: null,
         };
 
 
@@ -163,6 +167,30 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             response.button = choice;
             response.button_label = trial.choices[choice];
 
+            //figure out scoring
+            if (trial.spaceship_class === 'blue'){
+                if (response.button_label === 'Zap'){
+                    response.correct = 1;
+                    response.incorrect = 0;
+                } else {
+                    response.correct = 0;
+                    response.incorrect = 1;
+                }
+            } else if(trial.spaceship_class === 'orange'){
+                if (response.button_label === 'Zap'){
+                    response.correct = 0;
+                    response.incorrect = 1;
+                } else {
+                    response.correct = 1;
+                    response.incorrect = 0;
+                }
+            }
+            console.log(response.correct);
+            console.log(response.incorrect);
+
+            Block_score_correct.push(response.correct);
+            Block_score_incorrect.push(response.incorrect);
+
             // disable all the buttons after a response
             var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
             for (var i = 0; i < btns.length; i++) {
@@ -182,45 +210,37 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
          */
         function getConfidence() {
 
-            //clear buttons and realign botton group to fit confidence question
-            buttons.innerHTML = '';
-            buttons.style.marginBlockStart = '20px';
+            //clear buttons and realign button group to fit confidence question
+            buttons.innerHTML = `
+<div id = 'confidence'>
+<p class='confidenceQuestion' id="confidenceQuestion" fontsize="xx-large">
+<strong>How confident are you of your choice?</strong>
+</p>
 
-            //define confidence question here
-            var confidenceQuestion = document.createElement("string");
-            confidenceQuestion.classList.add('confidenceQuestion');
-            confidenceQuestion.innerHTML = "<b>How confident are you of your choice?</b>";
-            confidenceQuestion.style.fontSize= '30px'
-            buttons.appendChild(confidenceQuestion);
+<div class="slider_area">
+    <div class="label"> Sure<br>INCORRECT </div>
+    <input type="range" class="slider" id="slider" min=0 max=100 step="1" value="50"/>
+    <div class="label"> Sure<br>CORRECT </div>
+</div>
+<div id="experiment-btn" class="experiment-btn" data-disabled="1">Confirm</div>
+</div>
+            `;
 
             //insert a slider for the confidence report
-            var confidenceSlider = document.createElement("input");
-            confidenceSlider.classList.add('slider');
-            confidenceSlider.id = "slider";
-            confidenceSlider.type = 'range';
-            confidenceSlider.min = "0";
-            confidenceSlider.max = "100";
-            confidenceSlider.step = "1";
-            confidenceSlider.value = "50";
-            confidenceSlider.label = "Sure INCORRECT";
-            //confidenceSlider.onchange(confidenceSlider.value=(this.value()));
-
+            var confidenceSlider = document.getElementById('slider');
             confidenceSlider.requireInteraction = true;
-            buttons.appendChild(confidenceSlider);
+            confidenceSlider.addEventListener("change", ()=>document.getElementById('experiment-btn').dataset.disabled='0')
 
-            var tooltips = document.createElement("div");
-            tooltips.classList.add('tooltip');
-            confidenceSlider.appendChild(tooltips);
+            var confirm = document.getElementById('experiment-btn');
+            confirm.style.backgroundColor= 'rgba(155, 242, 236, .7)'
+            confidenceSlider.addEventListener('change',()=>document.getElementById('experiment-btn').style.backgroundColor = 'rgba(155, 242, 236, 1)')
+            confirm.addEventListener('click',(e)=> {
+                if(e.currentTarget.dataset.disabled === '0')
+                    end_trial()
+            });
 
-            var confirm = document.createElement('div');
-            confirm.id = 'experiment-btn';
-            confirm.classList.add('experiment-btn');
-            confirm.style.position = 'flex';
-            confirm.innerHTML = 'Confirm';
-            buttons.appendChild(confirm);
-            confirm.addEventListener('click', end_trial);
-
-
+            response.confidence_response_time = performance.now();
+            response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
             response.confidence = display_element.querySelector('input.slider').value;
         }
 
@@ -238,6 +258,23 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
             // move on to the next trial
             jsPsych.finishTrial(response);
+
+            //save data
+            dataObject.testtrial_stimulus.push(response.stimulus);
+            dataObject.testtrial_trial_type.push(response.trial_type);
+            dataObject.testtrial_distribution_name.push(response.distribution_name);
+            dataObject.testtrial_spaceship_class.push(response.stimulus);
+            dataObject.testtrial_stimulus.push(response.stimulus);
+            dataObject.testtrial_stimulus_location.push(response.location);
+            dataObject.testtrial_response_time.push(response.response_time);
+            dataObject.testtrial_confidence_response_time.push(response.confidence_response_time);
+            dataObject.testtrial_delta_response_time.push(response.delta_response_time);
+            dataObject.testtrial_delta_confidence_response_time.push(response.delta_confidence_response_time);
+            dataObject.testtrial_response.push(response.button);
+            dataObject.testtrial_response_button_label.push(response.button_label);
+            dataObject.testtrial_confidence.push(response.confidence);
+            dataObject.testtrial_correct.push(response.correct);
+            dataObject.testtrial_incorrect.push(response.incorrect);
         }
     }
     ;

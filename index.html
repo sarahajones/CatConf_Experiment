@@ -26,8 +26,9 @@
     <script src="scripts/jspsych-quickfire.js"></script>
     <script src="scripts/jspsych-experimentscreen.js"></script>
     <script src="scripts/jspsych-demographics.js"></script>
+    <script src="scripts/jspsych-feedback.js"></script>
 
-    <script src="scripts/trial.js"></script>
+    <!--custom JS: helpers-->
     <script src="scripts/helper-functions.js"></script>
     <script src="scripts/box-muller.js"></script>
     <script src="scripts/gaussian.js"></script>
@@ -65,6 +66,7 @@
     ];
 
     var dataObject = {
+        //set up and intro
         CUREC_ID: CUREC_ID,
         PIS_version: PIS_version,
         PIS_date: PIS_date,
@@ -72,6 +74,44 @@
         consent_version: consent_version,
         consent_date: consent_date,
         consented: undefined,
+
+        //demographics
+        age: undefined,
+        gender: undefined,
+        handedness: undefined,
+        demographicsRTs: [],
+        demographics_duration: 0,
+
+        // quickfire trials
+        quickfire_stimulus: [],
+        quickfire_feedback: [],
+        quickfire_response_time: [],
+        quickfire_delta_response_time: [],
+        quickfire_delta_feedback_time: [],
+        quickfire_response:[],
+        quickfire_response_button_label: [],
+
+        //fast drops
+
+
+        // test trials
+        testtrial_stimulus: [],
+        testtrial_trial_type: [],
+        testtrial_distribution_name: [],
+        testtrial_spaceship_class: [],
+        testtrial_stimulus: [],
+        testtrial_stimulus_location: [],
+        testtrial_response_time: [],
+        testtrial_confidence_response_time: [],
+        testtrial_delta_response_time: [],
+        testtrial_delta_confidence_response_time: [],
+        testtrial_delta_feedback_time: [],
+        testtrial_response: [],
+        testtrial_response_button_label: [],
+        testtrial_confidence: [],
+        testtrial_correct: [],
+        testtrial_incorrect: [],
+
     };
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENTAL PAGES */
@@ -143,9 +183,9 @@
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*QUICK FIRE ROUND*/
+    /*QUICK FIRE ROUND - TRIAL NUMBER 20*/
     const quickfire_timeline = [];
-    const trial_number = 6; // No magic numbers! :)
+    const trial_number = 20; // No magic numbers! :)
 
     // construct deck
     quickfire_stimuli = [
@@ -217,9 +257,9 @@
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*FAST DROP LEARNING*/
+    /*FAST DROP LEARNING - TRIAL NUMBER 50*/
     const fastdrop_timeline = [];
-    const fastdrop_number = 10; //amount of drops
+    const fastdrop_number = 50; //amount of drops
 
     const fastdrop_distribution = [
         {name: 'narrow', value: gaussian(200, 5000), color: 'blue'},
@@ -282,26 +322,29 @@
         splash_3
     ];
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*TEST TRIALS*/
-    const cloud_timeline = [];
+    /*TEST TRIALS 1*/
+    const cloud1_timeline = [];
 
-    const drop_number = 4; //amount of drops
+    let Block_score_correct = [];
+    let Block_score_incorrect = [];
 
-    const distribution = [
+    const drop_number1 = 25; //amount of drops
+
+    const distribution1 = [
         {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
         {name: 'wide', value: gaussian(500, 10000), color: 'red'}
     ];
 
     // create deck count for spaceship drops
-    const spaceship_deck_count = drop_number / distribution.length;
+    const spaceship_deck_count1 = drop_number1 / distribution1.length;
 
     // shuffle deck
-    const spaceship_stimuli = shuffle_shoe(distribution, spaceship_deck_count);
+    const spaceship_stimuli1 = shuffle_shoe(distribution1, spaceship_deck_count1);
 
 
     // on each trial loop through stimuli info, pull values and pass to plugin
-    spaceship_stimuli.forEach(s => {
-        cloud_timeline.push({
+    spaceship_stimuli1.forEach(s => {
+        cloud1_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 5000,
             choices: ['Retrieve', 'Zap'],
@@ -314,15 +357,136 @@
         })
     });
 
+    var Block1_ScoreCorrect = Block_score_correct;
+    var Block1_ScoreIncorrect = Block_score_incorrect;
+    var Block1_total = Block_score_correct;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback1 = {
+        type: "jspsych-feedback",
+        isFirstTime: true,
+        correct: Block1_ScoreCorrect,
+        incorrect: Block1_ScoreIncorrect,
+        total: Block1_total,
+        trials: drop_number1,
+    };
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*TEST TRIALS 2*/
+    const cloud2_timeline = [];
+
+    Block_score_correct = [];
+    Block_score_incorrect = [];
+
+    const drop_number2 = 25; //amount of drops
+
+    const distribution2 = [
+        {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'red'}
+    ];
+
+    // create deck count for spaceship drops
+    const spaceship_deck_count2 = drop_number2 / distribution2.length;
+
+    // shuffle deck
+    const spaceship_stimuli2 = shuffle_shoe(distribution2, spaceship_deck_count2);
+
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    spaceship_stimuli2.forEach(s => {
+        cloud2_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_duration: 5000,
+            choices: ['Retrieve', 'Zap'],
+            location: s.value.random(1)[0],
+            stimulus_duration: 3000,
+            spaceship_class: s.color,
+            distribution_name: s.name,
+            confidence_trial: true,
+            trial_type: 'unclear'
+        })
+    });
+
+    var Block2_ScoreCorrect = Block_score_correct;
+    var Block2_ScoreIncorrect = Block_score_incorrect;
+    var Block2_total = Block_score_correct;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback2 = {
+        type: "jspsych-feedback",
+        isFirstTime: true,
+        correct: Block2_ScoreCorrect,
+        incorrect: Block2_ScoreIncorrect,
+        total: Block2_total,
+        trials: drop_number2,
+    };
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*TEST TRIALS 3*/
+    const cloud3_timeline = [];
+
+    Block_score_correct = [];
+    Block_score_incorrect = [];
+
+    const drop_number3 = 25; //amount of drops
+
+    const distribution3 = [
+        {name: 'narrow', value: gaussian(200, 5000), color: 'greenyellow'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'red'}
+    ];
+
+    // create deck count for spaceship drops
+    const spaceship_deck_count3 = drop_number3 / distribution3.length;
+
+    // shuffle deck
+    const spaceship_stimuli3 = shuffle_shoe(distribution3, spaceship_deck_count3);
+
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    spaceship_stimuli3.forEach(s => {
+        cloud3_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_duration: 5000,
+            choices: ['Retrieve', 'Zap'],
+            location: s.value.random(1)[0],
+            stimulus_duration: 3000,
+            spaceship_class: s.color,
+            distribution_name: s.name,
+            confidence_trial: true,
+            trial_type: 'unclear'
+        })
+    });
+
+    var Block3_ScoreCorrect = Block_score_correct;
+    var Block3_ScoreIncorrect = Block_score_incorrect;
+    var Block3_total = Block_score_correct;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback3 = {
+        type: "jspsych-feedback",
+        isFirstTime: true,
+        correct: Block3_ScoreCorrect,
+        incorrect: Block3_ScoreIncorrect,
+        total: Block3_total,
+        trials: drop_number3,
+    };
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* Set up timeline and launch experiment*/
 
     const timeline = [
-        ...intro_timeline,
-        ...quickfire_timeline,
-        ...interim1_timeline,
-        ...fastdrop_timeline,
-        ...interim2_timeline,
-        ...cloud_timeline,
+        //...intro_timeline,
+        //...quickfire_timeline,
+        //...interim1_timeline,
+        //...fastdrop_timeline,
+        //...interim2_timeline,
+        ...cloud1_timeline,
+        //...feedback1,
+        ...cloud2_timeline,
+        //...feedback2,
+        ...cloud3_timeline,
+        //...feedback3
     ];
     console.log({timeline});
 
