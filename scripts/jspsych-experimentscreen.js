@@ -97,7 +97,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             incorrect: null,
         };
 
-
+        console.log(trial.spaceship_class)
         //draw "canvas" to screen
         var canvasDiv = document.createElement("div");
         canvasDiv.id = "jspsych-experimentscreen";
@@ -136,7 +136,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             buttons.appendChild(button);
             button.addEventListener(
                 'click',
-                (e) => afterResponse(parseInt(c))
+                (e) => afterResponse(parseInt(i))
             );
         });
 
@@ -165,10 +165,11 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             response.response_time = performance.now();
             response.delta_response_time = response.response_time - response.start_time;
             response.button = choice;
+            console.log(choice)
             response.button_label = trial.choices[choice];
-
+            console.log(response.button_label)
             //figure out scoring
-            if (trial.spaceship_class === 'blue'){
+            if (trial.spaceship_class === 'blue1'){
                 if (response.button_label === 'Zap'){
                     response.correct = 1;
                     response.incorrect = 0;
@@ -176,7 +177,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                     response.correct = 0;
                     response.incorrect = 1;
                 }
-            } else if(trial.spaceship_class === 'orange'){
+            } else if(trial.spaceship_class === 'orange1'){
                 if (response.button_label === 'Zap'){
                     response.correct = 0;
                     response.incorrect = 1;
@@ -185,12 +186,11 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                     response.incorrect = 0;
                 }
             }
-            console.log(response.correct);
-            console.log(response.incorrect);
+
 
             Block_score_correct.push(response.correct);
             Block_score_incorrect.push(response.incorrect);
-
+            console.log(Block_score_correct)
             // disable all the buttons after a response
             var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
             for (var i = 0; i < btns.length; i++) {
@@ -241,7 +241,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
             response.confidence_response_time = performance.now();
             response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
-            response.confidence = display_element.querySelector('input.slider').value;
+            response.confidence = display_element.querySelector('input.slider').value.now();
         }
 
         /**
