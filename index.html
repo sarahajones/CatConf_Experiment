@@ -88,7 +88,7 @@
         quickfire_response_time: [],
         quickfire_delta_response_time: [],
         quickfire_delta_feedback_time: [],
-        quickfire_response:[],
+        quickfire_response: [],
         quickfire_response_button_label: [],
 
         //fast drops
@@ -205,9 +205,9 @@
             const bad = 'images/bomb.png';
             let r;
 
-            if(/orange/i.test(s)) {
+            if (/orange/i.test(s)) {
                 r = Math.random() < outcome_chance ? good : bad;
-            } else if(/blue/i.test(s)) {
+            } else if (/blue/i.test(s)) {
                 r = Math.random() > outcome_chance ? good : bad;
             } else {
                 console.warn(`Unrecognised spaceship colour in ${s}.`);
@@ -219,7 +219,7 @@
             }
         });
 
-    for(let i=1; i <= trial_number; i++) {
+    for (let i = 1; i <= trial_number; i++) {
         const trial_details = trial_contents.pop();
         quickfire_timeline.push({
             type: 'jspsych-quickfire',
@@ -275,7 +275,7 @@
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli.forEach(s => {
-        if (s.color ==='blue'){
+        if (s.color === 'blue') {
             s.spaceship_image = "../images/blue_spaceship.png"
         } else {
             s.spaceship_image = "../images/orange_spaceship.png"
@@ -308,7 +308,7 @@
         isSixthTime: true
     };
 
-    var splash_3= {
+    var splash_3 = {
         type: "jspsych-splashmessage",
         trial_type: 'Next',
         //display_duration: 3500,
@@ -424,7 +424,7 @@
     var feedback2_timeline = [];
 
     let correct2 = Block2_ScoreCorrect.reduce((a, b) => a + b);
-   let incorrect2= Block2_ScoreIncorrect.reduce((a, b) => a + b);
+    let incorrect2 = Block2_ScoreIncorrect.reduce((a, b) => a + b);
 
     var feedback2 = {
         type: "jspsych-feedback",
@@ -482,7 +482,7 @@
     var feedback3_timeline = [];
 
     let correct3 = Block3_ScoreCorrect.reduce((a, b) => a + b);
-    let incorrect3= Block3_ScoreIncorrect.reduce((a, b) => a + b);
+    let incorrect3 = Block3_ScoreIncorrect.reduce((a, b) => a + b);
 
     var feedback3 = {
         type: "jspsych-feedback",
