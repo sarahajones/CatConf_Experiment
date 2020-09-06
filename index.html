@@ -493,6 +493,8 @@
         // Fetch all the experiment data and send it to the server
         const data = {
             user_id: id,
+            experiment: 'zapBox',
+            version: [0, 1, 0],
             csv: jsPsych.data.get().csv()
         };
 

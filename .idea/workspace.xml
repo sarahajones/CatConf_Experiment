@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8eb95e0-4bf5-4c99-ba58-05abcf65c6b4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/savecsv.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/jspsych-experimentscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/jspsych-experimentscreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savecsv.php" beforeDir="false" afterPath="$PROJECT_DIR$/savecsv.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +94,7 @@
       <workItem from="1598433522409" duration="4671000" />
       <workItem from="1598860455019" duration="3272000" />
       <workItem from="1598960804049" duration="32340000" />
-      <workItem from="1599401219194" duration="2800000" />
+      <workItem from="1599401219194" duration="4194000" />
     </task>
     <servers />
   </component>
