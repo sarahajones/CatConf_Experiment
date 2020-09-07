@@ -42,7 +42,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -54,11 +54,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+<<<<<<< Updated upstream
       <recent name="F:\xampp\htdocs\CatConf_Experiment" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+=======
+>>>>>>> Stashed changes
       <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\scripts" />
+      <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\scripts\external" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\images" />
+      <recent name="C:\Users\saraha\Documents\GitHub\CatConf_Experiment\scripts" />
     </key>
   </component>
   <component name="RunManager">
@@ -93,8 +100,12 @@
       <workItem from="1597657156883" duration="20426000" />
       <workItem from="1598433522409" duration="4671000" />
       <workItem from="1598860455019" duration="3272000" />
+<<<<<<< Updated upstream
       <workItem from="1598960804049" duration="32340000" />
       <workItem from="1599401219194" duration="4194000" />
+=======
+      <workItem from="1598960804049" duration="61614000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -102,6 +113,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1010" y="447" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599383280180">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1010" y="447" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400/-2560.0.2560.1400@0.0.2560.1400" timestamp="1599383280180" />
     <state x="-1500" y="455" key="FileChooserDialogImpl" timestamp="1598963141014">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>

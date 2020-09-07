@@ -38,13 +38,48 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
                 '<h1>Round 2 complete - take a short break.</h1>'
             var button_label =
                 '<div>Press to continue</div>'
+        }
+        else if(trial.isThirdTime)
+        {var tutorial_text =
+            '<p> Another round done - let\'s see how your scores are doing. ' +
+            'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
+            '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
+            'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
+            var header_text =
+                '<h1>Round 3 complete - take a short break.</h1>'
+            var button_label =
+                '<div>Press to continue</div>'
         } else if(trial.isLastTime) {
             var tutorial_text =
-                '<p> </p> ';
+                '<p> ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                ' ' +
+                '</p> ';
             var header_text =
-                '<h1>The study is now over - you may exit the study screen.</h1>'
+                '<h1>The study is now over - you may exit the study screen.' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '' +
+                '</h1>';
             var button_label =
-                '<div>Press to finish the study</div>'
+                '<div> Please close the experiment screen </div>'
         }
 
         // create page elements
