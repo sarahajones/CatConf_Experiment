@@ -64,55 +64,7 @@
         'images/bomb.png' +
         'images/coins.png'
     ];
-    var dataObject = [];
-    dataObject = {
-        //set up and intro
-        CUREC_ID: CUREC_ID,
-        PIS_version: PIS_version,
-        PIS_date: PIS_date,
-        PIS_acknowledged: undefined,
-        consent_version: consent_version,
-        consent_date: consent_date,
-        consented: undefined,
 
-        //demographics
-        age: undefined,
-        gender: undefined,
-        handedness: undefined,
-        demographicsRTs: [],
-        demographics_duration: 0,
-
-        // quickfire trials
-        quickfire_stimulus: [],
-        quickfire_feedback: [],
-        quickfire_response_time: [],
-        quickfire_delta_response_time: [],
-        quickfire_delta_feedback_time: [],
-        quickfire_response: [],
-        quickfire_response_button_label: [],
-
-        //fast drops
-
-
-        // test trials
-        testtrial_stimulus: [],
-        testtrial_trial_type: [],
-        testtrial_distribution_name: [],
-        testtrial_spaceship_class: [],
-        testtrial_stimulus: [],
-        testtrial_stimulus_location: [],
-        testtrial_response_time: [],
-        testtrial_confidence_response_time: [],
-        testtrial_delta_response_time: [],
-        testtrial_delta_confidence_response_time: [],
-        testtrial_delta_feedback_time: [],
-        testtrial_response: [],
-        testtrial_response_button_label: [],
-        testtrial_confidence: [],
-        testtrial_correct: [],
-        testtrial_incorrect: [],
-
-    };
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENTAL PAGES */
     //splash loading screen
@@ -171,21 +123,21 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
-        splash_0,
-        PIS,
-        consent,
-        splash_0,
-        demographics,
-        tutorial_1,
-        tutorial_2,
-        tutorial_3,
-        splash_1,
+        splash_0, //happy
+        PIS, //saving?
+        consent, //saving?
+        splash_0, //happy
+        demographics, //happy but glowy animation wrong
+        tutorial_1, //happy but text and image
+        tutorial_2, //happy but text and image
+        tutorial_3, //happy but text and image
+        splash_1, //happy
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*QUICK FIRE ROUND - TRIAL NUMBER 20*/
+    /*QUICK FIRE ROUND - TRIAL NUMBER 25*/
     const quickfire_timeline = [];
-    const trial_number = 20; // No magic numbers! :)
+    const trial_number = 25; // No magic numbers! :)
 
     // construct deck
     quickfire_stimuli = [
@@ -328,7 +280,7 @@
     let Block_score_correct = [];
     let Block_score_incorrect = [];
 
-    const drop_number1 = 3; //amount of drops
+    const drop_number1 = 30; //amount of drops
 
     const distribution1 = [
         {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
@@ -357,41 +309,92 @@
         })
     });
 
-    // var Block1_ScoreCorrect = Block_score_correct;
-    // var Block1_ScoreIncorrect = Block_score_incorrect;
-    //
-    //
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // /* block feedback */
-    // var feedback1_timeline = [];
-    //
-    // let correct = Block1_ScoreCorrect.reduce((a, b) => a + b);
-    // let incorrect = Block1_ScoreIncorrect.reduce((a, b) => a + b);
-    //
-    // var feedback1 = {
-    //     type: "jspsych-feedback",
-    //     isFirstTime: true,
-    //     correct: correct,
-    //     incorrect: incorrect,
-    //     total: correct,
-    //     trials: drop_number1,
-    // };
-    //
-    // feedback1_timeline = [
-    //     feedback1
-    // ];
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback1_timeline = [];
+
+    var correct = sum(Block_score_correct);
+    var incorrect = sum(Block_score_incorrect);
+
+    var feedback1 = {
+        type: "jspsych-feedback",
+        isFirstTime: true,
+        correct: correct,
+        incorrect: incorrect,
+        trials: drop_number1,
+    };
+
+    feedback1_timeline = [
+        feedback1
+    ];
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*Next set of instructions and splash message while loading screen*/
+
+    var tutorial_7 = {
+        type: "jspsych-tutorial",
+        isSeventhTime: true
+    };
+
+    const interim3_timeline = [
+        splash_2,
+        tutorial_7,
+        splash_3
+    ];
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*FAST DROP LEARNING - TRIAL NUMBER 50*/
+    const fastdrop2_timeline = [];
+    const fastdrop_number2 = 50; //amount of drops
+
+    const fastdrop_distribution2 = [
+        {name: 'narrow', value: gaussian(500, 5000), color: 'blue'},
+        {name: 'wide', value: gaussian(200, 10000), color: 'orange'}
+    ];
+
+    // create deck count for spaceship drops
+    const fastdrop_deck_count2 = fastdrop_number2 / fastdrop_distribution2.length;
+
+    // shuffle deck
+    const fastdrop_stimuli2 = shuffle_shoe(fastdrop_distribution2, fastdrop_deck_count2);
+
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli2.forEach(s => {
+        if (s.color === 'blue') {
+            s.spaceship_image = "../images/blue_spaceship.png"
+        } else {
+            s.spaceship_image = "../images/orange_spaceship.png"
+        }
+        fastdrop2_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_type: 'clear',
+            confidence_trial: false,
+            trial_duration: 2000,
+            choices: [],
+            location: s.value.random(1)[0],
+            stimulus_duration: 1500,
+            spaceship_class: s.color,
+            spaceship_image: s.spaceship_image,
+            distribution_name: s.name,
+            banner: 1,
+            banner_text: 'Please watch carefully'
+        })
+    });
+    const interim_timeline = [
+        splash_0,
+        splash_3
+    ]
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 2*/
     const cloud2_timeline = [];
 
     Block_score_correct = [];
     Block_score_incorrect = [];
 
-    const drop_number2 = 25; //amount of drops
+    const drop_number2 = 30; //amount of drops
 
     const distribution2 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
+        {name: 'narrow', value: gaussian(500, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(200, 10000), color: 'orange1'}
     ];
 
     // create deck count for spaceship drops
@@ -415,19 +418,80 @@
             trial_type: 'unclear'
         })
     });
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback2_timeline = [];
+
+    var correct2 = sum(Block_score_correct);
+    var incorrect2 = sum(Block_score_incorrect);
+
+    var feedback2 = {
+        type: "jspsych-feedback",
+        isSecondTime: true,
+        correct: correct2,
+        incorrect: incorrect2,
+        trials: drop_number2,
+    };
+
+    feedback2_timeline = [
+        feedback2
+    ];
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*Next set of instructions and splash message while loading screen*/
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*FAST DROP LEARNING - TRIAL NUMBER 50*/
+    const fastdrop3_timeline = [];
+    const fastdrop_number3 = 50; //amount of drops
+
+    const fastdrop_distribution3 = [
+        {name: 'narrow', value: gaussian(350, 5000), color: 'blue'},
+        {name: 'wide', value: gaussian(450, 10000), color: 'orange'}
+    ];
+
+    // create deck count for spaceship drops
+    const fastdrop_deck_count3 = fastdrop_number3/ fastdrop_distribution3.length;
+
+    // shuffle deck
+    const fastdrop_stimuli3 = shuffle_shoe(fastdrop_distribution3, fastdrop_deck_count3);
+
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli3.forEach(s => {
+        if (s.color === 'blue') {
+            s.spaceship_image = "../images/blue_spaceship.png"
+        } else {
+            s.spaceship_image = "../images/orange_spaceship.png"
+        }
+        fastdrop3_timeline.push({
+            type: "jspsych-experimentscreen",
+            trial_type: 'clear',
+            confidence_trial: false,
+            trial_duration: 2000,
+            choices: [],
+            location: s.value.random(1)[0],
+            stimulus_duration: 1500,
+            spaceship_class: s.color,
+            spaceship_image: s.spaceship_image,
+            distribution_name: s.name,
+            banner: 1,
+            banner_text: 'Please watch carefully'
+        })
+    });
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 3*/
     const cloud3_timeline = [];
 
     Block_score_correct = [];
     Block_score_incorrect = [];
 
-    const drop_number3 = 25; //amount of drops
+    const drop_number3 = 30; //amount of drops
 
     const distribution3 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
+        {name: 'narrow', value: gaussian(350, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(450, 10000), color: 'orange1'}
     ];
 
     // create deck count for spaceship drops
@@ -451,22 +515,60 @@
             trial_type: 'unclear'
         })
     });
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* block feedback */
+    var feedback3_timeline = [];
 
+    var correct3 = sum(Block_score_correct);
+    var incorrect3 = sum(Block_score_incorrect);
+
+    var feedback3 = {
+        type: "jspsych-feedback",
+        isSecondTime: true,
+        correct: correct3,
+        incorrect: incorrect3,
+        trials: drop_number3,
+    };
+
+    feedback3_timeline = [
+        feedback3
+    ];
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*sign off experiment*/
+    var end_timeline = [];
+
+    var end_experiment = {
+        type: "jspsych-feedback",
+        isLastTime: true,
+    };
+
+    end_timeline = [
+        splash_2,
+        end_experiment
+    ];
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Set up timeline and launch experiment*/
 
     const timeline = [
-        //...intro_timeline,
-        //...quickfire_timeline,
-        //...interim1_timeline,
-        //...fastdrop_timeline,
-        //...interim2_timeline,
-        ...cloud1_timeline,
-        //...feedback1_timeline,
-        // ...cloud2_timeline,
-        //...feedback2_timeline,
-        // ...cloud3_timeline,
-        //...feedback3_timeline
+        ...intro_timeline, //happy
+        ...quickfire_timeline, //happy
+        ...interim1_timeline, //gif will need updating
+        ...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
+        ...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
+        ...cloud1_timeline, //happy - slider labels could use more padding but okay
+        ...feedback1_timeline, //BUGGED scores not calculating
+        ...interim3_timeline, //little bit messy on screen but likely updated
+        ...fastdrop2_timeline, //animation needs minor tweak to pull out overlap...
+        ...interim_timeline,
+        ...cloud2_timeline, //happy - slider labels could use more padding but okay
+        ...feedback2_timeline,//BUGGED scores not calculating
+        ...interim3_timeline,//little bit messy on screen but likely updated
+        ...fastdrop3_timeline, //animation needs minor tweak to pull out overlap...
+        ...interim_timeline,
+        ...cloud3_timeline, //happy - slider labels could use more padding but okay
+        ...feedback3_timeline, //BUGGED scores not calculating
+        ...end_timeline
+
     ];
     console.log({timeline});
 

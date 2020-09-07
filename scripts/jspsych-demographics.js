@@ -32,6 +32,17 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     // clear display element and apply page default styles
     display_element.innerHTML = '';
 
+    const response = {
+      participantAge: null,
+      participantGender: null,
+      participantHandedness: null,
+      startTime: null,
+      ageRT: null,
+      genderRT: null,
+      handednessRT: null
+
+    };
+
 
     // make sure the page starts at the top each time
     removeHash();
@@ -134,10 +145,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     $('.small-button').css('display', 'none');
 
     // start the timers
-    var startTime = Date.now();
-    var ageRT;
-    var genderRT;
-    var handednessRT;
+    response.startTime = Date.now();
 
     // Section 1 event listeners
     $('#age').on('change input', function () {
@@ -149,7 +157,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed1').on('click', function() {
-      ageRT = calculateRT(startTime, Date.now());
+      response.ageRT = calculateRT(response.startTime, Date.now());
       $('html, body').animate({
         scrollTop: $('#demographics-section2').offset().top
       }, 1000);
@@ -163,7 +171,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed2').on('click', function() {
-      genderRT = calculateRT(startQuestion, Date.now());
+      response.genderRT = calculateRT(startQuestion, Date.now());
       $('html, body').animate({
         scrollTop: $('#demographics-section3').offset().top
       }, 1000);
@@ -176,19 +184,11 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed3').on('click', function() {
-      handednessRT = calculateRT(startQuestion, Date.now());
-      var totalRT = calculateRT(startTime, Date.now());
-      var participantAge = document.getElementById('age').value;
-      var participantGender = document.getElementById('gender').value;
-      var participantHandedness = document.getElementById('handedness').value;
-
-      // save data
-      dataObject['age'] = parseInt(participantAge, 10);
-      dataObject['gender'] = participantGender;
-      dataObject['handedness'] = participantHandedness;
-      dataObject['demographicsRTs'] = [ageRT, genderRT, handednessRT];
-      dataObject['demographics_duration'] = totalRT;
-      console.log(dataObject);
+      response.handednessRT = calculateRT(startQuestion, Date.now());
+      response.totalRT = calculateRT(response.startTime, Date.now());
+      response.participantAge = document.getElementById('age').value;
+      response.participantGender = document.getElementById('gender').value;
+      response.participantHandedness = document.getElementById('handedness').value;
 
       // finish
       jsPsych.finishTrial();

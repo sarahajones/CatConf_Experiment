@@ -14,25 +14,38 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         // clear display element and apply default page styles
         display_element.innerHTML = '';
 
+        console.log(trial.correct)
+
         if (trial.isFirstTime) {
             var tutorial_text =
                 '<p> Well done on completing the first round, time to see how you did! ' +
-                'A correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
+                'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
                 '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
-                'This means you got a total of <strong>' + trial.total + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
+                'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
             var header_text =
                 '<h1>Round 1 complete - take a short break. </h1>'
+
+            var button_label =
+                '<div>Press to continue</div>'
+            var imageID = 'demo_instruction';
         } else if(trial.isSecondTime)
         {var tutorial_text =
-            '<p> Let\'s start with some "quick-fire" rounds to get things moving. ' +
-            'You will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
-            'Press "retrieve" to collect the contents -  "zap" the package to destroy the contents. </p>' +
-            '</p>Remember, packages could contain coins or may hold bombs that will lose you coins from your jar. ' +
-            'You must decide whether or not to retrieve the package that has been dropped. This game round will help teach you about the different spaceships and their packages. </p>';
+            '<p> Another round done - let\'s see how your scores are doing. ' +
+            'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
+            '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
+            'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
             var header_text =
-                '<h1></h1>'
+                '<h1>Round 2 complete - take a short break.</h1>'
+            var button_label =
+                '<div>Press to continue</div>'
+        } else if(trial.isLastTime) {
+            var tutorial_text =
+                '<p> </p> ';
+            var header_text =
+                '<h1>The study is now over - you may exit the study screen.</h1>'
+            var button_label =
+                '<div>Press to finish the study</div>'
         }
-
 
         // create page elements
         var intro = createGeneral(
@@ -65,10 +78,11 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             logo,
             instructHeader,
             'div',
-            '',
+            'header-logo',
             '',
             ''
         );
+
         var instructText = createGeneral(
             instructText,
             instructHeader,
@@ -91,14 +105,13 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             'button',
             'large-button',
             'tutorial-submit',
-            '<div>Press to continue</div>'
+            button_label
         );
 
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
             // save the data to data object
-            dataObject['tutorial_acknowledged']   = true;
             jsPsych.finishTrial();
             return;
 

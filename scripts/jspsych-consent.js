@@ -172,7 +172,6 @@ jsPsych.plugins['jspsych-consent'] = (function () {
         // define what happens when people click on the final submit button
         instructAcknowledge.onclick = function() {
             // save the data to jsPsych data object
-            dataObject['consented'] = true;
             jsPsych.finishTrial();
             return;
         };

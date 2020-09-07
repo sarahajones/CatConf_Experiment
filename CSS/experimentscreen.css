@@ -36,8 +36,8 @@
     position: relative;
     left: -50px;
     animation:
-            flying .5s ease-out .2s forwards,
-            hides .75s ease-out forwards;
+            flying 3s ease-out .2s forwards,
+            hides .4s ease-out .05s forwards;
 
 }
 
@@ -50,8 +50,8 @@
     position: relative;
     left: -50px;
     animation:
-            flying .5s ease-out .2s forwards,
-            hides .75s ease-out forwards;
+            flying 3s ease-out .2s forwards,
+            hides .4s ease-out .05s forwards;
 
 }
 

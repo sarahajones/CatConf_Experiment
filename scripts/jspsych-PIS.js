@@ -173,7 +173,6 @@ jsPsych.plugins["jspsych-PIS"] = (function() {
         // define what happens when people click on the final submit button
         $('#PIS-submit').on('click', function () {
             // save the data to data object
-            dataObject['PIS_acknowledged'] = true;
             jsPsych.finishTrial();
             return;
         });

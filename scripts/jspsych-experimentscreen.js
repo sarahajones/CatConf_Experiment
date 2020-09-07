@@ -77,8 +77,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
         display_element.innerHTML = '';
 
         const response = {
-            stimulus: null,
-            number: null,
+            stimulus: trial.spaceship_class,
             trial_type: trial.trial_type,
             distribution_name: trial.distribution_name,
             spaceship_class: trial.spaceship_class,
@@ -190,7 +189,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
             Block_score_correct.push(response.correct);
             Block_score_incorrect.push(response.incorrect);
-            console.log(Block_score_correct)
+
             // disable all the buttons after a response
             var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
             for (var i = 0; i < btns.length; i++) {
@@ -257,6 +256,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
             // clear the display
             display_element.innerHTML = '';
+            response.end_time = performance.now();
 
             // kill any remaining setTimeout handlers
             jsPsych.pluginAPI.clearAllTimeouts();
@@ -264,22 +264,6 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             // move on to the next trial
             jsPsych.finishTrial(response);
 
-            //save data
-            dataObject.testtrial_stimulus.push(response.stimulus);
-            dataObject.testtrial_trial_type.push(response.trial_type);
-            dataObject.testtrial_distribution_name.push(response.distribution_name);
-            dataObject.testtrial_spaceship_class.push(response.stimulus);
-            dataObject.testtrial_stimulus.push(response.stimulus);
-            dataObject.testtrial_stimulus_location.push(response.location);
-            dataObject.testtrial_response_time.push(response.response_time);
-            dataObject.testtrial_confidence_response_time.push(response.confidence_response_time);
-            dataObject.testtrial_delta_response_time.push(response.delta_response_time);
-            dataObject.testtrial_delta_confidence_response_time.push(response.delta_confidence_response_time);
-            dataObject.testtrial_response.push(response.button);
-            dataObject.testtrial_response_button_label.push(response.button_label);
-            dataObject.testtrial_confidence.push(response.confidence);
-            dataObject.testtrial_correct.push(response.correct);
-            dataObject.testtrial_incorrect.push(response.incorrect);
         }
     }
     ;

@@ -151,7 +151,7 @@
     -webkit-appearance: none;
     appearance: none;
     width: 70vw;
-    margin: 0vh auto;
+    margin: 2vh auto;
     opacity: 0.8;
     outline: none;
     border: none;
@@ -270,6 +270,45 @@
 }
 
 
+#demo_instruction2 {
+    width: 25vmax;
+    height: 25vmax;
+    margin: auto;
+    background: url("../images/coins.png"); /* swap this out for a gif of the experiment*/
+    background-size: 20vmax 20vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#demo_instruction3 {
+    width: 25vmax;
+    height: 25vmax;
+    margin: auto;
+    background: url("../images/package_image.png"); /* swap this out for a gif of the experiment*/
+    background-size: 20vmax 20vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#demo_instruction4 {
+    width: 60vmax;
+    height: 35vmax;
+    margin: auto;
+    background: url("../images/quickfire_gif.gif"); /* swap this out for a gif of the experiment*/
+    background-size: 55vmax 30vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#demo_instruction5 {
+    width: 60vmax;
+    height: 40vmax;
+    margin: auto;
+    background: url("../images/cloudy_gif.gif"); /* swap this out for a gif of the experiment*/
+    background-size: 55vmax 35vmax;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 #tutorial-form{
     background: repeating-linear-gradient(to bottom, #0f0a1e, #0f0a1e 2px, #140e29 2px, #140e29 4px);
     color: whitesmoke;
