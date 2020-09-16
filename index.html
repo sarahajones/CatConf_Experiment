@@ -61,9 +61,76 @@
         'images/green_spaceship.png' +
         'images/blue_spaceship.png' +
         'images/orange_spaceship.png' +
+        'images/resized_blue_spaceship.png' +
+        'images/resized_orange_spaceship.png' +
         'images/bomb.png' +
         'images/coins.png'
     ];
+
+    /* EXPERIMENT VARIABLES */
+    const trial_number = 25; //quickfire round trial number
+    const fastdrop_number = 50; //amount of drops in fast drop blocks
+    const drop_number = 30; //amount of drops in test trial blocks
+
+    // QUICKFIRE LEARNING ROUND
+    quickfire_stimuli = [
+        'images/orange_spaceship.png',
+        'images/blue_spaceship.png'
+    ];
+    const deck_count = trial_number / quickfire_stimuli.length;
+    quickfire_stimuli = shuffle_shoe(quickfire_stimuli, deck_count); //shuffle deck
+
+    //GAME BLOCK 1
+    const distribution1 = [
+        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
+    ];
+    //FASTDROP 1 TRIALS
+    const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
+    const fastdrop_stimuli = shuffle_shoe(distribution1, fastdrop_deck_count); // shuffle deck
+    //BLOCK 1 TEST TRIALS
+    const spaceship_deck_count1 = drop_number / distribution1.length; // create deck count for spaceship drops
+    const spaceship_stimuli1 = shuffle_shoe(distribution1, spaceship_deck_count1); // shuffle deck
+
+
+    //GAME BLOCK 2
+    const distribution2 = [
+        {name: 'narrow', value: gaussian(500, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(200, 10000), color: 'orange1'}
+    ];
+    //FASTDROP 2 TRIALS
+    const fastdrop_deck_count2 = fastdrop_number / distribution2.length;
+    const fastdrop_stimuli2 = shuffle_shoe(distribution2, fastdrop_deck_count2);
+    //BLOCK 2 TEST TRIALS
+    const spaceship_deck_count2 = drop_number / distribution2.length;
+    const spaceship_stimuli2 = shuffle_shoe(distribution2, spaceship_deck_count2);
+
+
+    //GAME BLOCK 3
+    const distribution3 = [
+        {name: 'wide', value: gaussian(500, 5000), color: 'blue1'},
+        {name: 'narrow', value: gaussian(200, 10000), color: 'orange1'}
+    ];
+    //FASTDROP 3 TRIALS
+    const fastdrop_deck_count3 = fastdrop_number/ distribution3.length;
+    const fastdrop_stimuli3 = shuffle_shoe(distribution3, fastdrop_deck_count3);
+    //BLOCK 3 TEST TRIALS
+    const spaceship_deck_count3 = drop_number / distribution3.length;
+    const spaceship_stimuli3 = shuffle_shoe(distribution3, spaceship_deck_count3);
+
+    //GAME BLOCK 4
+    const distribution4 = [
+        {name: 'wide', value: gaussian(200, 5000), color: 'blue1'},
+        {name: 'narrow', value: gaussian(500, 10000), color: 'orange1'}
+    ];
+    //FASTDROP 3 TRIALS
+    const fastdrop_deck_count4 = fastdrop_number/ distribution4.length;
+    const fastdrop_stimuli4 = shuffle_shoe(distribution4, fastdrop_deck_count4);
+    //BLOCK 3 TEST TRIALS
+    const spaceship_deck_count4 = drop_number / distribution4.length;
+    const spaceship_stimuli4 = shuffle_shoe(distribution4, spaceship_deck_count4);
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENTAL PAGES */
@@ -71,7 +138,6 @@
     var splash_0 = {
         type: "jspsych-splashmessage",
         trial_type: 'Loading',
-        //display_duration: 3500,
         trial_duration: 3750,
     };
 
@@ -120,6 +186,7 @@
         //display_duration: 3500,
         trial_duration: 3750,
     };
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
@@ -133,22 +200,10 @@
         tutorial_3, //happy but text and image
         splash_1, //happy
     ];
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*QUICK FIRE ROUND - TRIAL NUMBER 25*/
     const quickfire_timeline = [];
-    const trial_number = 25; // No magic numbers! :)
-
-    // construct deck
-    quickfire_stimuli = [
-        'images/orange_spaceship.png',
-        'images/blue_spaceship.png'
-    ];
-
-    const deck_count = trial_number / quickfire_stimuli.length;
-
-    // shuffle deck
-    quickfire_stimuli = shuffle_shoe(quickfire_stimuli, deck_count);
 
     let trial_contents = quickfire_stimuli.map(
         s => {
@@ -207,23 +262,9 @@
         splash_2
     ];
 
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING - TRIAL NUMBER 50*/
     const fastdrop_timeline = [];
-    const fastdrop_number = 50; //amount of drops
-
-    const fastdrop_distribution = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange'}
-    ];
-
-    // create deck count for spaceship drops
-    const fastdrop_deck_count = fastdrop_number / fastdrop_distribution.length;
-
-    // shuffle deck
-    const fastdrop_stimuli = shuffle_shoe(fastdrop_distribution, fastdrop_deck_count);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli.forEach(s => {
@@ -276,23 +317,8 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 1*/
     const cloud1_timeline = [];
-
     let Block_score_correct = [];
     let Block_score_incorrect = [];
-
-    const drop_number1 = 30; //amount of drops
-
-    const distribution1 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
-    ];
-
-    // create deck count for spaceship drops
-    const spaceship_deck_count1 = drop_number1 / distribution1.length;
-
-    // shuffle deck
-    const spaceship_stimuli1 = shuffle_shoe(distribution1, spaceship_deck_count1);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
@@ -311,8 +337,7 @@
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* block feedback */
-    var feedback1_timeline = [];
-
+    let feedback1_timeline = [];
     var correct = sum(Block_score_correct);
     var incorrect = sum(Block_score_incorrect);
 
@@ -321,7 +346,7 @@
         isFirstTime: true,
         correct: correct,
         incorrect: incorrect,
-        trials: drop_number1,
+        trials: drop_number,
     };
 
     feedback1_timeline = [
@@ -329,7 +354,6 @@
     ];
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
-
     var tutorial_7 = {
         type: "jspsych-tutorial",
         isSeventhTime: true
@@ -343,19 +367,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING - TRIAL NUMBER 50*/
     const fastdrop2_timeline = [];
-    const fastdrop_number2 = 50; //amount of drops
-
-    const fastdrop_distribution2 = [
-        {name: 'narrow', value: gaussian(500, 5000), color: 'blue'},
-        {name: 'wide', value: gaussian(200, 10000), color: 'orange'}
-    ];
-
-    // create deck count for spaceship drops
-    const fastdrop_deck_count2 = fastdrop_number2 / fastdrop_distribution2.length;
-
-    // shuffle deck
-    const fastdrop_stimuli2 = shuffle_shoe(fastdrop_distribution2, fastdrop_deck_count2);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli2.forEach(s => {
@@ -382,27 +393,13 @@
     const interim_timeline = [
         splash_0,
         splash_3
-    ]
+    ];
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 2*/
     const cloud2_timeline = [];
 
     Block_score_correct = [];
     Block_score_incorrect = [];
-
-    const drop_number2 = 30; //amount of drops
-
-    const distribution2 = [
-        {name: 'narrow', value: gaussian(500, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(200, 10000), color: 'orange1'}
-    ];
-
-    // create deck count for spaceship drops
-    const spaceship_deck_count2 = drop_number2 / distribution2.length;
-
-    // shuffle deck
-    const spaceship_stimuli2 = shuffle_shoe(distribution2, spaceship_deck_count2);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli2.forEach(s => {
@@ -430,7 +427,7 @@
         isSecondTime: true,
         correct: correct2,
         incorrect: incorrect2,
-        trials: drop_number2,
+        trials: drop_number,
     };
 
     feedback2_timeline = [
@@ -444,19 +441,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING - TRIAL NUMBER 50*/
     const fastdrop3_timeline = [];
-    const fastdrop_number3 = 50; //amount of drops
-
-    const fastdrop_distribution3 = [
-        {name: 'narrow', value: gaussian(350, 5000), color: 'blue'},
-        {name: 'wide', value: gaussian(450, 10000), color: 'orange'}
-    ];
-
-    // create deck count for spaceship drops
-    const fastdrop_deck_count3 = fastdrop_number3/ fastdrop_distribution3.length;
-
-    // shuffle deck
-    const fastdrop_stimuli3 = shuffle_shoe(fastdrop_distribution3, fastdrop_deck_count3);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli3.forEach(s => {
@@ -487,19 +471,6 @@
     Block_score_correct = [];
     Block_score_incorrect = [];
 
-    const drop_number3 = 30; //amount of drops
-
-    const distribution3 = [
-        {name: 'narrow', value: gaussian(350, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(450, 10000), color: 'orange1'}
-    ];
-
-    // create deck count for spaceship drops
-    const spaceship_deck_count3 = drop_number3 / distribution3.length;
-
-    // shuffle deck
-    const spaceship_stimuli3 = shuffle_shoe(distribution3, spaceship_deck_count3);
-
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli3.forEach(s => {
@@ -527,7 +498,7 @@
         isSecondTime: true,
         correct: correct3,
         incorrect: incorrect3,
-        trials: drop_number3,
+        trials: drop_number,
     };
 
     feedback3_timeline = [

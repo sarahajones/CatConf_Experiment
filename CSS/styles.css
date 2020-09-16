@@ -50,13 +50,13 @@
 #PIS-intro {
     text-align: center;
     display: block;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
     margin-right: 150px;
     margin-left: 150px;
     margin-block-start: 100px;
-    margin-block-end: 100px;
-    line-height: 100px;
+    margin-block-end: 50px;
+    line-height: 75px;
 }
 
 /*------------------------ CONSENT FORM -----------------------
@@ -64,13 +64,13 @@
 #consent-intro {
     text-align: center;
     display: block;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
-    margin-right: 150px;
-    margin-left: 150px;
+    margin-right: 175px;
+    margin-left: 175px;
     margin-block-start: 100px;
-    margin-block-end: 100px;
-    line-height: 100px;
+    margin-block-end: 50px;
+    line-height: 75px;
 }
 
 
