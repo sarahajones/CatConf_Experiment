@@ -82,8 +82,8 @@
 
     //GAME BLOCK 1
     const distribution1 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
+        {name: 'narrow', value: gaussian(200, 5000), color: 'blue'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'orange'}
     ];
     //FASTDROP 1 TRIALS
     const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
@@ -194,10 +194,10 @@
         PIS, //saving?
         consent, //saving?
         splash_0, //happy
-        demographics, //happy but glowy animation wrong
-        tutorial_1, //happy but text and image
-        tutorial_2, //happy but text and image
-        tutorial_3, //happy but text and image
+        demographics, //saaving
+        tutorial_1, //happy
+        tutorial_2, //happy
+        tutorial_3, //happy
         splash_1, //happy
     ];
 
@@ -240,6 +240,8 @@
             trial_duration: 5000,
             feedback_duration: 2000,
             response_ends_trial: false,
+            Zap1: 'images/zap1.png',
+            Zap2: 'images/zap2.png',
         });
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -288,6 +290,7 @@
             banner_text: 'Please watch carefully'
         })
     });
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
 
@@ -319,6 +322,7 @@
     const cloud1_timeline = [];
     let Block_score_correct = [];
     let Block_score_incorrect = [];
+    let Block_coins = [];
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
@@ -340,6 +344,7 @@
     let feedback1_timeline = [];
     var correct = sum(Block_score_correct);
     var incorrect = sum(Block_score_incorrect);
+    var coins = sum(Block_score_incorrect);
 
     var feedback1 = {
         type: "jspsych-feedback",
@@ -347,6 +352,7 @@
         correct: correct,
         incorrect: incorrect,
         trials: drop_number,
+        coins: coins,
     };
 
     feedback1_timeline = [
@@ -521,10 +527,10 @@
     /* Set up timeline and launch experiment*/
 
     const timeline = [
-        ...intro_timeline, //happy
-        ...quickfire_timeline, //happy
-        ...interim1_timeline, //gif will need updating
-        ...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
+        //...intro_timeline, //happy, check on saving of pp info and consent etc
+        //...quickfire_timeline, //happy
+        //...interim1_timeline, //gif will need updating, has been removed for now.
+        //...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
         ...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
         ...cloud1_timeline, //happy - slider labels could use more padding but okay
         ...feedback1_timeline, //BUGGED scores not calculating

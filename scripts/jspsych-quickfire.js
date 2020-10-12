@@ -23,7 +23,20 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
                 array: true,
                 description: 'Trial by trial feedback.'
             },
-
+            Zap1: {
+                type: jsPsych.plugins.parameterType.IMAGE,
+                pretty_name: 'Zap outcome 1',
+                default: undefined,
+                array: true,
+                description: 'Outcome if coins package is zapped'
+            },
+            Zap2: {
+                type: jsPsych.plugins.parameterType.IMAGE,
+                pretty_name: 'Zap outcome 1',
+                default: undefined,
+                array: true,
+                description: 'Outcome if coins package is zapped'
+            },
             trial_number: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Trial Number',
@@ -208,7 +221,13 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             function showFeedback() {
                 if (response.button_label === 'Retrieve') {
                     displayImage(trial.feedback, trial.feedback_duration, end_trial)
-                } else {
+                } else if (response.button_label ==='Zap'){
+                    if(trial.feedback === 'images/coins.png'){
+                        displayImage(trial.Zap2, trial.feedback_duration, end_trial)
+                    } else
+                        displayImage(trial.Zap1, trial.feedback_duration, end_trial)
+                    }
+                else {
                     end_trial();
                 }
             }

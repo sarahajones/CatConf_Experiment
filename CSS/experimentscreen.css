@@ -28,7 +28,7 @@
 
 
 .blue {
-    background-color: cornflowerblue;
+    background-color: saddlebrown;
 }
 
 .blue::after {
@@ -37,12 +37,12 @@
     left: -50px;
     animation:
             flying 3s ease-out .2s forwards,
-            hides .4s ease-out .05s forwards;
+            hides .6s ease-out .005s forwards;
 
 }
 
 .orange {
-    background-color: darkorange;
+    background-color: saddlebrown;
 }
 
 .orange::after {
@@ -50,11 +50,10 @@
     position: relative;
     left: -50px;
     animation:
-            flying 3s ease-out .2s forwards,
-            hides .4s ease-out .05s forwards;
+            float 1.5s infinite ease-in-out,
+            hides .6s ease-out .05s forwards;
 
 }
-
 
 .experiment-btn {
 
@@ -123,7 +122,6 @@
     line-height: 40px;
     letter-spacing: 5px;
     text-shadow: -2px 0 0 #fdff2a, -4px 0 0 #df4a42, 2px 0 0 #91fcfe, 4px 0 0 #4405fc;
-    animation: blink 1.5s steps(4, start) infinite;
 }
 
 .cloudbank {
@@ -163,7 +161,7 @@
 
 .slider:hover {
     opacity: 1; /* Fully shown on mouse-over */
-    animation: glowy-box 1s infinite alternate;
+    /
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
@@ -197,6 +195,23 @@
     line-height: 1.2em;
 }
 
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(1rem);
+        -webkit-transform: translateY(1rem);
+    }
+
+    100% {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+    }
+}
 
 @font-face{
     font-family: gameFont;

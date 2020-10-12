@@ -37,6 +37,9 @@
     font-family:  europa, Arial, Helvetica, sans-serif;;
 }
 
+#h1.h1{
+    font-size: 1em
+}
 
 .h4 {
     font-weight: bolder;
@@ -255,7 +258,7 @@
     margin-right: 150px;
     margin-left: 150px;
     margin-block-start: 100px;
-    margin-block-end: 100px;
+    margin-block-end: 50px;
     line-height: 100px;
 }
 

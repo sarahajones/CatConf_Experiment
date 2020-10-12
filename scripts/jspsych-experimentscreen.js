@@ -140,8 +140,8 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
         });
 
         display_element.appendChild(buttons);
-        // if fast learning trial display banner underneath screen.
 
+        // if fast learning trial display banner underneath screen.
         if (trial.banner_text !== null) {
             var banner = document.createElement("div");
             banner.classList.add('banner')
@@ -172,23 +172,28 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 if (response.button_label === 'Zap'){
                     response.correct = 1;
                     response.incorrect = 0;
+                    response.coins = 5;
                 } else {
                     response.correct = 0;
                     response.incorrect = 1;
+                    response.coins = -5;
                 }
             } else if(trial.spaceship_class === 'orange1'){
                 if (response.button_label === 'Zap'){
                     response.correct = 0;
                     response.incorrect = 1;
+                    response.coins = 0;
                 } else {
                     response.correct = 1;
                     response.incorrect = 0;
+                    response.coins = 5;
                 }
             }
 
 
             Block_score_correct.push(response.correct);
             Block_score_incorrect.push(response.incorrect);
+            Block_coins.push(response.coins);
 
             // disable all the buttons after a response
             var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
@@ -217,7 +222,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 </p>
 
 <div class="slider_area">
-    <div class="label"> Sure<br>INCORRECT </div>
+    <div class="label"> Sure<br>GUESS</div>
     <input type="range" class="slider" id="slider" min=0 max=100 step="1" value="50"/>
     <div class="label"> Sure<br>CORRECT </div>
 </div>
