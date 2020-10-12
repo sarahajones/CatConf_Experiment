@@ -82,8 +82,8 @@
 
     //GAME BLOCK 1
     const distribution1 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange'}
+        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
     ];
     //FASTDROP 1 TRIALS
     const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
@@ -335,7 +335,8 @@
             spaceship_class: s.color,
             distribution_name: s.name,
             confidence_trial: true,
-            trial_type: 'unclear'
+            trial_type: 'unclear',
+            block: 1,
         })
     });
 
@@ -349,10 +350,8 @@
     var feedback1 = {
         type: "jspsych-feedback",
         isFirstTime: true,
-        correct: correct,
-        incorrect: incorrect,
-        trials: drop_number,
-        coins: coins,
+        filter_fun: (x) =>
+            x.trial_type === "jspsych-experimentscreen" && x.block === 1
     };
 
     feedback1_timeline = [
@@ -531,7 +530,7 @@
         //...quickfire_timeline, //happy
         //...interim1_timeline, //gif will need updating, has been removed for now.
         //...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
-        ...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
+        //...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
         ...cloud1_timeline, //happy - slider labels could use more padding but okay
         ...feedback1_timeline, //BUGGED scores not calculating
         ...interim3_timeline, //little bit messy on screen but likely updated

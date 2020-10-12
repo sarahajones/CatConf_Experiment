@@ -6,7 +6,12 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         name: 'jspsych-feedback',
         prettyName: 'Block feedback',
         parameters: {
-
+            filter_fun: {
+                type: jsPsych.plugins.parameterType.FUNCTION,
+                pretty_name: 'Filter Function',
+                default: undefined,
+                description: 'The filter function to pull data for feedback calc'
+            },
         }
     };
 
@@ -14,14 +19,38 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         // clear display element and apply default page styles
         display_element.innerHTML = '';
 
-        console.log(trial.correct)
+        const data = JSON.parse(jsPsych.data.get().json())
+            .filter(trial.filter_fun);
+
+        let correct = 0;
+        let incorrect = 0;
+        let coins = 0;
+
+        data.forEach((x) => {
+            if(x.correct === 1){
+                correct++;
+            } else if(x.incorrect === 1)
+                incorrect++;
+
+            coins += x.coins;
+        });
+
+
+        // const tutorial_text = `
+        // <p>Well done on completing round ${trial.round_number}.</p>
+        // <p>Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb.</p>
+        // <p>
+        //     In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
+        //     This means you got a total of <strong>${coins}</strong> points of a potential <strong>${data.length}</strong>
+        // </p>
+        // `;
 
         if (trial.isFirstTime) {
             var tutorial_text =
                 '<p> Well done on completing the first round, time to see how you did! ' +
                 'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
-                '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
-                'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
+                '<p>In total you got <strong>' + correct + '</strong> right and <strong>' + incorrect + '</strong> wrong. ' +
+                'This means you got a total of <strong>' + correct + '</strong> points of a potential <strong>' + data.length + '</strong> Keep trying to improve your score each round! </p>';
             var header_text =
                 '<h1>Round 1 complete - take a short break. </h1>'
 
