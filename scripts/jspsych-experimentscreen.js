@@ -122,6 +122,13 @@ plugin.trial = function (display_element, trial) {
         display_element.appendChild(cloudbank);
     }
 
+    //package
+    var package = document.createElement("div");
+    package.classList.add('package');
+    package.style.left = `${trial.location}px`;
+    canvasDiv.appendChild(package);
+    //drop package
+
     //spaceship
     var spaceship = document.createElement("div");
     spaceship.classList.add('spaceship', trial.spaceship_class);
@@ -182,21 +189,22 @@ plugin.trial = function (display_element, trial) {
             if (response.button_label === 'Zap'){
                 response.correct = 1;
                 response.incorrect = 0;
-                response.coins = 5;
+                response.coins = 3;
             } else {
                 response.correct = 0;
                 response.incorrect = 1;
-                response.coins = -5;
+                response.coins = 0;
             }
         } else if(/orange/i.test(trial.spaceship_class)){
             if (response.button_label === 'Zap'){
                 response.correct = 0;
                 response.incorrect = 1;
                 response.coins = 0;
+
             } else {
                 response.correct = 1;
                 response.incorrect = 0;
-                response.coins = 5;
+                response.coins = 3;
             }
         }
 

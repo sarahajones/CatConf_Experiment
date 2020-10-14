@@ -12,46 +12,52 @@
     height: 100px;
     background-color: #555555;
 }
-.spaceship {
+
+.package {
     --spaceshipsize: 30px;
     height: var(--spaceshipsize);
     width: var(--spaceshipsize);
-    background: url("../images/green_spaceship.png");
+    background-color: saddlebrown;
+    border-radius: 3px;
     visibility: visible;
     position: absolute;
     animation:
             flying 1s ease-in forwards,
-            color_change 1s forwards,
             hides 1s ease-in-out 1.2s forwards;
+}
+
+.spaceship {
+    --spaceshipsize: 30px;
+    height: var(--spaceshipsize);
+    width: var(--spaceshipsize);
+    visibility: visible;
+    position: absolute;
+    animation:
+            float 1s ease-in forwards,
+            hides 1s ease-in-out .1s forwards;
 }
 
 
 
 .blue {
-    background-color: saddlebrown;
+    background-color: lightskyblue;
 }
 
 .blue::after {
     content: url("../images/resized_blue_spaceship.png");
     position: relative;
     left: -50px;
-    animation:
-            flying 3s ease-out .2s forwards,
-            hides .6s ease-out .005s forwards;
 
 }
 
 .orange {
-    background-color: saddlebrown;
+    background-color: lightskyblue;
 }
 
 .orange::after {
     content: url("../images/resized_orange_spaceship.png");
     position: relative;
     left: -50px;
-    animation:
-            float 1.5s infinite ease-in-out,
-            hides .6s ease-out .05s forwards;
 
 }
 
@@ -123,6 +129,17 @@
     letter-spacing: 5px;
     text-shadow: -2px 0 0 #fdff2a, -4px 0 0 #df4a42, 2px 0 0 #91fcfe, 4px 0 0 #4405fc;
 }
+
+.splashbanner {
+    padding: 20px;
+    font-family: gameFont;
+    font-size: 60px;
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-shadow: -2px 0 0 #fdff2a, -4px 0 0 #df4a42, 2px 0 0 #91fcfe, 4px 0 0 #4405fc;
+    animation: blinking 1s  infinite
+}
+
 
 .cloudbank {
     width: 800px;
@@ -226,10 +243,10 @@
         box-shadow: 0vmin 0vmin 2vmin white;
     }
 }
-@keyframes blink {
-    to {
-        visibility: hidden;
-    }
+@keyframes blinking {
+    0%{opacity: 0;}
+    50%{opacity: .5;}
+    100%{opacity: 1;}
 }
 
 @keyframes flying {

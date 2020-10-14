@@ -114,7 +114,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
         const response = {
             stimulus: trial.stimuli,
             feedback: trial.feedback,
-            number: trial_number,
+            number: trial.trial_number,
             start_time: performance.now(),
             response_time: null,
             end_time: null,

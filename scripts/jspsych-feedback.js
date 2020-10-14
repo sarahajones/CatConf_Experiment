@@ -78,37 +78,6 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
                 '<h1>Round 3 complete - take a short break.</h1>'
             var button_label =
                 '<div>Press to continue</div>'
-        } else if(trial.isLastTime) {
-            var tutorial_text =
-                '<p> ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                ' ' +
-                '</p> ';
-            var header_text =
-                '<h1>The study is now over - you may exit the study screen.' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '' +
-                '</h1>';
-            var button_label =
-                '<div> Please close the experiment screen </div>'
         }
 
         // create page elements

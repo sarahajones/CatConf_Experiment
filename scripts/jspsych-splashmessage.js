@@ -47,6 +47,9 @@ jsPsych.plugins['jspsych-splashmessage'] = (function () {
         } else if (trial.trial_type === 'Next') {
             var splash_text =
                 '<p> THE NEXT ROUND WILL BEGIN SHORTLY... GET READY</p>'
+        } else if (trial.trial_type === "Last") {
+            var splash_text =
+                '<p> FINISHING UP THE STUDY... PLEASE WAIT</p>'
         }
 
         // create page elements
@@ -54,8 +57,8 @@ jsPsych.plugins['jspsych-splashmessage'] = (function () {
             intro,
             display_element,
             'div',
-            'banner',
-            'banner',
+            'splashbanner',
+            'splashbanner',
             splash_text
         );
 

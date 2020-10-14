@@ -171,6 +171,16 @@ jsPsych.plugins['jspsych-consent'] = (function () {
 
         // define what happens when people click on the final submit button
         instructAcknowledge.onclick = function() {
+                var element = document.documentElement;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
             // save the data to jsPsych data object
             jsPsych.finishTrial();
             return;

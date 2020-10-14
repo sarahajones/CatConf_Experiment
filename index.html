@@ -26,7 +26,7 @@
     <script src="scripts/jspsych-quickfire.js"></script>
     <script src="scripts/jspsych-experimentscreen.js"></script>
     <script src="scripts/jspsych-demographics.js"></script>
-    <script src="scripts/jspsych-feedback.js"></script>
+    <script src="scripts/jspsych-lastScreen.js"></script>
 
     <!--custom JS: helpers-->
     <script src="scripts/helper-functions.js"></script>
@@ -194,7 +194,7 @@
         PIS, //saving?
         consent, //saving?
         splash_0, //happy
-        demographics, //saaving
+        demographics, //saving?
         tutorial_1, //happy
         tutorial_2, //happy
         tutorial_3, //happy
@@ -237,7 +237,7 @@
             stimulus1_duration: 1500,
             gap_duration: 0,
             stimulus2_duration: 1500,
-            trial_duration: 5000,
+            trial_duration: 10000,
             feedback_duration: 2000,
             response_ends_trial: false,
             Zap1: 'images/zap1.png',
@@ -246,7 +246,6 @@
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
-
     var tutorial_4 = {
         type: "jspsych-tutorial",
         isFourthTime: true
@@ -270,10 +269,12 @@
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli.forEach(s => {
-        if (s.color === 'blue') {
+        if (/blue/i.test(s.color)) {
             s.spaceship_image = "../images/blue_spaceship.png"
+            s.color = 'blue';
         } else {
             s.spaceship_image = "../images/orange_spaceship.png"
+            s.color = 'orange';
         }
         fastdrop_timeline.push({
             type: "jspsych-experimentscreen",
@@ -287,7 +288,8 @@
             spaceship_image: s.spaceship_image,
             distribution_name: s.name,
             banner: 1,
-            banner_text: 'Please watch carefully'
+            banner_text: 'Please watch carefully',
+            block: 0
         })
     });
 
@@ -342,11 +344,6 @@
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* block feedback */
-    let feedback1_timeline = [];
-    var correct = sum(Block_score_correct);
-    var incorrect = sum(Block_score_incorrect);
-    var coins = sum(Block_score_incorrect);
-
     var feedback1 = {
         type: "jspsych-feedback",
         isFirstTime: true,
@@ -417,7 +414,8 @@
             spaceship_class: s.color,
             distribution_name: s.name,
             confidence_trial: true,
-            trial_type: 'unclear'
+            trial_type: 'unclear',
+            block: 2
         })
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -473,10 +471,6 @@
     /*TEST TRIALS 3*/
     const cloud3_timeline = [];
 
-    Block_score_correct = [];
-    Block_score_incorrect = [];
-
-
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli3.forEach(s => {
         cloud3_timeline.push({
@@ -488,7 +482,8 @@
             spaceship_class: s.color,
             distribution_name: s.name,
             confidence_trial: true,
-            trial_type: 'unclear'
+            trial_type: 'unclear',
+            block: 3
         })
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -511,11 +506,8 @@
     ];
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*sign off experiment*/
-    var end_timeline = [];
-
     var end_experiment = {
-        type: "jspsych-feedback",
-        isLastTime: true,
+        type: "jspsych-lastScreen",
     };
 
     end_timeline = [
@@ -526,13 +518,13 @@
     /* Set up timeline and launch experiment*/
 
     const timeline = [
-        ...intro_timeline, //happy, check on saving of pp info and consent etc
+        //...intro_timeline, //happy, check on saving of pp info and consent etc
         //...quickfire_timeline, //happy
-        //...interim1_timeline, //gif will need updating, has been removed for now.
-        //...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
+        ...interim1_timeline, //gif will need updating, has been removed for now.
+        ...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
         //...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
-        ...cloud1_timeline, //happy - slider labels could use more padding but okay
-        ...feedback1_timeline, //BUGGED scores not calculating
+       // ...cloud1_timeline, //happy - slider labels could use more padding but okay
+        //...feedback1_timeline, //BUGGED scores not calculating
         //...interim3_timeline, //little bit messy on screen but likely updated
         //...fastdrop2_timeline, //animation needs minor tweak to pull out overlap...
         //...interim_timeline,
@@ -543,7 +535,7 @@
        // ...interim_timeline,
         //...cloud3_timeline, //happy - slider labels could use more padding but okay
         //...feedback3_timeline, //BUGGED scores not calculating
-        // ...end_timeline
+         ...end_timeline
 
     ];
     console.log({timeline});

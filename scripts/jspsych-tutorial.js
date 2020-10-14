@@ -28,11 +28,11 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         } else if(trial.isSecondTime) {
             var tutorial_text =
                 '<p> Throughout the game you must decide whether to "retrieve" the package that has been dropped, or to "zap" it\'s contents.  </p>' +
-                '<p> The scoring system will work as follows: </p>' +
-                '<p> 1. If you correctly retrieve a package with coins, you will earn 5 coins. </p>' +
-                '<p> 2. If you incorrectly "zap" coins you will not get those 5 coins.</p>' +
-                '<p> 3. If you correctly "zap" a packages with a bomb you will earn a bonus 5 points.</p>' +
-                '<p> 4. If you in correct "retrieve" a bomb you will lose 5 coins.  </p>';
+                '<p> The scoring system works as follows: </p>' +
+                '<p> 1. If you correctly retrieve a package with coins, you will earn 3 coins. </p>' +
+                '<p> 2. If you incorrectly "zap" a package with coins, you will not get those coins.</p>' +
+                '<p> 3. If you correctly "zap" a packages with a bomb your coins will not change.</p>' +
+                '<p> 4. If you incorrectly "retrieve" a bomb you will lose 3 coins.  </p>';
             var header_text =
                 '<h1>How does it work?</h1>';
 
@@ -64,7 +64,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             'You will have to decide whether to retrieve the packages or not based on their drop location alone. </p>' +
             '<p>Remember - you are trying to retrieve coins and zap the bombs to earn as many coins as possible!</p>';
             var header_text =
-                '<h1>Read the following instructions to learn more about the next stage of the game.</h1>'
+                '<h2>Read the following instructions to learn more about the next stage of the game.</h2>'
 
         }
 
@@ -76,7 +76,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             'Submit your confidence rating by pressing the confirm button on screen to move onto the next trial. </p>' +
             '<p>Good luck!</p>'
             var header_text =
-                '<h1>Read the following instructions to learn more about the next stage of the game.</h1>'
+                '<h2>Read the following instructions to learn more about the next stage of the game.</h2>'
         }
 
         else if(trial.isSeventhTime)
@@ -129,7 +129,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             ''
         );
 
-        
+
         var instructText = createGeneral(
             instructText,
             instructHeader,
