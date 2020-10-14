@@ -1,14 +1,14 @@
-jsPsych.plugins['jspsych-tutorial'] = (function () {
+jsPsych.plugins['jspsych-lastScreen'] = (function () {
 
     var plugin = {};
 
     plugin.info = {
-        name: 'jspsych-tutorial',
-        prettyName: 'Study Tutorial',
+        name: 'jspsych-lastScreen',
+        prettyName: 'Last Screen of study',
         parameters: {}
     };
 
-    plugin.trial = function (display_element, trial) {
+    plugin.trial = function (display_element) {
         // clear display element and apply default page styles
         display_element.innerHTML = '';
         var tutorial_text =
@@ -39,8 +39,6 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             '' +
             '' +
             '</h2>';
-        var button_label =
-            '<div></div>'
         // create page elements
         var intro = createGeneral(
             intro,
@@ -98,7 +96,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
 
-            var element = document.documentElement;
+
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.msExitFullscreen) {

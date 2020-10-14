@@ -88,7 +88,7 @@ jsPsych.plugins["jspsych-PIS"] = (function() {
             'div',
             'titlepage document-intro',
             'PIS-intro',
-            '<h1>Please read and acknowledge the following information about our research.</h1>'
+            '<h2>Please read and acknowledge the following information about our research.</h2>'
         );
 
 

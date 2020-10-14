@@ -97,7 +97,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
             'Submit your confidence rating by pressing the confirm button on screen to move onto the next trial. </p>' +
             '<p>Good luck!</p>'
             var header_text =
-                '<h1>Read the following instructions to learn more about the next stage of the game.</h1>'
+                '<h2>Read the following instructions to learn more about the next stage of the game.</h2>'
         }
 
 

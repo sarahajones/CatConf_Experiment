@@ -44,7 +44,7 @@ jsPsych.plugins['jspsych-consent'] = (function () {
             'div',
             'titlepage document-intro',
             'consent-intro',
-            '<div><h1>Please read and tick all the checkboxes before proceeding.</h1></div>'
+            '<div><h2>Please read and tick all the checkboxes before proceeding.</h2></div>'
         );
 
 
