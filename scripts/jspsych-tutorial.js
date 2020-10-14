@@ -83,22 +83,11 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         { var tutorial_text =
             '<p> Let\'s see if you can improve your score this time around! ' +
             'Watch the screen carefully again and then try to beat your last score! ' +
-            'Keep an eye on where the spaceships are dropping their parcels!</p>' +
-            '<p>Good luck!</p>'
+            'Keep an eye on where the spaceships are dropping their parcels, the spaceships may have moved about but the parcels they drop will remain the same! Good luck!</p>'
             var header_text =
                 '<h1>Ready for the next round?</h1>'
         }
 
-
-        else if(trial.isEighthTime)
-        { var tutorial_text =
-            '<p> After each choice you make, you will be asked to rate your confidence on a sliding scale. ' +
-            'When making this rating, think about how sure you are that you made the right decision on that choice. ' +
-            'Submit your confidence rating by pressing the confirm button on screen to move onto the next trial. </p>' +
-            '<p>Good luck!</p>'
-            var header_text =
-                '<h2>Read the following instructions to learn more about the next stage of the game.</h2>'
-        }
 
 
 

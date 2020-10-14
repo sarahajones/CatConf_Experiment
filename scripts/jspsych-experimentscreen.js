@@ -104,7 +104,6 @@ plugin.trial = function (display_element, trial) {
         block: trial.block
     };
 
-    console.log(trial.spaceship_class)
     //draw "canvas" to screen
     var canvasDiv = document.createElement("div");
     canvasDiv.id = "jspsych-experimentscreen";

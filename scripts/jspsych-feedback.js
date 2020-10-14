@@ -40,51 +40,48 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
                 incorrect++;
 
             coins += x.coins;
+            if (coins < 0){
+                coins = 0;
+            }
         });
 
 
-        // const tutorial_text = `
-        // <p>Well done on completing round ${trial.round_number}.</p>
-        // <p>Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb.</p>
-        // <p>
-        //     In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
-        //     This means you got a total of <strong>${coins}</strong> points of a potential <strong>${data.length}</strong>
-        // </p>
-        // `;
+        let tutorial_text = `
+        <p>Well done on completing this round.
+            In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
+            This means you got a total of <strong>${coins}</strong> coins this round! Keep trying to improve your score each round!
+        </p>
+        <p>Remember, a correct response which gains you 3 coins is either when you retrieved coins or correctly zapped a bomb. An incorrect response could be a zapped coin package (which does not affect your coins) or a retrieved bomb (which will lose you 3 coins). </p>
+        `;
+        var button_label = '<div>Press to continue</div>';
 
         if (trial.trial_type === 'first') {
-            var tutorial_text =
-                '<p> Well done on completing the first round, time to see how you did! ' +
-                'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
-                '<p>In total you got <strong>' + correct + '</strong> right and <strong>' + incorrect + '</strong> wrong. ' +
-                'This means you got a total of <strong>' + correct + '</strong> points of a potential <strong>' + data.length + '</strong> Keep trying to improve your score each round! </p>';
             var header_text =
                 '<h1>Round 1 complete - take a short break. </h1>'
 
-            var button_label =
-                '<div>Press to continue</div>'
+
             var imageID = 'demo_instruction';
         } else if(trial.trial_type ==='second')
-        {var tutorial_text =
-            '<p> Another round done - let\'s see how your scores are doing. ' +
-            'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
-            '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
-            'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
-            var header_text =
+        {var header_text =
                 '<h1>Round 2 complete - take a short break.</h1>'
-            var button_label =
-                '<div>Press to continue</div>'
+
         }
         else if(trial.trial_type === 'third')
-        {var tutorial_text =
-            '<p> Another round done - let\'s see how your scores are doing. ' +
-            'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
-            '<p>In total you got <strong>' + trial.correct + '</strong> right and <strong>' + trial.incorrect + '</strong> wrong. ' +
-            'This means you got a total of <strong>' + trial.correct + '</strong> points of a potential <strong>' + trial.trials + '</strong> Keep trying to improve your score each round! </p>';
-            var header_text =
+        {var header_text =
                 '<h1>Round 3 complete - take a short break.</h1>'
-            var button_label =
-                '<div>Press to continue</div>'
+        }
+        else if(trial.trial_type === 'last')
+        {var header_text =
+            '<h1>Last round finished - well done.</h1>'
+            let tutorial_text = `
+        <p>Well done on completing the final round.</p>
+        <p>
+            In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
+            This means you got a total of <strong>${coins}</strong>coins this round!
+            
+            This was the last round, please navigate forward using the button below to finish up the study. 
+        </p>
+        `;
         }
 
         // create page elements
