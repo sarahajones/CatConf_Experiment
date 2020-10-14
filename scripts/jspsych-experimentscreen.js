@@ -54,7 +54,12 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 default: undefined,
                 description: 'names the distribution from which drop locations are drawn'
             },
-
+            distribution_info: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'info of distribution from which location was drawn',
+                default: undefined,
+                description: 'info of the distribution from which drop locations are drawn'
+            },
             banner_text: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Banner text',
@@ -86,6 +91,7 @@ plugin.trial = function (display_element, trial) {
     const response = {
         stimulus: trial.spaceship_class,
         trial_type: trial.trial_type,
+        distribution_info: trial.distribution_info,
         distribution_name: trial.distribution_name,
         spaceship_class: trial.spaceship_class,
         location: trial.location,
@@ -132,6 +138,7 @@ plugin.trial = function (display_element, trial) {
     var spaceship = document.createElement("div");
     spaceship.classList.add('spaceship', trial.spaceship_class);
     spaceship.style.left = `${trial.location}px`;
+    console.log(trial.location);
     canvasDiv.appendChild(spaceship);
     //drop spaceship at specific x position
     //overlay with image of spaceship

@@ -42,6 +42,9 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             coins += x.coins;
             if (coins < 0){
                 coins = 0;
+
+            } else if (coins === NaN){
+                coins = 0;
             }
         });
 

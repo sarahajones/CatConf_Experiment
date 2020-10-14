@@ -145,6 +145,8 @@
     width: 800px;
     height: 120px;
     background-color: slategrey;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
     position: absolute;
     --smooth-corners: 2;
     top: 30px;

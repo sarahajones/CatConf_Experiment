@@ -50,6 +50,12 @@ jsPsych.plugins['jspsych-splashmessage'] = (function () {
         } else if (trial.trial_type === "Last") {
             var splash_text =
                 '<p> FINISHING UP THE STUDY... PLEASE WAIT</p>'
+        } else if (trial.trial_type === "fastdrop") {
+        var splash_text =
+            '<p> LOADING SPACESHIP DROPS... PLEASE WAIT</p>'
+        } else if (trial.trial_type === "cloud") {
+            var splash_text =
+                '<p> LOADING CLOUDY SPACESHIP DROPS... PLEASE WAIT</p>'
         }
 
         // create page elements
