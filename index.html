@@ -70,7 +70,7 @@
     /* EXPERIMENT VARIABLES */
     const trial_number = 25; //quickfire round trial number
     const fastdrop_number = 50; //amount of drops in fast drop blocks
-    const drop_number = 10; //amount of drops in test trial blocks
+    const drop_number = 4; //amount of drops in test trial blocks
 
     // QUICKFIRE LEARNING ROUND
     quickfire_stimuli = [
@@ -163,7 +163,6 @@
         type: 'jspsych-demographics'
     };
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* TRAINING AND INSTRUCTION*/
     var tutorial_1 = {
         type: "jspsych-tutorial",
@@ -187,7 +186,6 @@
         trial_duration: 3750,
     };
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* EXPERIMENT TIMELINE*/
     const intro_timeline = [
         splash_0, //happy
@@ -244,6 +242,7 @@
             Zap2: 'images/zap2.png',
         });
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
     var tutorial_4 = {
@@ -294,7 +293,6 @@
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
-
     var tutorial_5 = {
         type: "jspsych-tutorial",
         isFifthTime: true
@@ -321,9 +319,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 1*/
     const cloud1_timeline = [];
-    let Block_score_correct = [];
-    let Block_score_incorrect = [];
-    let Block_coins = [];
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
@@ -343,9 +338,10 @@
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* block feedback */
+    let feedback1_timeline = [];
     var feedback1 = {
         type: "jspsych-feedback",
-        isFirstTime: true,
+        trial_type: 'first',
         filter_fun: (x) =>
             x.trial_type === "jspsych-experimentscreen" && x.block === 1
     };
@@ -399,9 +395,6 @@
     /*TEST TRIALS 2*/
     const cloud2_timeline = [];
 
-    Block_score_correct = [];
-    Block_score_incorrect = [];
-
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli2.forEach(s => {
         cloud2_timeline.push({
@@ -421,15 +414,11 @@
     /* block feedback */
     var feedback2_timeline = [];
 
-    var correct2 = sum(Block_score_correct);
-    var incorrect2 = sum(Block_score_incorrect);
-
     var feedback2 = {
         type: "jspsych-feedback",
-        isSecondTime: true,
-        correct: correct2,
-        incorrect: incorrect2,
-        trials: drop_number,
+        trial_type: 'second',
+        filter_fun: (x) =>
+            x.trial_type === "jspsych-experimentscreen" && x.block === 2
     };
 
     feedback2_timeline = [
@@ -489,15 +478,12 @@
     /* block feedback */
     var feedback3_timeline = [];
 
-    var correct3 = sum(Block_score_correct);
-    var incorrect3 = sum(Block_score_incorrect);
 
     var feedback3 = {
         type: "jspsych-feedback",
-        isSecondTime: true,
-        correct: correct3,
-        incorrect: incorrect3,
-        trials: drop_number,
+        trial_type: 'third',
+        filter_fun: (x) =>
+            x.trial_type === "jspsych-experimentscreen" && x.block === 3
     };
 
     feedback3_timeline = [
@@ -517,13 +503,13 @@
     /* Set up timeline and launch experiment*/
 
     const timeline = [
-        ...intro_timeline, //happy, check on saving of pp info and consent etc
-        ...quickfire_timeline, //happy
-        ...interim1_timeline, //gif will need updating, has been removed for now.
-        ...fastdrop_timeline, //animation needs minor tweak to pull out overlap...
+        //...intro_timeline, //happy, check on saving of pp info and consent etc
+        //...quickfire_timeline, //happy
+        //...interim1_timeline, //gif will need updating, has been removed for now.
+        //...fastdrop_timeline, //spaceships overboard........
         //...interim2_timeline, //gif needs repeating and background to gif is different tone - check over
-       // ...cloud1_timeline, //happy - slider labels could use more padding but okay
-        //...feedback1_timeline, //BUGGED scores not calculating
+        ...cloud1_timeline, //happy - slider labels could use more padding but okay
+        ...feedback1_timeline, //BUGGED scores not calculating
         //...interim3_timeline, //little bit messy on screen but likely updated
         //...fastdrop2_timeline, //animation needs minor tweak to pull out overlap...
         //...interim_timeline,

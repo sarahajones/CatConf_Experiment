@@ -208,11 +208,6 @@ plugin.trial = function (display_element, trial) {
             }
         }
 
-
-        Block_score_correct.push(response.correct);
-        Block_score_incorrect.push(response.incorrect);
-        Block_coins.push(response.coins);
-
         // disable all the buttons after a response
         var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
         for (var i = 0; i < btns.length; i++) {

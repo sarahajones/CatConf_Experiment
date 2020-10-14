@@ -71,8 +71,8 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         else if(trial.isSixthTime)
         { var tutorial_text =
             '<p> After each choice you make, you will be asked to rate your confidence on a sliding scale from "guess" to "sure correct". ' +
-            'Move the slider to the position that reflects your confidence in the choice tht you made in that trial only. ' +
-            'When making this rating, think about how sure you are that you made the right decision on that choice. ' +
+            'Move the slider to the position that reflects your confidence in the choice tht you made in that trial only. </p> ' +
+            '<p>When making this rating, think about how sure you are that you made the right decision on that choice. ' +
             'Submit your confidence rating by pressing the confirm button on screen to move onto the next trial. </p>' +
             '<p>Good luck!</p>'
             var header_text =

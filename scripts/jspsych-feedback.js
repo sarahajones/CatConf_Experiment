@@ -6,6 +6,13 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         name: 'jspsych-feedback',
         prettyName: 'Block feedback',
         parameters: {
+            trial_type: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'the trial type',
+                default: undefined,
+                description: 'what feedback trial type is it e.g. first or last'
+            },
+
             filter_fun: {
                 type: jsPsych.plugins.parameterType.FUNCTION,
                 pretty_name: 'Filter Function',
@@ -45,7 +52,7 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         // </p>
         // `;
 
-        if (trial.isFirstTime) {
+        if (trial.trial_type === 'first') {
             var tutorial_text =
                 '<p> Well done on completing the first round, time to see how you did! ' +
                 'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
@@ -57,7 +64,7 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             var button_label =
                 '<div>Press to continue</div>'
             var imageID = 'demo_instruction';
-        } else if(trial.isSecondTime)
+        } else if(trial.trial_type ==='second')
         {var tutorial_text =
             '<p> Another round done - let\'s see how your scores are doing. ' +
             'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
@@ -68,7 +75,7 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             var button_label =
                 '<div>Press to continue</div>'
         }
-        else if(trial.isThirdTime)
+        else if(trial.trial_type === 'third')
         {var tutorial_text =
             '<p> Another round done - let\'s see how your scores are doing. ' +
             'Remember, a correct response is either when you retrieved collected coins or correctly zapped a bomb. </p> ' +
