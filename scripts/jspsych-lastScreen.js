@@ -12,20 +12,10 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
         // clear display element and apply default page styles
         display_element.innerHTML = '';
         var tutorial_text =
-            '<p> ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
-            ' ' +
+            '<p> Thank you for taking the time to complete this study in full. This study ' +
             '</p> ';
         var header_text =
-            '<h2>The study is now over - you may exit the study screen.' +
+            '<h2>The study is now over - thank you for you time. If you are prolific user ' +
             '' +
             '' +
             '' +
@@ -95,8 +85,7 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
-
-
+            //location.href = "https://app.prolific.co/submissions/complete?cc=55E8C45F";
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.msExitFullscreen) {

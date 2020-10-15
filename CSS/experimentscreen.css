@@ -61,6 +61,10 @@
 
 }
 
+#jspsych-quickfire-btngroup{
+    height: 265px
+}
+
 .experiment-btn {
 
     display: inline-flex;

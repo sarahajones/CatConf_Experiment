@@ -46,16 +46,16 @@ jsPsych.plugins['jspsych-splashmessage'] = (function () {
                 '<p> LOADING ... PLEASE WAIT </p>'
         } else if (trial.trial_type === 'Next') {
             var splash_text =
-                '<p> THE NEXT ROUND WILL BEGIN SHORTLY... GET READY</p>'
+                '<p> LOADING NEXT ROUND... </p>'
         } else if (trial.trial_type === "Last") {
             var splash_text =
-                '<p> FINISHING UP THE STUDY... PLEASE WAIT</p>'
+                '<p> FINISHING UP THE STUDY... </p>'
         } else if (trial.trial_type === "fastdrop") {
         var splash_text =
-            '<p> LOADING SPACESHIP DROPS... PLEASE WAIT</p>'
+            '<p> LOADING SPACESHIPS... </p>'
         } else if (trial.trial_type === "cloud") {
             var splash_text =
-                '<p> LOADING CLOUDY SPACESHIP DROPS... PLEASE WAIT</p>'
+                '<p> LOADING MORE SPACESHIPS... </p>'
         }
 
         // create page elements
