@@ -69,9 +69,9 @@
     ];
 
     /* EXPERIMENT VARIABLES */
-    const trial_number = 3 ; //30//quickfire round trial number
-    const fastdrop_number = 5; //50//amount of drops in fast drop blocks
-    const drop_number = 4; //45//amount of drops in test trial blocks
+    const trial_number = 30 ; //30//quickfire round trial number
+    const fastdrop_number = 50; //50//amount of drops in fast drop blocks
+    const drop_number = 40; //45//amount of drops in test trial blocks
 
     // QUICKFIRE LEARNING ROUND
     quickfire_stimuli = [
@@ -586,7 +586,7 @@
         type: "jspsych-feedback",
         trial_type: 'last',
         filter_fun: (x) =>
-            x.trial_type === "jspsych-experimentscreen" && x.block === 3
+            x.trial_type === "jspsych-experimentscreen" && x.block === 4
     };
 
     feedback4_timeline = [

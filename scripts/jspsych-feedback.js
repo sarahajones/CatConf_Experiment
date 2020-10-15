@@ -40,19 +40,13 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
                 incorrect++;
 
             coins += x.coins;
-            if (coins < 0){
-                coins = 0;
-
-            } else if (coins === NaN){
-                coins = 0;
-            }
         });
 
 
         let tutorial_text = `
         <p>Well done on completing this round.
             In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
-            This means you got a total of <strong>${coins}</strong> coins this round! Keep trying to improve your score each round!
+            In total you collected <strong>${coins}</strong> coins this round! Keep trying to improve your score each round!
         </p>
         <p>Remember, a correct response which gains you 3 coins is either when you retrieved coins or correctly zapped a bomb. An incorrect response could be a zapped coin package (which does not affect your coins) or a retrieved bomb (which will lose you 3 coins). </p>
         `;

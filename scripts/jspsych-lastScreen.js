@@ -12,10 +12,12 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
         // clear display element and apply default page styles
         display_element.innerHTML = '';
         var tutorial_text =
-            '<p> Thank you for taking the time to complete this study in full. This study ' +
+            '<p> Thank you for taking the time to complete this study in full. ' +
+            'If you are prolific user please press the button below to submit your completion code via redirection. ' +
+            'If you have any concerns or issues regarding this study please do not hesitate to get in touch with the researchers either via the prolific platform or using the emails from the information sheet at teh start of this study. ' +
             '</p> ';
         var header_text =
-            '<h2>The study is now over - thank you for you time. If you are prolific user ' +
+            '<h2>The study is now over - thank you for you time.  ' +
             '' +
             '' +
             '' +
