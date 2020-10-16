@@ -85,212 +85,219 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
     };
 
 
-plugin.trial = function (display_element, trial) {
-    display_element.innerHTML = '';
+    plugin.trial = function (display_element, trial) {
+        display_element.innerHTML = '';
 
-    const response = {
-        stimulus: trial.spaceship_class,
-        trial_type: trial.trial_type,
-        distribution_info: trial.distribution_info,
-        distribution_name: trial.distribution_name,
-        spaceship_class: trial.spaceship_class,
-        location: trial.location,
-        start_time: performance.now(),
-        response_time: null,
-        confidence_response_time: null,
-        end_time: null,
-        delta_response_time: null,
-        delta_confidence_response_time: null,
-        delta_feedback_time: null,
-        button: null,
-        button_label: trial.choices,
-        confidence: null,
-        correct: null,
-        incorrect: null,
-        block: trial.block
-    };
+        const response = {
+            stimulus: trial.spaceship_class,
+            trial_type: trial.trial_type,
+            distribution_info: trial.distribution_info,
+            distribution_name: trial.distribution_name,
+            spaceship_class: trial.spaceship_class,
+            location: trial.location,
+            start_time: performance.now(),
+            response_time: null,
+            confidence_response_time: null,
+            end_time: null,
+            delta_response_time: null,
+            delta_confidence_response_time: null,
+            delta_feedback_time: null,
+            button: null,
+            button_label: trial.choices,
+            confidence: null,
+            correct: null,
+            incorrect: null,
+            block: trial.block
+        };
 
-    //draw "canvas" to screen
-    var canvasDiv = document.createElement("div");
-    canvasDiv.id = "jspsych-experimentscreen";
-    canvasDiv.classList.add('gameboard');
-    display_element.appendChild(canvasDiv);
+        //draw "canvas" to screen
+        var canvasDiv = document.createElement("div");
+        canvasDiv.id = "jspsych-experimentscreen";
+        canvasDiv.classList.add('gameboard');
+        display_element.appendChild(canvasDiv);
 
-    var grassbank = document.createElement("div");
-    grassbank.id = "grassbank";
-    grassbank.classList.add('grassbank');
-    canvasDiv.appendChild(grassbank)
+        var grassbank = document.createElement("div");
+        grassbank.id = "grassbank";
+        grassbank.classList.add('grassbank');
+        canvasDiv.appendChild(grassbank)
 
-    if (trial.trial_type !== 'clear') {
-        var cloudbank = document.createElement('div');
-        cloudbank.classList.add('cloudbank');
-        display_element.appendChild(cloudbank);
-    }
-
-    //package
-    var package = document.createElement("div");
-    package.classList.add('package');
-    package.style.left = `${trial.location}px`;
-    canvasDiv.appendChild(package);
-    //drop package
-
-    //spaceship
-    var spaceship = document.createElement("div");
-    spaceship.classList.add('spaceship', trial.spaceship_class);
-    spaceship.style.left = `${trial.location}px`;
-    console.log(trial.location);
-    canvasDiv.appendChild(spaceship);
-    //drop spaceship at specific x position
-    //overlay with image of spaceship
-
-    //draw buttons to screen
-    var buttons = document.createElement("div")
-    buttons.id = 'jspsych-quickfire-btngroup';
-
-    trial.choices.forEach((c, i) => {
-        var button = document.createElement('div');
-        button.id = 'experiment-btn';
-        button.classList.add('experiment-btn');
-        button.innerHTML = c;
-        button.dataset.choice = i;
-        buttons.appendChild(button);
-        button.addEventListener(
-            'click',
-            (e) => afterResponse(parseInt(i))
-        );
-    });
-
-    display_element.appendChild(buttons);
-
-    // if fast learning trial display banner underneath screen.
-    if (trial.banner_text !== null) {
-        var banner = document.createElement("div");
-        banner.classList.add('banner')
-        banner.innerHTML = trial.banner_text;
-        buttons.appendChild(banner);
-    }
-    // timeout: end trial if time limit is set
-    if (trial.trial_duration !== null) {
-        jsPsych.pluginAPI.setTimeout(function () {
-            end_trial();
-        }, trial.trial_duration);
-    }
-
-    /**
-     * do stuff after button press
-     * @param choice {int} tells us which button was pressed
-     */
-    function afterResponse(choice) {
-        // measure response information
-        response.response_time = performance.now();
-        response.delta_response_time = response.response_time - response.start_time;
-        response.button = choice;
-        console.log(choice)
-        response.button_label = trial.choices[choice];
-        console.log(response.button_label)
-        //figure out scoring
-
-
-        if (/blue/i.test(trial.spaceship_class)){
-            if (response.button_label === 'Zap'){
-                response.correct = 1;
-                response.incorrect = 0;
-                response.coins = 3;
-            } else {
-                response.correct = 0;
-                response.incorrect = 1;
-                response.coins = 0;
-            }
-        } else if(/orange/i.test(trial.spaceship_class)){
-            if (response.button_label === 'Zap'){
-                response.correct = 0;
-                response.incorrect = 1;
-                response.coins = 0;
-
-            } else {
-                response.correct = 1;
-                response.incorrect = 0;
-                response.coins = 3;
-            }
+        if (trial.trial_type !== 'clear') {
+            var cloudbank = document.createElement('div');
+            cloudbank.classList.add('cloudbank');
+            display_element.appendChild(cloudbank);
         }
 
-        // disable all the buttons after a response
-        var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].setAttribute('disabled', 'disabled');
+        //package
+        var package = document.createElement("div");
+        package.classList.add('package');
+        package.style.left = `${trial.location}px`;
+        canvasDiv.appendChild(package);
+        //drop package
+
+        //spaceship
+        var spaceship = document.createElement("div");
+        spaceship.classList.add('spaceship', trial.spaceship_class);
+        spaceship.style.left = `${trial.location}px`;
+        console.log(trial.location);
+        canvasDiv.appendChild(spaceship);
+        //drop spaceship at specific x position
+        //overlay with image of spaceship
+
+        //draw buttons to screen
+        var buttons = document.createElement("div")
+        buttons.id = 'jspsych-quickfire-btngroup';
+
+        trial.choices.forEach((c, i) => {
+            var button = document.createElement('div');
+            button.id = 'experiment-btn';
+            button.classList.add('experiment-btn');
+            button.innerHTML = c;
+            button.dataset.choice = i;
+            buttons.appendChild(button);
+            button.addEventListener(
+                'click',
+                (e) => afterResponse(parseInt(i))
+            );
+        });
+
+        display_element.appendChild(buttons);
+
+        // if fast learning trial display banner underneath screen.
+        if (trial.banner_text !== null) {
+            var banner = document.createElement("div");
+            banner.classList.add('banner')
+            banner.innerHTML = trial.banner_text;
+            buttons.appendChild(banner);
+        }
+        // timeout: end trial if time limit is set
+        if (trial.trial_duration !== null) {
+            jsPsych.pluginAPI.setTimeout(function () {
+                end_trial();
+            }, trial.trial_duration);
         }
 
-        jsPsych.pluginAPI.clearAllTimeouts();
+        /**
+         * do stuff after button press
+         * @param choice {int} tells us which button was pressed
+         */
+        function afterResponse(choice) {
+            // measure response information
+            response.response_time = performance.now();
+            response.delta_response_time = response.response_time - response.start_time;
+            response.button = choice;
+            console.log(choice)
+            response.button_label = trial.choices[choice];
+            console.log(response.button_label)
+            //figure out scoring
 
-        if (trial.confidence_trial)
-            getConfidence();
-        else
-            end_trial();
-    }
 
-    /**
-     * display a confidence slider to collect a confidence report on confidence trials
-     */
-    function getConfidence() {
+            if (/blue/i.test(trial.spaceship_class)){
+                if (response.button_label === 'Zap'){
+                    response.correct = 1;
+                    response.incorrect = 0;
+                    response.coins = 3;
+                } else {
+                    response.correct = 0;
+                    response.incorrect = 1;
+                    response.coins = 0;
+                }
+            } else if(/orange/i.test(trial.spaceship_class)){
+                if (response.button_label === 'Zap'){
+                    response.correct = 0;
+                    response.incorrect = 1;
+                    response.coins = 0;
 
-        //clear buttons and realign button group to fit confidence question
-        buttons.innerHTML = `
+                } else {
+                    response.correct = 1;
+                    response.incorrect = 0;
+                    response.coins = 3;
+                }
+            }
+
+            // disable all the buttons after a response
+            var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].setAttribute('disabled', 'disabled');
+            }
+
+            jsPsych.pluginAPI.clearAllTimeouts();
+
+            if (trial.confidence_trial)
+                getConfidence();
+            else
+                end_trial();
+        }
+
+        /**
+         * display a confidence slider to collect a confidence report on confidence trials
+         */
+        function getConfidence() {
+
+            let sliderStart = Math.floor(Math.random() * 100) + 1;
+            console.log(sliderStart)
+
+
+            //clear buttons and realign button group to fit confidence question
+            buttons.innerHTML = `
 <div id = 'confidence'>
 <p class='confidenceQuestion' id="confidenceQuestion" fontsize="xx-large">
 <strong>How confident are you of your choice?</strong>
 </p>
 
 <div class="slider_area">
-    <div class="label"> Sure<br>GUESS</div>
-    <input type="range" class="slider" id="slider" min=0 max=100 step="1" value="50"/>
-    <div class="label"> Sure<br>CORRECT </div>
+    <div class="label">Totally <br> UNSURE </div>
+    <input type="range" class="slider" id="slider" min=0 max=100 step="1" value = "${sliderStart.valueOf()}" />
+    <div class="label"> Sure<br> CORRECT </div>
 </div>
 <div id="experiment-btn" class="experiment-btn" data-disabled="1">Confirm</div>
 </div>
             `;
 
-        //insert a slider for the confidence report
-        var confidenceSlider = document.getElementById('slider');
-        confidenceSlider.requireInteraction = true;
-        confidenceSlider.addEventListener("change", ()=>document.getElementById('experiment-btn').dataset.disabled='0')
+            //insert a slider for the confidence report
+            var confidenceSlider = document.getElementById('slider');
+            console.log(sliderStart)
+            sliderStart = document.getElementById('slider').value;
+            console.log(sliderStart)
+            confidenceSlider.requireInteraction = true;
+            confidenceSlider.addEventListener("change", ()=>document.getElementById('experiment-btn').dataset.disabled='0')
 
-        var confirm = document.getElementById('experiment-btn');
-        confirm.style.backgroundColor= 'rgba(155, 242, 236, .7)'
-        confidenceSlider.addEventListener('change',()=>document.getElementById('experiment-btn').style.backgroundColor = 'rgba(155, 242, 236, 1)')
-        confirm.addEventListener('click',(e)=> {
-            if(e.currentTarget.dataset.disabled === '0')
-                end_trial()
-        });
+            var confirm = document.getElementById('experiment-btn');
+            confirm.style.backgroundColor= 'rgba(155, 242, 236, .7)'
+            confidenceSlider.addEventListener('change',()=>document.getElementById('experiment-btn').style.backgroundColor = 'rgba(155, 242, 236, 1)')
+            confirm.addEventListener('click',(e)=> {
+                if(e.currentTarget.dataset.disabled === '0')
+                    end_trial()
+            });
 
-        response.confidence_response_time = performance.now();
-        response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
-        response.confidence = display_element.querySelector('input.slider').value;
-    }
+            response.confidence_response_time = performance.now();
+            response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
+            response.confidence = display_element.querySelector('input.slider').value;
+        }
 
-    /**
-     * Cleanly end a jsPsych trial
-     */
-    function end_trial() {
-        // record the slider's final value
-        const conf = display_element.querySelector('input.slider');
-        if(conf)
-            response.confidence = conf.value;
-        else
-            response.confidence = null;
+        /**
+         * Cleanly end a jsPsych trial
+         */
+        function end_trial() {
+            // record the slider's final value
+            const conf = display_element.querySelector('input.slider');
+            if(conf)
+                response.confidence = conf.value;
+            else
+                response.confidence = null;
 
-        // clear the display
-        display_element.innerHTML = '';
-        response.end_time = performance.now();
+            // clear the display
+            display_element.innerHTML = '';
+            response.end_time = performance.now();
 
-        // kill any remaining setTimeout handlers
-        jsPsych.pluginAPI.clearAllTimeouts();
+            // kill any remaining setTimeout handlers
+            jsPsych.pluginAPI.clearAllTimeouts();
 
-        // move on to the next trial
-        jsPsych.finishTrial(response);
+            // move on to the next trial
+            jsPsych.finishTrial(response);
 
-    }
-};
+        }
+    };
 
-return plugin;
+    return plugin;
 
 }();

@@ -61,7 +61,8 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         { var tutorial_text =
             '<p> Now that you\'ve seen the spaceships dropping their packages to earth - it is time bring together everything you have learned so far. ' +
             'In the next rounds you will see the packages dropping from a cloudy sky, the spaceships themselves will be hidden from view. ' +
-            'You will have to decide whether to retrieve the packages or not based on their drop location alone. </p>' +
+            'You will have to decide whether to retrieve the packages or not based on their drop location alone.' +
+            'You will now only receive feedback on your choices at the end of the this round (not after each decision).  </p>' +
             '<p>Remember - you are trying to retrieve coins and zap the bombs to earn as many coins as possible!</p>';
             var header_text =
                 '<h2>Read the following instructions to learn more about the next stage of the game.</h2>'
