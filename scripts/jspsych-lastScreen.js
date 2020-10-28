@@ -13,23 +13,20 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
         display_element.innerHTML = '';
         var tutorial_text =
             '<p> Thank you for taking the time to complete this study in full. ' +
-            'If you are prolific user please press the button below to submit your completion code via redirection. ' +
-            'If you have any concerns or issues regarding this study please do not hesitate to get in touch with the researchers either via the prolific platform or using the emails from the information sheet at teh start of this study. ' +
+            'The study is now over and you can exit the screen. ' +
+            'If you are Prolific user please press the button below to submit your completion code via redirection. ' +
+            'This button will also close the full screen mode and allow you to navigate away from the study. ' +
+            'If you have any concerns or issues regarding this study please do not hesitate to get in touch with the researchers either via the Prolific platform or ' +
+            'using the contact emails from the information sheet at the start of this study. ' +
+            'We hope you enjoyed taking part in our research, have a great day! ' +
+
             '</p> ';
         var header_text =
             '<h2>The study is now over - thank you for you time.  ' +
             '' +
             '' +
             '' +
-            '' +
-            '' +
-            '' +
-            '' +
-            '' +
-            '' +
-            '' +
-            '' +
-            '' +
+
             '</h2>';
         // create page elements
         var intro = createGeneral(
@@ -81,13 +78,13 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
             'button',
             'large-button',
             'tutorial-submit',
-            '<div>Press to escape full screen mode</div>'
+            '<div>Complete the study</div>'
         );
 
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
-            //location.href = "https://app.prolific.co/submissions/complete?cc=55E8C45F";
+            location.href = "https://app.prolific.co/submissions/complete?cc=33A2B669";
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.msExitFullscreen) {

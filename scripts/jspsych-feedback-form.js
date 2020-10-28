@@ -76,8 +76,7 @@ jsPsych.plugins['jspsych-feedback-form'] = (function () {
         'div',
         'question feedback-text',
         'feedbackQuestion-strategy',
-        'Please describe what strategy you were using to reach your decision about whether or not to retrieve a package' +
-          '- for instance, if you were judging based on the side of the screen a package appeared on.'
+        'Please describe what strategy you were using to reach your decision about whether or not to retrieve a package.'
       );
 
       var strategyText = createGeneral(
