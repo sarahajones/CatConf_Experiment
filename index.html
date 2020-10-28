@@ -28,6 +28,7 @@
     <script src="scripts/jspsych-demographics.js"></script>
     <script src="scripts/jspsych-lastScreen.js"></script>
     <script src="scripts/jspsych-feedback.js"></script>
+    <script src="scripts/jspsych-feedback-form.js"></script>
 
     <!--custom JS: helpers-->
     <script src="scripts/helper-functions.js"></script>
@@ -72,9 +73,31 @@
     ];
 
     /* EXPERIMENT VARIABLES */
-    const trial_number = 30 ; //30//quickfire round trial number
-    const fastdrop_number = 50; //50//amount of drops in fast drop blocks
-    const drop_number = 40; //45//amount of drops in test trial blocks
+    const trial_number = 5 ; //20//quickfire round trial number
+    const fastdrop_number = 5; //50//amount of drops in fast drop blocks
+    const drop_number = 5; //45//amount of drops in test trial blocks
+
+    const distribution1_1 = [
+        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
+    ];
+    const distribution2_1 = [
+        {name: 'narrow', value: gaussian(500, 5000), color: 'blue1'},
+        {name: 'wide', value: gaussian(200, 10000), color: 'orange1'}
+    ];
+    const distribution3_1 = [
+        {name: 'wide', value: gaussian(500, 5000), color: 'blue1'},
+        {name: 'narrow', value: gaussian(200, 10000), color: 'orange1'}
+    ];
+    const distribution4_1 = [
+        {name: 'wide', value: gaussian(200, 5000), color: 'blue1'},
+        {name: 'narrow', value: gaussian(500, 10000), color: 'orange1'}
+    ];
+
+    distributions = [distribution1_1, distribution2_1, distribution3_1, distribution4_1];
+    indices = [0, 1, 2, 3]
+    index = shuffle(indices)
+    console.log()
 
     // QUICKFIRE LEARNING ROUND
     quickfire_stimuli = [
@@ -85,10 +108,7 @@
     quickfire_stimuli = shuffle_shoe(quickfire_stimuli, deck_count); //shuffle deck
 
     //GAME BLOCK 1
-    const distribution1 = [
-        {name: 'narrow', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(500, 10000), color: 'orange1'}
-    ];
+    const distribution1 = distributions[index[0]];
     //FASTDROP 1 TRIALS
     const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
     const fastdrop_stimuli = shuffle_shoe(distribution1, fastdrop_deck_count); // shuffle deck
@@ -98,10 +118,7 @@
 
 
     //GAME BLOCK 2
-    const distribution2 = [
-        {name: 'narrow', value: gaussian(500, 5000), color: 'blue1'},
-        {name: 'wide', value: gaussian(200, 10000), color: 'orange1'}
-    ];
+    const distribution2 = distributions[index[1]];
     //FASTDROP 2 TRIALS
     const fastdrop_deck_count2 = fastdrop_number / distribution2.length;
     const fastdrop_stimuli2 = shuffle_shoe(distribution2, fastdrop_deck_count2);
@@ -111,10 +128,7 @@
 
 
     //GAME BLOCK 3
-    const distribution3 = [
-        {name: 'wide', value: gaussian(500, 5000), color: 'blue1'},
-        {name: 'narrow', value: gaussian(200, 10000), color: 'orange1'}
-    ];
+    const distribution3 = distributions[index[2]];
     //FASTDROP 3 TRIALS
     const fastdrop_deck_count3 = fastdrop_number/ distribution3.length;
     const fastdrop_stimuli3 = shuffle_shoe(distribution3, fastdrop_deck_count3);
@@ -123,10 +137,7 @@
     const spaceship_stimuli3 = shuffle_shoe(distribution3, spaceship_deck_count3);
 
     //GAME BLOCK 4
-    const distribution4 = [
-        {name: 'wide', value: gaussian(200, 5000), color: 'blue1'},
-        {name: 'narrow', value: gaussian(500, 10000), color: 'orange1'}
-    ];
+    const distribution4 = distributions[index[3]];
     //FASTDROP 4 TRIALS
     const fastdrop_deck_count4 = fastdrop_number/ distribution4.length;
     const fastdrop_stimuli4 = shuffle_shoe(distribution4, fastdrop_deck_count4);
@@ -495,7 +506,7 @@
             choices: ['Retrieve', 'Zap'],
             location: s.location,
             stimulus_duration: 3000,
-            spaceship_class: s.location,
+            spaceship_class: s.color,
             distribution_name: s.name,
             distribution_info: s.value,
             confidence_trial: true,
@@ -538,7 +549,7 @@
         do{
             s.location = s.value.random(1)[0];
         } while (s.location < 15 | s.location > 785)
-        fastdrop3_timeline.push({
+        fastdrop4_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
             confidence_trial: false,
@@ -573,7 +584,7 @@
             choices: ['Retrieve', 'Zap'],
             location: s.location,
             stimulus_duration: 3000,
-            spaceship_class: s.location,
+            spaceship_class: s.color,
             distribution_name: s.name,
             distribution_info: s.value,
             confidence_trial: true,
@@ -603,12 +614,17 @@
         trial_duration: 3000,
     };
 
+    var feedbackForm = {
+        type: 'jspsych-feedback-form',
+    };
+
     var end_experiment = {
         type: "jspsych-lastScreen",
     };
 
     end_timeline = [
         splash_3,
+        feedbackForm,
         end_experiment
     ];
 

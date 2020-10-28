@@ -40,7 +40,6 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
       ageRT: null,
       genderRT: null,
       handednessRT: null
-
     };
 
 
@@ -53,90 +52,90 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
 
     // create page elements
     var section1 = createGeneral(
-      section1,
-      display_element,
-      'section',
-      'section',
-      'demographics-section1',
-      ''
+        section1,
+        display_element,
+        'section',
+        'section',
+        'demographics-section1',
+        ''
     );
     var ageQuestion = createGeneral(
-      ageQuestion,
-      section1,
-      'div',
-      'question demographics-question',
-      'demographics-question1',
-      '<h2>' + trial.questions.age + '</h2>'
-      + '<input id="age" name="age" class="slider" type="range" min="17" max="70" value="17">'
-      + '<label for="age">17 years old </label>'
+        ageQuestion,
+        section1,
+        'div',
+        'question demographics-question',
+        'demographics-question1',
+        '<h2>' + trial.questions.age + '</h2>'
+        + '<input id="age" name="age" class="slider" type="range" min="17" max="70" value="17">'
+        + '<label for="age">17 years old </label>'
     );
     var button1 = createGeneral(
-      button1,
-      section1,
-      'button',
-      'large-button',
-      'demographics-proceed1',
-      'CONFIRM'
+        button1,
+        section1,
+        'button',
+        'large-button',
+        'demographics-proceed1',
+        'CONFIRM'
     );
     var section2 = createGeneral(
-      section2,
-      display_element,
-      'section',
-      'section',
-      'demographics-section2',
-      ''
+        section2,
+        display_element,
+        'section',
+        'section',
+        'demographics-section2',
+        ''
     );
     var genderQuestion = createGeneral(
-      genderQuestion,
-      section2,
-      'div',
-      'question demographics-question',
-      'demographics-question2',
-      '<h2>' + trial.questions.gender + '</h2>'
-      + '<select id="gender" name="gender">'
-      + '<option disabled selected value> - select an option - </option>'
-      + '<option value="male">Male</option>'
-      + '<option value="female">Female</option>'
-      + '<option value="other">Other</option>'
-      + '<option value="prefer not to say">Prefer Not To Say</option>'
-      + '</select>'
+        genderQuestion,
+        section2,
+        'div',
+        'question demographics-question',
+        'demographics-question2',
+        '<h2>' + trial.questions.gender + '</h2>'
+        + '<select id="gender" name="gender">'
+        + '<option disabled selected value> - select an option - </option>'
+        + '<option value="male">Male</option>'
+        + '<option value="female">Female</option>'
+        + '<option value="other">Other</option>'
+        + '<option value="prefer not to say">Prefer Not To Say</option>'
+        + '</select>'
     );
     var button2 = createGeneral(
-      button2,
-      section2,
-      'button',
-      'large-button',
-      'demographics-proceed2',
-      'CONFIRM'
+        button2,
+        section2,
+        'button',
+        'large-button',
+        'demographics-proceed2',
+        'CONFIRM'
     );
     var section3 = createGeneral(
-      section3,
-      display_element,
-      'section',
-      'section',
-      'demographics-section3',
-      ''
+        section3,
+        display_element,
+        'section',
+        'section',
+        'demographics-section3',
+        ''
     );
     var handednessQuestion = createGeneral(
-      handednessQuestion,
-      section3,
-      'div',
-      'question demographics-question',
-      'demographics-question3',
-      '<h2>' + trial.questions.handedness + '</h2>'
-      + '<select id="handedness" name="handedness">'
-      + '<option disabled selected value> - select an option - </option>'
-      + '<option value="left">Left</option>'
-      + '<option value="right">Right</option>'
-      + '</select>'
+        handednessQuestion,
+        section3,
+        'div',
+        'question demographics-question',
+        'demographics-question3',
+        '<h2>' + trial.questions.handedness + '</h2>'
+        + '<select id="handedness" name="handedness">'
+        + '<option disabled selected value> - select an option - </option>'
+        + '<option value="left">Left</option>'
+        + '<option value="right">Right</option>'
+        + '</select>'
     );
     var button3 = createGeneral(
-      button3,
-      section3,
-      'button',
-      'large-button',
-      'demographics-proceed3',
-      'SUBMIT'
+        button3,
+        section3,
+        'button',
+        'large-button',
+        'demographics-proceed3',
+        'SUBMIT'
     );
     button3.setAttribute('type', 'submit');
 
@@ -146,6 +145,9 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
 
     // start the timers
     response.startTime = Date.now();
+    var ageRT;
+    var genderRT;
+    var handednessRT;
 
     // Section 1 event listeners
     $('#age').on('change input', function () {
@@ -157,7 +159,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed1').on('click', function() {
-      response.ageRT = calculateRT(response.startTime, Date.now());
+      ageRT = calculateRT(response.startTime, Date.now());
       $('html, body').animate({
         scrollTop: $('#demographics-section2').offset().top
       }, 1000);
@@ -171,7 +173,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed2').on('click', function() {
-      response.genderRT = calculateRT(startQuestion, Date.now());
+      genderRT = calculateRT(startQuestion, Date.now());
       $('html, body').animate({
         scrollTop: $('#demographics-section3').offset().top
       }, 1000);
@@ -184,12 +186,27 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
     });
 
     $('#demographics-proceed3').on('click', function() {
-      response.handednessRT = calculateRT(startQuestion, Date.now());
+      handednessRT = calculateRT(startQuestion, Date.now());
+
       response.totalRT = calculateRT(response.startTime, Date.now());
-      response.participantAge = document.getElementById('age').value;
+      response.participantAge = parseInt(document.getElementById('age').value, 10);
       response.participantGender = document.getElementById('gender').value;
       response.participantHandedness = document.getElementById('handedness').value;
+      response.ageRT = ageRT;
+      response.genderRT = genderRT;
+      response.handednessRT = handednessRT;
+      //console.log(response);
 
+      var element = document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
       // finish
       jsPsych.finishTrial();
       return;

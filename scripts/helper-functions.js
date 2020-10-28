@@ -7,6 +7,16 @@ function calculateRT(start, end) {
     return rt;
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+
 /* scroll to top of a page when page finishes loading. requires jQuery */
 function scrollTop() {
     $(document).ready(function () {
@@ -135,7 +145,93 @@ function showBlankScreen(duration, callback) {
     setTimeout(callback, duration);
 }
 
+/***********************
+ * COMPOSITE FUNCTIONS
+ ************************/
 
+/* jQuery-powered -- create a survey matrix with the number of questions as the number of rows and the number of options as the number of columns. num is just a numerical index to identify this specific element in case others of this type exist in the page. requires createGeneral() and jQuery */
+function createSurveyMatrix(parent, id, questionnaireName, questions, options) {
+
+    for (var row = 0; row < questions.length; row++) {
+        // create a row of SurveyMatrix
+        var surveyMatrix_row = createGeneral(
+            surveyMatrix_row,
+            parent,
+            'div',
+            'surveyMatrix-row',
+            id + '-surveyMatrix-row' + row,
+            ''
+        );
+        // create the question area for that row
+        var surveyMatrix_question = createGeneral(
+            surveyMatrix_question,
+            surveyMatrix_row,
+            'div',
+            'surveyMatrix-question',
+            id + '-surveyMatrix-row' + row + '-question',
+            questions[row]
+        );
+        // create the option area for that row
+        var surveyMatrix_optionArea = createGeneral(
+            surveyMatrix_optionArea,
+            surveyMatrix_row,
+            'div',
+            'surveyMatrix-optionArea',
+            id + '-surveyMatrix-row' + row + '-optionArea',
+            ''
+        );
+        // for each row in SurveyMatrix:
+        for (var column = 0; column < options.length; column++) {
+            // create an option in its own column
+            var surveyMatrix_option = createGeneral(
+                surveyMatrix_question,
+                surveyMatrix_optionArea,
+                'div',
+                'surveyMatrix-option',
+                id + '-surveyMatrix-row' + row + '-option' + column,
+                ''
+            );
+            // create a default radio input
+            var surveyMatrix_defaultRadio = createGeneral(
+                surveyMatrix_defaultRadio,
+                surveyMatrix_option,
+                'input',
+                'surveyMatrix-defaultRadio',
+                id + '-surveyMatrix-row' + row + '-defaultRadio' + column,
+                ''
+            );
+            surveyMatrix_defaultRadio.setAttribute('type', 'radio');
+            surveyMatrix_defaultRadio.setAttribute('name', questionnaireName + '_' + id + '-' + row);
+            surveyMatrix_defaultRadio.setAttribute('value', options[column]);
+            // create a custom radio input for overlay
+            var surveyMatrix_customRadio = createGeneral(
+                surveyMatrix_customRadio,
+                surveyMatrix_option,
+                'div',
+                'surveyMatrix-customRadio',
+                id + '-surveyMatrix-row' + row + '-customRadio' + column,
+                ''
+            );
+            var surveyMatrix_optionLabel = createGeneral(
+                surveyMatrix_optionLabel,
+                surveyMatrix_option,
+                'label',
+                'surveyMatrix-optionLabel',
+                id + '-surveyMatrix-row' + row + '-optionLabel' + column,
+                options[column],
+                ''
+            );
+            surveyMatrix_optionLabel.setAttribute('for', questionnaireName + '_' + id + '-' + row);
+        }
+    }
+    // use jQuery to make sure that the custom radio causes the default radio value to change
+    $('.surveyMatrix-option').bind('click', function (event) {
+        // when clicking on an option area, if contained radio button is not checked, render it checked
+        if ($(event.currentTarget).children('input').prop('checked') == false) {
+            $(event.currentTarget).children('input').prop('checked', 'true');
+        }
+    });
+}
 
 
 //END OF HELPER FUNCTIONS

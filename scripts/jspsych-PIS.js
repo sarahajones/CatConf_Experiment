@@ -80,7 +80,9 @@ jsPsych.plugins["jspsych-PIS"] = (function() {
             + '<p>If you remain unhappy or wish to make a formal complaint, please contact the Chair of the Research Ethics Committee at the University of Oxford who will seek to resolve the matter as soon as possible:' + '<br>' +
             'Chair, <b>Medical Sciences Inter-Divisional Research Ethics Committee</b>; Email: ethics@medsci.ox.ac.uk; Address: Research Services, University of Oxford, Wellington Square, Oxford OX1 2JD</p>';
 
-
+        const response = {
+            PIS: null,
+        };
 // create page elements
         var intro = createGeneral(
             intro,
@@ -172,6 +174,7 @@ jsPsych.plugins["jspsych-PIS"] = (function() {
 
         // define what happens when people click on the final submit button
         $('#PIS-submit').on('click', function () {
+            response.PIS = true;
             // save the data to data object
             jsPsych.finishTrial();
             return;

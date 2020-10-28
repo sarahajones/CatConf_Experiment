@@ -42,14 +42,22 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
             coins += x.coins;
         });
 
+        if (coins < 0){
+            coins = 0
+        };
+
 
         let tutorial_text = `
         <p>Well done on completing this round.
             In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
             In total you collected <strong>${coins}</strong> coins this round! Keep trying to improve your score each round!
         </p>
-        <p>Remember, a correct response which gains you 3 coins is either when you retrieved coins or correctly zapped a bomb. An incorrect response could be a zapped coin package (which does not affect your coins) or a retrieved bomb (which will lose you 3 coins). </p>
+        <p>Remember, a correct response  is either when you retrieved coins (which gains you 3 coins) or correctly zapped a bomb (which does not affect your coins). 
+        An incorrect response could be a zapped coin package (which does not affect your coins) or a retrieved bomb (which will lose you 3 coins). </p>
         `;
+
+
+
         var button_label = '<div>Press to continue</div>';
 
         if (trial.trial_type === 'first') {
@@ -66,19 +74,13 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
         else if(trial.trial_type === 'third')
         {var header_text =
                 '<h1>Round 3 complete - take a short break.</h1>'
+
         }
         else if(trial.trial_type === 'last')
         {var header_text =
             '<h1>Last round finished - well done.</h1>'
-            let tutorial_text = `
-        <p>Well done on completing the final round.</p>
-        <p>
-            In total you got <strong>${correct}</strong> right and <strong>${incorrect}</strong> wrong.
-            This means you got a total of <strong>${coins}</strong>coins this round!
-            
-            This was the last round, please navigate forward using the button below to finish up the study. 
-        </p>
-        `;
+
+
         }
 
         // create page elements
@@ -145,6 +147,16 @@ jsPsych.plugins['jspsych-feedback'] = (function () {
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
+            var element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
             // save the data to data object
             jsPsych.finishTrial();
             return;

@@ -148,6 +148,16 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
+            var element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
             // save the data to data object
             jsPsych.finishTrial();
             return;

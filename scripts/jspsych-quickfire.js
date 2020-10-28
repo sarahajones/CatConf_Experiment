@@ -119,7 +119,6 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             response_time: null,
             end_time: null,
             delta_response_time: null,
-            delta_feedback_time: null,
             button: null,
             button_label: trial.choices,
         };
@@ -185,6 +184,17 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
         function awaitResponse() {
             for (var i = 0; i < trial.choices.length; i++) {
                 display_element.querySelector('#jspsych-quickfire-button-' + i).addEventListener('click', function (e) {
+                    var element = document.documentElement;
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                    } else if (element.webkitRequestFullscreen) {
+                        element.webkitRequestFullscreen();
+                    } else if (element.msRequestFullscreen) {
+                        element.msRequestFullscreen();
+                    }
+
                     var choice = e.currentTarget.getAttribute('data-choice');
                     afterResponse(choice);
                 });
@@ -206,7 +216,7 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             response.delta_response_time = response.response_time - response.start_time;
             response.button = choice;
             response.button_label = trial.choices[choice];
-
+            console.log(response);
 
             // disable all the buttons after a response
             var btns = document.querySelectorAll('#jspsych-quickfire-button-');
