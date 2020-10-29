@@ -96,6 +96,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
         + '<option disabled selected value> - select an option - </option>'
         + '<option value="male">Male</option>'
         + '<option value="female">Female</option>'
+        + '<option value="non-binary">Other</option>'
         + '<option value="other">Other</option>'
         + '<option value="prefer not to say">Prefer Not To Say</option>'
         + '</select>'
