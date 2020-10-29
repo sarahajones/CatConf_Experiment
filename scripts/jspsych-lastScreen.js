@@ -18,9 +18,7 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
             'This button will also close the full screen mode and allow you to navigate away from the study. ' +
             'If you have any concerns or issues regarding this study please do not hesitate to get in touch with the researchers either via the Prolific platform or ' +
             'using the contact emails from the information sheet at the start of this study. ' +
-            'We hope you enjoyed taking part in our research, have a great day! ' +
-
-            '</p> ';
+            'We hope you enjoyed taking part in our research, have a great day! </p> ';
         var header_text =
             '<h2>The study is now over - thank you for you time.  ' +
             '' +
