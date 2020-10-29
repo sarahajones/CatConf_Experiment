@@ -127,6 +127,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
         + '<option disabled selected value> - select an option - </option>'
         + '<option value="left">Left</option>'
         + '<option value="right">Right</option>'
+        + '<option value="ambidextrous">Right</option>'
         + '</select>'
     );
     var button3 = createGeneral(
