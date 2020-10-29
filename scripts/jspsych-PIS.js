@@ -176,7 +176,7 @@ jsPsych.plugins["jspsych-PIS"] = (function() {
         $('#PIS-submit').on('click', function () {
             response.PIS = true;
             // save the data to data object
-            jsPsych.finishTrial();
+            jsPsych.finishTrial(response);
             return;
         });
     }

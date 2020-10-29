@@ -239,7 +239,7 @@ jsPsych.plugins['jspsych-feedback-form'] = (function () {
     continueButton.onclick = function () {
 
 
-      jsPsych.finishTrial();
+      jsPsych.finishTrial(response);
       return;
     };
   };

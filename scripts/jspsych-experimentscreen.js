@@ -105,13 +105,13 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             end_time: null,
             delta_response_time: null,
             delta_confidence_response_time: null,
-            delta_feedback_time: null,
             button: null,
             button_label: trial.choices,
             confidence: null,
             correct: null,
             incorrect: null,
-            block: trial.block
+            block: trial.block,
+            coins: null
         };
 
         if (trial.location<350){

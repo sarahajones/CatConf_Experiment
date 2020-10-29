@@ -208,7 +208,7 @@ jsPsych.plugins['jspsych-demographics'] = (function () {
         element.msRequestFullscreen();
       }
       // finish
-      jsPsych.finishTrial();
+      jsPsych.finishTrial(response);
       return;
     });
     scrollTop();

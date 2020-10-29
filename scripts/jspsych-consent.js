@@ -175,7 +175,7 @@ jsPsych.plugins['jspsych-consent'] = (function () {
         instructAcknowledge.onclick = function() {
             response.consent = true;
             // save the data to jsPsych data object
-            jsPsych.finishTrial();
+            jsPsych.finishTrial(response);
             return;
         };
 
