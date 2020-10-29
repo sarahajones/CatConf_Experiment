@@ -20,7 +20,7 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
                 '<p> There will be <strong>two</strong> different spaceships to track throughout the game. ' +
                 'These spaceships can be identified by their <strong>colors</strong> which will remain consistent throughout the entire study. ' +
                 'By paying attention to each spaceship you can learn what kind of packages they drop (either coins or bombs) and where they might drop them. </p>' +
-                '<p>You are aiming to collect the packages which coins and avoiding the bombs in each round. ' +
+                '<p>You are aiming to collect the packages with coins and avoid the bombs in each round. ' +
                 'To avoid the bombs you will be "zapping" packages instead of "retrieving" them. </p>';
             var header_text =
                 '<h2>The following pages will help guide you through the upcoming study, please read them carefully. </h2>'
@@ -32,7 +32,9 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
                 '<p> 1. If you correctly retrieve a package with coins, you will earn 3 coins. </p>' +
                 '<p> 2. If you incorrectly "zap" a package with coins, you will not get those coins.</p>' +
                 '<p> 3. If you correctly "zap" a packages with a bomb your coins will not change.</p>' +
-                '<p> 4. If you incorrectly "retrieve" a bomb you will lose 3 coins.  </p>';
+                '<p> 4. If you incorrectly "retrieve" a bomb you will lose 3 coins.  </p>' +
+                '<p> If you have no coins to lose your coin jar will stay at zero. ' +
+                'Your score will reset each round.</p>';
             var header_text =
                 '<h1>How does it work?</h1>';
 
@@ -40,10 +42,8 @@ jsPsych.plugins['jspsych-tutorial'] = (function () {
         {var tutorial_text =
             '<p> Okay, let\'s start with some "quick-fire" rounds. ' +
             'You will see an image of a spaceship flash on screen followed by a package which it has "dropped" to earth. ' +
-            'Press "retrieve" to collect the package -  "zap" the package to destroy the package. </p>' +
-            '<p>Remember, packages could contain coins or may hold bombs. ' +
-            'In this round you will get feedback on what the package held after each selection to help you learn what packages you should "retrieve" and what packages you should "zap". </p>' +
-            '<p>You are trying to collect coins and avoid bombs - good luck!</p>';
+            'Press "retrieve" to collect the package -  "zap" the package to destroy the package. Remember, packages could contain coins or may hold bombs. </p>' +
+            '<p> In this round you will get feedback on what the package held after each selection to help you learn what packages you should "retrieve" and what packages you should "zap". You are trying to collect coins and avoid bombs - good luck!</p>';
             var header_text =
                 '<h1>Let\'s get started!</h1>';
 
