@@ -554,3 +554,19 @@ canvas.footer{
     font-size: 20px;
     text-align: justify;
 }
+
+/* -------------------------------------------------------------
+-------------------------- SAVE ERROR --------------------------
+---------------------------------------------------------------- */
+#save-error {
+    display: none;
+    width: calc(100vw - 2 * 8px);
+    height: calc(100vh - 2 * 8px);
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+#save-error.show {
+    display: flex;
+}

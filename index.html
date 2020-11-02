@@ -43,7 +43,10 @@
 </head>
 
 <body class="main">
-
+    <div id="save-error">
+        <h1>Error</h1>
+        <p>There was an error testing whether data from the experiment could be saved to the server. Please contact ...</p>
+    </div>
 <script>
 
     /* EXPERIMENT INFORMATION */
@@ -678,13 +681,14 @@
         ...end_timeline
     ];
 
-    test_save();
-
-    /* start the experiment */
-    jsPsych.init({
-        timeline: timeline,
-        on_finish: save_csv
-    });
+    test_save()
+        .then(()=>{
+            /* start the experiment */
+            jsPsych.init({
+                timeline: timeline,
+                on_finish: save_csv
+            });
+        });
 
     /**
      * Save the jsPsych CSV output to the server
@@ -722,7 +726,7 @@
      * Test the ability to save files on the server
      */
     function test_save() {
-        fetch(
+        return fetch(
             "savecsv.php",
             {
                 method: "POST",
@@ -731,12 +735,15 @@
             }
         )
             .then(r => {
-                if(r.status !== 200)
-                    console.error('Problem saving data');
+                if (r.status !== 200) {
+                    document.getElementById('save-error').classList.add('show');
+                    throw new Error('Problem saving data');
+                }
                 else
                     console.log('Save data test okay!');
             });
     }
+
 </script>
 </body>
 </html>
