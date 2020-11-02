@@ -160,7 +160,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
 
         trial.choices.forEach((c, i) => {
             var button = document.createElement('div');
-            button.id = 'experiment-btn';
+            button.id = `experiment-btn-${i}`;
             button.classList.add('experiment-btn');
             button.innerHTML = c;
             button.dataset.choice = i;
