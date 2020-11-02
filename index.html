@@ -686,6 +686,7 @@
             /* start the experiment */
             jsPsych.init({
                 timeline: timeline,
+                on_trial_finish: save_csv,
                 on_finish: save_csv
             });
         });
@@ -694,19 +695,25 @@
      * Save the jsPsych CSV output to the server
      */
     function save_csv() {
-        // Get a user ID
-        let id = jsPsych.data.getURLVariable('PROLIFIC_ID');
-        if(typeof id !== "string")
-            id = "ID" + Math.floor(Math.random() * 100) +
-                "T" + Math.floor(performance.timeOrigin);
+        if(!window.experiment_metadata) {
+            // Get a user ID
+            let id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+            if(typeof id !== "string")
+                id = "ID" + (10 + Math.floor(Math.random() * 89)) +
+                    "T" + Math.floor(performance.timeOrigin);
 
-        jsPsych.data.addProperties({user_id: id});
+            jsPsych.data.addProperties({user_id: id});
 
-        // Fetch all the experiment data and send it to the server
+            // Fetch all the experiment data and send it to the server
+            window.experiment_metadata = {
+                user_id: id,
+                experiment: 'zapBox',
+                version: [0, 1, 0]
+            };
+        }
+
         const data = {
-            user_id: id,
-            experiment: 'zapBox',
-            version: [0, 1, 0],
+            ...window.experiment_metadata,
             csv: jsPsych.data.get().csv()
         };
 
