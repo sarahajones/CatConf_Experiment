@@ -231,12 +231,23 @@ jsPsych.plugins['jspsych-quickfire'] = (function () {
             function showFeedback() {
                 if (response.button_label === 'Retrieve') {
                     displayImage(trial.feedback, trial.feedback_duration, end_trial)
+                    if(trial.feedback === 'images/coins.png'){
+                        response. correct = 1;
+                        response.incorrect = 0;
+                    } else{
+                        response.incorrect = 1;
+                        response.correct = 0;
+                    }
                 } else if (response.button_label ==='Zap'){
                     if(trial.feedback === 'images/coins.png'){
-                        displayImage(trial.Zap2, trial.feedback_duration, end_trial)
+                        displayImage(trial.Zap2, trial.feedback_duration, end_trial);
+                        response.correct = 0;
+                        response.incorrect = 1;
                     } else
-                        displayImage(trial.Zap1, trial.feedback_duration, end_trial)
-                    }
+                        displayImage(trial.Zap1, trial.feedback_duration, end_trial);
+                    response.correct = 1;
+                    response.incorrect = 0;
+                }
                 else {
                     end_trial();
                 }
