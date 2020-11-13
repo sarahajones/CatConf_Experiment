@@ -149,7 +149,6 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
         var spaceship = document.createElement("div");
         spaceship.classList.add('spaceship', trial.spaceship_class);
         spaceship.style.left = `${trial.location}px`;
-        console.log(trial.location);
         canvasDiv.appendChild(spaceship);
         //drop spaceship at specific x position
         //overlay with image of spaceship
@@ -206,15 +205,13 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
             }
+
             // measure response information
             response.response_time = performance.now();
             response.delta_response_time = response.response_time - response.start_time;
             response.button = choice;
-            //console.log(choice)
             response.button_label = trial.choices[choice];
-            //console.log(response.button_label)
 
-console.log(trial.spaceship_class)
             //figure out scoring
             if (/blue/i.test(trial.spaceship_class)){
                 if (response.button_label === 'Zap'){
@@ -238,8 +235,7 @@ console.log(trial.spaceship_class)
                     response.coins = 3;
                 }
             }
-console.log(response.coins)
-            console.log(response.correct)
+
             // disable all the buttons after a response
             var btns = document.querySelectorAll('jspsych-quickfire-btngroup');
             for (var i = 0; i < btns.length; i++) {
@@ -260,8 +256,6 @@ console.log(response.coins)
         function getConfidence() {
 
             let sliderStart = Math.floor(Math.random() * 100) + 1;
-            console.log(sliderStart)
-
 
             //clear buttons and realign button group to fit confidence question
             buttons.innerHTML = `
@@ -281,15 +275,16 @@ console.log(response.coins)
 
             //insert a slider for the confidence report
             var confidenceSlider = document.getElementById('slider');
-            console.log(sliderStart)
             sliderStart = document.getElementById('slider').value;
-            console.log(sliderStart)
+            response.sliderStartValue  = sliderStart.valueOf();
+
             confidenceSlider.requireInteraction = true;
             confidenceSlider.addEventListener("change", ()=>document.getElementById('experiment-btn').dataset.disabled='0')
 
             var confirm = document.getElementById('experiment-btn');
             confirm.style.backgroundColor= 'rgba(155, 242, 236, .7)'
             confidenceSlider.addEventListener('change',()=>document.getElementById('experiment-btn').style.backgroundColor = 'rgba(155, 242, 236, 1)')
+
             confirm.addEventListener('click',(e)=> {
                 var element = document.documentElement;
                 if (element.requestFullscreen) {
@@ -305,26 +300,32 @@ console.log(response.coins)
                     end_trial()
             });
 
-            response.confidence_response_time = performance.now();
-            response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
             response.confidence = display_element.querySelector('input.slider').value;
+
         }
 
         /**
          * Cleanly end a jsPsych trial
          */
         function end_trial() {
+            // record timings
+            response.confidence_response_time = performance.now();
+            response.delta_confidence_response_time = response.confidence_response_time - response.response_time;
+
             // record the slider's final value
             const conf = display_element.querySelector('input.slider');
-            if(conf)
+            if(conf) {
                 response.confidence = conf.value;
-            else
+
+            }
+            else {
                 response.confidence = null;
+            }
 
             // clear the display
             display_element.innerHTML = '';
             response.end_time = performance.now();
-            //console.log(response);
+
             // kill any remaining setTimeout handlers
             jsPsych.pluginAPI.clearAllTimeouts();
 

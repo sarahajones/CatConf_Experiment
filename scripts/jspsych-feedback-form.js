@@ -98,13 +98,6 @@ jsPsych.plugins['jspsych-feedback-form'] = (function () {
       ''
     );
 
-    /*createSurveyMatrix(
-      technicalPoll,
-      '',
-      'technicalPoll-YN',
-      ['Did you experience any technical issues during the experiment?'],
-      ['Yes', 'No']
-    );*/
 
     var technicalCaption = createGeneral(
       technicalCaption,
@@ -151,33 +144,6 @@ jsPsych.plugins['jspsych-feedback-form'] = (function () {
       'feedbackPoll',
       ''
     );
-    /*createSurveyMatrix(
-      feedbackPoll,
-      '',
-      'feedbackPoll-length',
-      [
-        'How did you find the length of the experiment?'
-      ],
-      ['1<br>too long', '2', '3', '4', '5<br>surprisingly short']
-    );
-    createSurveyMatrix(
-      feedbackPoll,
-      '',
-      'feedbackPoll-lookdesign',
-      [
-        'What do you think about the look/design of this experiment?'
-      ],
-      ['1<br>looks terrible', '2', '3', '4', '5<br>looks great']
-    );
-    createSurveyMatrix(
-      feedbackPoll,
-      '',
-      'feedbackPoll-experience',
-      [
-        'Overall, how was your experience in this experiment?'
-      ],
-      ['1<br>hated it', '2', '3', '4', '5<br>loved it']
-    );*/
 
     var feedbackCaption = createGeneral(
       feedbackCaption,
@@ -232,12 +198,12 @@ jsPsych.plugins['jspsych-feedback-form'] = (function () {
     $('#feedback-continue-button').css('display', 'table-cell');
 
 
-    response.feedback_strategy = strategyText.value;
-    response.feedback_technical = technicalText.value;
-    response.feedback_comments = feedbackText.value;
+
 
     continueButton.onclick = function () {
-
+      response.feedback_strategy = strategyText.value;
+      response.feedback_technical = technicalText.value;
+      response.feedback_comments = feedbackText.value;
 
       jsPsych.finishTrial(response);
       return;
