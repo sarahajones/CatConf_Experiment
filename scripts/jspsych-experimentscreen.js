@@ -322,6 +322,12 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 response.confidence = null;
             }
 
+            if(response.confidence >= response.sliderStartValue){
+                response.sliderMove = response.confidence - response.sliderStartValue;
+            }else{
+                response.sliderMove = response.sliderStartValue - response.confidence;
+            }
+
             // clear the display
             display_element.innerHTML = '';
             response.end_time = performance.now();
