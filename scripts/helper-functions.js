@@ -1,75 +1,4 @@
 //HELPER FUNCTIONS
-
-///**
-// * @function generateColorSamples()
-// * @param {int} color_mean
-// * @param {int} array_sd
-// * @param {int} total_circles - number of items (color circles)
-// */
-function generateTrainingLocations(dist_mean,dist_sd,train_trials) {
-    function randomList(n, a, b) {
-        // create a list of n numbers between a and b
-        var list = [],
-            i;
-        for (i = 0; i < n; i++) {
-            list[i] = Math.random() * (b - a) + a;
-        }
-        return list;
-    }
-    // create a list of locations within the confines of the screen (0-800)
-    var list = randomList(train_trials, 15, 785);
-
-    function descriptives(list) {
-        // compute mean, sd and the interval range: [min, max]
-        var mean,
-            sd,
-            i,
-            len = list.length,
-            sum,
-            a = Infinity,
-            b = -a;
-        for (sum = i = 0; i < len; i++) {
-            sum += list[i];
-            a = Math.min(a, list[i]);
-            b = Math.max(b, list[i]);
-        }
-        mean = sum / len;
-        for (sum = i = 0; i < len; i++) {
-            sum += (list[i] - mean) * (list[i] - mean);
-        }
-        sd = Math.sqrt(sum / (len - 1));
-        return {
-            mean: mean,
-            sd: sd,
-            range: [a, b]
-        };
-    }
-
-    function forceDescriptives(list, mean, sd) {
-        // transfom a list to have an exact mean and sd
-        var oldDescriptives = descriptives(list),
-            oldMean = oldDescriptives.mean,
-            oldSD = oldDescriptives.sd,
-            newList = [],
-            len = list.length,
-            i;
-        for (i = 0; i < len; i++) {
-            newList[i] = sd * (list[i] - oldMean) / oldSD + mean;
-        }
-        return newList;
-    }
-
-    // transform the list to have an exact mean of 5 and sd of 2
-    var newList = forceDescriptives(list, dist_mean, dist_sd);
-
-    // display the transformed list and descriptive statistics (mean and sd)
-    console.log(descriptives(newList));
-
-    return newList;
-}
-
-///////////////////////////////
-
 /* calculate RT to a certain number of decimal points */
 function calculateRT(start, end) {
     start = parseFloat(start);
@@ -78,6 +7,14 @@ function calculateRT(start, end) {
     return rt;
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 
 /* scroll to top of a page when page finishes loading. requires jQuery */
