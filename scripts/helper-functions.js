@@ -6,6 +6,20 @@
 // * @param {int} array_sd
 // * @param {int} total_circles - number of items (color circles)
 // */
+
+function generateTestLocations(min, max, nTrials) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    var list = [],
+        i;
+
+    for (i = 0; i < nTrials; i++) {
+        list[i] = Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    return list;
+}
+
 function generateTrainingLocations(dist_mean,dist_sd,train_trials) {
     function randomList(n, a, b) {
         // create a list of n numbers between a and b

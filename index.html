@@ -365,6 +365,23 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 1*/
     const cloud1_timeline = [];
+    const midline_1 = mean(lowMean1 + highMean1);
+    // we want : 10% from the midline 20px either side (40px bins).
+    //these do not have to be from any particular distribution just from that space
+    let bin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (length[spaceship_stimuli1]/10)); // mid-bracket - 330-370 10%
+    let bin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (length[spaceship_stimuli1]/10)); // one left - 290-330 10%
+    let bin1_3 = generateTestLocations(midline_1 - 100 , midline_1 - 60, (length[spaceship_stimuli1]/10)); // two left - 250-290 10%
+    let bin1_4 = generateTestLocations(midline_1 - 140 , midline_1 - 100, (length[spaceship_stimuli1]/10)); // three left - 210-290 10%
+    let bin1_5 = generateTestLocations(midline_1 - 180 , midline_1 - 140, (length[spaceship_stimuli1]/10)); // four left - 170-210 10%
+    let bin1_6 = generateTestLocations(midline_1 - 340 , midline_1 - 180, (length[spaceship_stimuli1]/20)); // more left - 10-170 5%
+    let bin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (length[spaceship_stimuli1]/10)); // one right - 370 -410 10%
+    let bin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (length[spaceship_stimuli1]/10)); // two left - 410-450 10%
+    let bin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (length[spaceship_stimuli1]/10)); // three left = 450-490 10%
+    let bin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (length[spaceship_stimuli1]/10)); // four left 490-530 10%
+    let bin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (length[spaceship_stimuli1]/10)); // more right 530-790 5%
+
+    let training_locations = [bin1_1, bin1_2, bin1_3,bin1_4, bin1_5, bin1_6, bin1_7, bin1_8, bin1_9, bin1_10, bin1_11];
+    
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
