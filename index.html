@@ -365,34 +365,35 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 1*/
     const cloud1_timeline = [];
-    const midline_1 = mean(lowMean1 + highMean1);
-    // we want : 10% from the midline 20px either side (40px bins).
-    //these do not have to be from any particular distribution just from that space
-    let bin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (length[spaceship_stimuli1]/10)); // mid-bracket - 330-370 10%
-    let bin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (length[spaceship_stimuli1]/10)); // one left - 290-330 10%
-    let bin1_3 = generateTestLocations(midline_1 - 100 , midline_1 - 60, (length[spaceship_stimuli1]/10)); // two left - 250-290 10%
-    let bin1_4 = generateTestLocations(midline_1 - 140 , midline_1 - 100, (length[spaceship_stimuli1]/10)); // three left - 210-290 10%
-    let bin1_5 = generateTestLocations(midline_1 - 180 , midline_1 - 140, (length[spaceship_stimuli1]/10)); // four left - 170-210 10%
-    let bin1_6 = generateTestLocations(midline_1 - 340 , midline_1 - 180, (length[spaceship_stimuli1]/20)); // more left - 10-170 5%
-    let bin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (length[spaceship_stimuli1]/10)); // one right - 370 -410 10%
-    let bin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (length[spaceship_stimuli1]/10)); // two left - 410-450 10%
-    let bin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (length[spaceship_stimuli1]/10)); // three left = 450-490 10%
-    let bin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (length[spaceship_stimuli1]/10)); // four left 490-530 10%
-    let bin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (length[spaceship_stimuli1]/10)); // more right 530-790 5%
+    let midline_1 = [];
+    if ((lowMean1 + highMean1)/2 < 400){
+        midline_1 = 350;
+    } else {
+        midline_1 = 450;
+    }
 
-    let training_locations = [bin1_1, bin1_2, bin1_3,bin1_4, bin1_5, bin1_6, bin1_7, bin1_8, bin1_9, bin1_10, bin1_11];
-    
+    let bin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length/10)); // mid-bracket - 330-370 10%
+    let bin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (spaceship_stimuli1.length/10)); // one left - 290-330 10%
+    let bin1_3 = generateTestLocations(midline_1 - 100 , midline_1 - 60, (spaceship_stimuli1.length/10)); // two left - 250-290 10%
+    let bin1_4 = generateTestLocations(midline_1 - 140 , midline_1 - 100, (spaceship_stimuli1.length/10)); // three left - 210-290 10%
+    let bin1_5 = generateTestLocations(midline_1 - 180 , midline_1 - 140, (spaceship_stimuli1.length/10)); // four left - 170-210 10%
+    let bin1_6 = generateTestLocations(midline_1 - 340 , midline_1 - 180, (spaceship_stimuli1.length/20)); // more left - 10-170 5%
+    let bin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (spaceship_stimuli1.length/10)); // one right - 370 -410 10%
+    let bin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (spaceship_stimuli1.length/10)); // two left - 410-450 10%
+    let bin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (spaceship_stimuli1.length/10)); // three left = 450-490 10%
+    let bin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (spaceship_stimuli1.length/10)); // four left 490-530 10%
+    let bin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (spaceship_stimuli1.length/20)); // more right 530-790 5%
+
+    let training_locations = bin1_1.concat(bin1_2, bin1_3, bin1_4, bin1_5, bin1_6, bin1_7, bin1_8, bin1_9, bin1_10, bin1_11);
+    let training_locations1 = shuffle(training_locations);
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
-        do{
-            s.location = s.value.random(1)[0];
-        } while (s.location < lowMean1 | s.location > highMean1)
         cloud1_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: s.location,
+            location: training_locations1.pop(),
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -484,6 +485,27 @@
     /*TEST TRIALS 2*/
     const cloud2_timeline = [];
 
+    let midline_2 = [];
+    if ((lowMean2 + highMean2)/2 < 400){
+        midline_2 = 350;
+    } else {
+        midline_2 = 450;
+    }
+
+    let bin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length/10)); // mid-bracket - 330-370 10%
+    let bin2_2 = generateTestLocations(midline_2 - 60, midline_2 - 20, (spaceship_stimuli2.length/10)); // one left - 290-330 10%
+    let bin2_3 = generateTestLocations(midline_2 - 100 , midline_2 - 60, (spaceship_stimuli2.length/10)); // two left - 250-290 10%
+    let bin2_4 = generateTestLocations(midline_2 - 140 , midline_2 - 100, (spaceship_stimuli2.length/10)); // three left - 210-290 10%
+    let bin2_5 = generateTestLocations(midline_2 - 180 , midline_2 - 140, (spaceship_stimuli2.length/10)); // four left - 170-210 10%
+    let bin2_6 = generateTestLocations(midline_2 - 340 , midline_2 - 180, (spaceship_stimuli2.length/20)); // more left - 10-170 5%
+    let bin2_7 = generateTestLocations(midline_2 + 20, midline_2 + 60, (spaceship_stimuli2.length/10)); // one right - 370 -410 10%
+    let bin2_8 = generateTestLocations(midline_2 + 60, midline_2 + 100, (spaceship_stimuli2.length/10)); // two left - 410-450 10%
+    let bin2_9 = generateTestLocations(midline_2 + 100, midline_2 + 140, (spaceship_stimuli2.length/10)); // three left = 450-490 10%
+    let bin2_10 = generateTestLocations(midline_2 + 140, midline_2 + 180, (spaceship_stimuli2.length/10)); // four left 490-530 10%
+    let bin2_11 = generateTestLocations(midline_2 + 180, midline_2 + 340, (spaceship_stimuli2.length/20)); // more right 530-790 5%
+
+    let training2_locations = bin2_1.concat(bin2_2, bin2_3, bin2_4, bin2_5, bin2_6, bin2_7, bin2_8, bin2_9, bin2_10, bin2_11);
+    let training_locations2 = shuffle(training2_locations);
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli2.forEach(s => {
         do{
@@ -493,7 +515,7 @@
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: s.location,
+            location: training_locations2.pop(),
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -576,6 +598,27 @@
     /*TEST TRIALS 3*/
     const cloud3_timeline = [];
 
+    let midline_3 = [];
+    if ((lowMean3 + highMean3)/2 < 400){
+        midline_3 = 350;
+    } else {
+        midline_3 = 450;
+    }
+
+    let bin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length/10)); // mid-bracket - 330-370 10%
+    let bin3_2 = generateTestLocations(midline_3 - 60, midline_3 - 20, (spaceship_stimuli3.length/10)); // one left - 290-330 10%
+    let bin3_3 = generateTestLocations(midline_3 - 100 , midline_3 - 60, (spaceship_stimuli3.length/10)); // two left - 250-290 10%
+    let bin3_4 = generateTestLocations(midline_3 - 140 , midline_3 - 100, (spaceship_stimuli3.length/10)); // three left - 210-290 10%
+    let bin3_5 = generateTestLocations(midline_3 - 180 , midline_3 - 140, (spaceship_stimuli3.length/10)); // four left - 170-210 10%
+    let bin3_6 = generateTestLocations(midline_3 - 340 , midline_3 - 180, (spaceship_stimuli3.length/20)); // more left - 10-170 5%
+    let bin3_7 = generateTestLocations(midline_3 + 20, midline_3 + 60, (spaceship_stimuli3.length/10)); // one right - 370 -410 10%
+    let bin3_8 = generateTestLocations(midline_3 + 60, midline_3 + 100, (spaceship_stimuli3.length/10)); // two left - 410-450 10%
+    let bin3_9 = generateTestLocations(midline_3 + 100, midline_3 + 140, (spaceship_stimuli3.length/10)); // three left = 450-490 10%
+    let bin3_10 = generateTestLocations(midline_3 + 140, midline_3 + 180, (spaceship_stimuli3.length/10)); // four left 490-530 10%
+    let bin3_11 = generateTestLocations(midline_3 + 180, midline_3 + 340, (spaceship_stimuli3.length/20)); // more right 530-790 5%
+
+    let training3_locations = bin3_1.concat(bin3_2, bin3_3, bin3_4, bin3_5, bin3_6, bin3_7, bin3_8, bin3_9, bin3_10, bin3_11);
+    let training_locations3 = shuffle(training3_locations);
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli3.forEach(s => {
         do{
@@ -585,7 +628,7 @@
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: s.location,
+            location: training_locations3.pop(),
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -666,6 +709,27 @@
     /*TEST TRIALS 4*/
     const cloud4_timeline = [];
 
+    let midline_4 = [];
+    if ((lowMean4 + highMean4)/2 < 400){
+        midline_4 = 350;
+    } else {
+        midline_4 = 450;
+    }
+
+    let bin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length/10)); // mid-bracket - 330-370 10%
+    let bin4_2 = generateTestLocations(midline_4 - 60, midline_4 - 20, (spaceship_stimuli4.length/10)); // one left - 290-330 10%
+    let bin4_3 = generateTestLocations(midline_4 - 100 , midline_4 - 60, (spaceship_stimuli4.length/10)); // two left - 250-290 10%
+    let bin4_4 = generateTestLocations(midline_4 - 140 , midline_4 - 100, (spaceship_stimuli4.length/10)); // three left - 210-290 10%
+    let bin4_5 = generateTestLocations(midline_4 - 180 , midline_4 - 140, (spaceship_stimuli4.length/10)); // four left - 170-210 10%
+    let bin4_6 = generateTestLocations(midline_4 - 340 , midline_4 - 180, (spaceship_stimuli4.length/20)); // more left - 10-170 5%
+    let bin4_7 = generateTestLocations(midline_4 + 20, midline_4 + 60, (spaceship_stimuli4.length/10)); // one right - 370 -410 10%
+    let bin4_8 = generateTestLocations(midline_4 + 60, midline_4 + 100, (spaceship_stimuli4.length/10)); // two left - 410-450 10%
+    let bin4_9 = generateTestLocations(midline_4 + 100, midline_4 + 140, (spaceship_stimuli4.length/10)); // three left = 450-490 10%
+    let bin4_10 = generateTestLocations(midline_4 + 140, midline_4 + 180, (spaceship_stimuli4.length/10)); // four left 490-530 10%
+    let bin4_11 = generateTestLocations(midline_4 + 180, midline_4 + 340, (spaceship_stimuli4.length/20)); // more right 530-790 5%
+
+    let training4_locations = bin4_1.concat(bin4_2, bin4_3, bin4_4, bin4_5, bin4_6, bin4_7, bin4_8, bin4_9, bin4_10, bin4_11);
+    let training_locations4 = shuffle(training4_locations);
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli4.forEach(s => {
         do{
@@ -675,7 +739,7 @@
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: s.location,
+            location: training_locations4.pop(),
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
