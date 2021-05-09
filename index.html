@@ -314,7 +314,7 @@
             stimulus:s
         }
     });
-    
+
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     fastdrop_stimuli.forEach(s => {
@@ -433,22 +433,8 @@
 
     narrow_locations_2 = generateTrainingLocations(distribution2[narrowIndex2].value.mean, distribution2[narrowIndex2].value.standardDeviation, fastdrop_number/2);
     wide_locations_2 = generateTrainingLocations(distribution2[wideIndex2].value.mean, distribution2[wideIndex2].value.standardDeviation, fastdrop_number/2);
-    let fast_stimuli2 = fastdrop_stimuli2.map(
-        s => {
-            let l;
-            if (/wide/i.test(s.name)) {
-                l = wide_locations_2.pop();
-            } else {
-                l = narrow_locations_2.pop();
-            }
-            return {
-                stimulus: s,
-                location: l
-            }
-        });
 
-    // on each trial loop through stimuli info, pull values and pass to plugin
-    fast_stimuli2.forEach(s => {
+    fastdrop_stimuli2.forEach(s => {
         if (/blue/i.test(s.color)) {
             s.spaceship_image = "../images/blue_spaceship.png";
             s.color1 = 'blue';
@@ -456,6 +442,18 @@
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
         }
+        if (/wide/i.test(s.name)) {
+            s.location = wide_locations_2.pop();
+        } else {
+            s.location = narrow_locations_2.pop();
+        }
+        return{
+            stimulus:s
+        }
+    });
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli2.forEach(s => {
         fastdrop2_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -466,8 +464,8 @@
             stimulus_duration: 1500,
             spaceship_class: s.color1,
             spaceship_image: s.spaceship_image,
-            distribution_name: s.stimulus.name,
-            distribution_info: s.stimulus.value,
+            distribution_name: s.name,
+            distribution_info: s.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -1
@@ -549,29 +547,26 @@
 
     narrow_locations_3 = generateTrainingLocations(distribution3[narrowIndex3].value.mean, distribution3[narrowIndex3].value.standardDeviation, fastdrop_number/2);
     wide_locations_3 = generateTrainingLocations(distribution3[wideIndex3].value.mean, distribution3[wideIndex3].value.standardDeviation, fastdrop_number/2);
-    let fast_stimuli3 = fastdrop_stimuli3.map(
-        s => {
-            let l;
-            if (/wide/i.test(s.name)) {
-                l = wide_locations_3.pop();
-            } else {
-                l = narrow_locations_3.pop();
-            }
-            return {
-                stimulus: s,
-                location: l
-            }
-        });
-    // on each trial loop through stimuli info, pull values and pass to plugin
-    fast_stimuli3.forEach(s => {
+
+    fastdrop_stimuli3.forEach(s => {
         if (/blue/i.test(s.color)) {
-            s.spaceship_image = "../images/blue_spaceship.png"
+            s.spaceship_image = "../images/blue_spaceship.png";
             s.color1 = 'blue';
         } else {
-            s.spaceship_image = "../images/orange_spaceship.png"
+            s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
         }
-
+        if (/wide/i.test(s.name)) {
+            s.location = wide_locations_3.pop();
+        } else {
+            s.location = narrow_locations_3.pop();
+        }
+        return{
+            stimulus:s
+        }
+    });
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli3.forEach(s => {
         fastdrop3_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -582,8 +577,8 @@
             stimulus_duration: 1500,
             spaceship_class: s.color1,
             spaceship_image: s.spaceship_image,
-            distribution_name: s.stimulus.name,
-            distribution_info: s.stimulus.value,
+            distribution_name: s.name,
+            distribution_info: s.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -2
@@ -661,28 +656,39 @@
 
     narrow_locations_4 = generateTrainingLocations(distribution4[narrowIndex4].value.mean, distribution4[narrowIndex4].value.standardDeviation, fastdrop_number/2);
     wide_locations_4 = generateTrainingLocations(distribution4[wideIndex4].value.mean, distribution4[wideIndex4].value.standardDeviation, fastdrop_number/2);
-    let fast_stimuli4 = fastdrop_stimuli4.map(
+
+    console.log(wide_locations_4)
+    console.log(narrow_locations_4)
+
+    let locations = fastdrop_stimuli4.map(
         s => {
-            let l;
+            let r;
             if (/wide/i.test(s.name)) {
-                l = wide_locations_4.pop();
-            } else {
-                l = narrow_locations_4.pop();
+                for (let i = 1; i <= wide_locations_4.length; i++) {
+                    r = wide_locations_4.pop();
+                }
             }
             return {
                 stimulus: s,
-                location: l
+                result: r
             }
         });
-    // on each trial loop through stimuli info, pull values and pass to plugin
-    fast_stimuli4.forEach(s => {
+    
+
+    fastdrop_stimuli4.forEach(s => {
         if (/blue/i.test(s.color)) {
-            s.spaceship_image = "../images/blue_spaceship.png"
+            s.spaceship_image = "../images/blue_spaceship.png";
             s.color1 = 'blue';
+
         } else {
-            s.spaceship_image = "../images/orange_spaceship.png"
+            s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
+
         }
+    });
+
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli4.forEach(s => {
         fastdrop4_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -693,8 +699,8 @@
             stimulus_duration: 1500,
             spaceship_class: s.color1,
             spaceship_image: s.spaceship_image,
-            distribution_name: s.stimulus.name,
-            distribution_info: s.stimulus.value,
+            distribution_name: s.name,
+            distribution_info: s.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -3
@@ -730,9 +736,6 @@
     let training_locations4 = shuffle(training4_locations);
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli4.forEach(s => {
-        do{
-            s.location = s.value.random(1)[0];
-        } while (s.location < lowMean4 | s.location > highMean4)
         cloud4_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
