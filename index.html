@@ -296,30 +296,28 @@
 
     narrow_locations_1 = generateTrainingLocations(distribution1[narrowIndex].value.mean, distribution1[narrowIndex].value.standardDeviation, fastdrop_number/2);
     wide_locations_1 = generateTrainingLocations(distribution1[wideIndex].value.mean, distribution1[wideIndex].value.standardDeviation, fastdrop_number/2);
-    let fast_stimuli = fastdrop_stimuli.map(
-        s => {
-            let l;
-            if (/wide/i.test(s.name)) {
-                l = wide_locations_1.pop();
-            } else {
-                l = narrow_locations_1.pop();
-            }
-            return {
-                stimulus: s,
-                location: l
-            }
-        });
 
-    // on each trial loop through stimuli info, pull values and pass to plugin
-    fast_stimuli.forEach(s => {
+    fastdrop_stimuli.forEach(s => {
         if (/blue/i.test(s.color)) {
             s.spaceship_image = "../images/blue_spaceship.png";
             s.color1 = 'blue';
         } else {
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
+            }
+        if (/wide/i.test(s.name)) {
+            s.location = wide_locations_1.pop();
+        } else {
+            s.location = narrow_locations_1.pop();
         }
+        return{
+            stimulus:s
+        }
+    });
+    
 
+    // on each trial loop through stimuli info, pull values and pass to plugin
+    fastdrop_stimuli.forEach(s => {
         fastdrop_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -330,8 +328,8 @@
             stimulus_duration: 1500,
             spaceship_class: s.color1,
             spaceship_image: s.spaceship_image,
-            distribution_name: s.stimulus.name,
-            distribution_info: s.stimulus.value,
+            distribution_name: s.name,
+            distribution_info: s.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: 0
@@ -862,7 +860,7 @@
             window.experiment_metadata = {
                 user_id: id,
                 experiment: 'zapBox',
-                version: [0, 1, 1]
+                version: [0, 2, 0]
             };
         }
 
