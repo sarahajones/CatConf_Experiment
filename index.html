@@ -101,7 +101,10 @@
     distributions = [distribution1_1, distribution2_1, distribution3_1, distribution4_1];
     indices = [0, 1, 2, 3]
     index = shuffle(indices)
+<<<<<<< HEAD
     console.log()
+=======
+>>>>>>> parent of 27d22fb (sampling wip)
 
     // QUICKFIRE LEARNING ROUND
     quickfire_stimuli = [
@@ -114,8 +117,31 @@
     //GAME BLOCK 1
     const distribution1 = distributions[index[0]];
     //FASTDROP 1 TRIALS
+<<<<<<< HEAD
     const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
     const fastdrop_stimuli = shuffle_shoe(distribution1, fastdrop_deck_count); // shuffle deck
+=======
+
+    locations1 = generateTrainingLocations(distribution1[0].value.mean, distribution1[0].value.standardDeviation, fastdrop_number/2);
+    locations2 = generateTrainingLocations(distribution1[1].value.mean, distribution1[1].value.standardDeviation, fastdrop_number/2);
+
+    locations1.forEach(s => {
+        s.distribution = distribution1[0]
+    });
+
+    locations2.forEach(s => {
+        s.distribution = distribution1[0]
+    });
+
+
+    const fastdrop_deck_count = fastdrop_number / distribution1.length; // create deck count for spaceship drops
+    const fastdrop_stimuli = shuffle_shoe(distribution1, fastdrop_deck_count); // shuffle deck
+
+
+
+
+
+>>>>>>> parent of 27d22fb (sampling wip)
     //BLOCK 1 TEST TRIALS
     const spaceship_deck_count1 = drop_number / distribution1.length; // create deck count for spaceship drops
     const spaceship_stimuli1 = shuffle_shoe(distribution1, spaceship_deck_count1); // shuffle deck
