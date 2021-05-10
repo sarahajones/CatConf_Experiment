@@ -297,6 +297,8 @@
     narrow_locations_1 = generateTrainingLocations(distribution1[narrowIndex].value.mean, distribution1[narrowIndex].value.standardDeviation, fastdrop_number/2);
     wide_locations_1 = generateTrainingLocations(distribution1[wideIndex].value.mean, distribution1[wideIndex].value.standardDeviation, fastdrop_number/2);
 
+
+
     fastdrop_stimuli.forEach(s => {
         if (/blue/i.test(s.color)) {
             s.spaceship_image = "../images/blue_spaceship.png";
@@ -305,19 +307,24 @@
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
             }
-        if (/wide/i.test(s.name)) {
-            s.location = wide_locations_1.pop();
-        } else {
-            s.location = narrow_locations_1.pop();
-        }
-        return{
-            stimulus:s
-        }
     });
 
+    let fast1 = fastdrop_stimuli.map(
+        s => {
+            let l
+            if (/wide/i.test(s.name)) {
+                l= wide_locations_1.pop();
+            } else {
+                l = narrow_locations_1.pop();
+            }
+            return{
+                stimulus: s,
+                location:l
+            }
+        });
 
     // on each trial loop through stimuli info, pull values and pass to plugin
-    fastdrop_stimuli.forEach(s => {
+    fast1.forEach(s => {
         fastdrop_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -326,10 +333,10 @@
             choices: [],
             location: s.location,
             stimulus_duration: 1500,
-            spaceship_class: s.color1,
-            spaceship_image: s.spaceship_image,
-            distribution_name: s.name,
-            distribution_info: s.value,
+            spaceship_class: s.stimulus.color1,
+            spaceship_image: s.stimulus.spaceship_image,
+            distribution_name: s.stimulus.name,
+            distribution_info: s.stimulus.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: 0
@@ -442,18 +449,24 @@
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
         }
-        if (/wide/i.test(s.name)) {
-            s.location = wide_locations_2.pop();
-        } else {
-            s.location = narrow_locations_2.pop();
-        }
-        return{
-            stimulus:s
-        }
     });
 
+    let fast2 = fastdrop_stimuli2.map(
+        s => {
+            let l
+            if (/wide/i.test(s.name)) {
+                l= wide_locations_2.pop();
+            } else {
+                l = narrow_locations_2.pop();
+            }
+            return{
+                stimulus: s,
+                location:l
+            }
+        });
+
     // on each trial loop through stimuli info, pull values and pass to plugin
-    fastdrop_stimuli2.forEach(s => {
+    fast2.forEach(s => {
         fastdrop2_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -462,10 +475,10 @@
             choices: [],
             location: s.location,
             stimulus_duration: 1500,
-            spaceship_class: s.color1,
-            spaceship_image: s.spaceship_image,
-            distribution_name: s.name,
-            distribution_info: s.value,
+            spaceship_class: s.stimulus.color1,
+            spaceship_image: s.stimulus.spaceship_image,
+            distribution_name: s.stimulus.name,
+            distribution_info: s.stimulus.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -1
@@ -473,9 +486,6 @@
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Interim timeline*/
-    const interim4_timeline = [
-    splash_2,
-    ];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 2*/
@@ -539,7 +549,7 @@
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Next set of instructions and splash message while loading screen*/
-    //interim 3 timeline repeated
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING - TRIAL NUMBER 50*/
@@ -556,17 +566,24 @@
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
         }
-        if (/wide/i.test(s.name)) {
-            s.location = wide_locations_3.pop();
-        } else {
-            s.location = narrow_locations_3.pop();
-        }
-        return{
-            stimulus:s
-        }
     });
+
+    let fast3 = fastdrop_stimuli3.map(
+        s => {
+            let l
+            if (/wide/i.test(s.name)) {
+                l= wide_locations_3.pop();
+            } else {
+                l = narrow_locations_3.pop();
+            }
+            return{
+                stimulus: s,
+                location:l
+            }
+        });
+
     // on each trial loop through stimuli info, pull values and pass to plugin
-    fastdrop_stimuli3.forEach(s => {
+    fast3.forEach(s => {
         fastdrop3_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -575,10 +592,10 @@
             choices: [],
             location: s.location,
             stimulus_duration: 1500,
-            spaceship_class: s.color1,
-            spaceship_image: s.spaceship_image,
-            distribution_name: s.name,
-            distribution_info: s.value,
+            spaceship_class: s.stimulus.color1,
+            spaceship_image: s.stimulus.spaceship_image,
+            distribution_name: s.stimulus.name,
+            distribution_info: s.stimulus.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -2
@@ -586,7 +603,7 @@
     });
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*Interim*/
-    //interim 4 timeline repeated
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 3*/
     const cloud3_timeline = [];
@@ -653,27 +670,8 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*FAST DROP LEARNING - TRIAL NUMBER 50*/
     const fastdrop4_timeline = [];
-
     narrow_locations_4 = generateTrainingLocations(distribution4[narrowIndex4].value.mean, distribution4[narrowIndex4].value.standardDeviation, fastdrop_number/2);
     wide_locations_4 = generateTrainingLocations(distribution4[wideIndex4].value.mean, distribution4[wideIndex4].value.standardDeviation, fastdrop_number/2);
-
-    console.log(wide_locations_4)
-    console.log(narrow_locations_4)
-
-    let locations = fastdrop_stimuli4.map(
-        s => {
-            let r;
-            if (/wide/i.test(s.name)) {
-                for (let i = 1; i <= wide_locations_4.length; i++) {
-                    r = wide_locations_4.pop();
-                }
-            }
-            return {
-                stimulus: s,
-                result: r
-            }
-        });
-    
 
     fastdrop_stimuli4.forEach(s => {
         if (/blue/i.test(s.color)) {
@@ -683,12 +681,26 @@
         } else {
             s.spaceship_image = "../images/orange_spaceship.png";
             s.color1 = 'orange';
-
         }
+
     });
 
+    let fast4 = fastdrop_stimuli4.map(
+        s => {
+            let l
+            if (/wide/i.test(s.name)) {
+                l= wide_locations_4.pop();
+            } else {
+                l = narrow_locations_4.pop();
+            }
+            return{
+                stimulus: s,
+                location:l
+            }
+        });
+
     // on each trial loop through stimuli info, pull values and pass to plugin
-    fastdrop_stimuli4.forEach(s => {
+    fast4.forEach(s => {
         fastdrop4_timeline.push({
             type: "jspsych-experimentscreen",
             trial_type: 'clear',
@@ -697,10 +709,10 @@
             choices: [],
             location: s.location,
             stimulus_duration: 1500,
-            spaceship_class: s.color1,
-            spaceship_image: s.spaceship_image,
-            distribution_name: s.name,
-            distribution_info: s.value,
+            spaceship_class: s.stimulus.color1,
+            spaceship_image: s.stimulus.spaceship_image,
+            distribution_name: s.stimulus.name,
+            distribution_info: s.stimulus.value,
             banner: 1,
             banner_text: 'Please watch carefully',
             block: -3
