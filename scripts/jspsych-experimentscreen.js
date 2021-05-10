@@ -81,6 +81,13 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
                 default: undefined,
                 description: 'The block number'
             },
+
+            boundary: {
+                type: jsPsych.plugins.parameterType.INT,
+                pretty_name: 'Midline boundary',
+                default: undefined,
+                description: 'The midline boundary between the two distributions'
+            },
         }
     };
 
@@ -97,7 +104,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             distribution_name: trial.distribution_name,
             spaceship_class: trial.spaceship_class,
             drop_location: trial.location,
-            boundary: 350, //this is 500 -200 / 2
+            boundary: trial.boundary, //this is 500 -200 / 2
             distance_to_bound: null,
             start_time: performance.now(),
             response_time: null,
