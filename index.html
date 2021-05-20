@@ -78,7 +78,7 @@
 
     /* EXPERIMENT VARIABLES */
     const trial_number = 20 ; //20//quickfire round trial number
-    const fastdrop_number = 60; //6mount of drops in fast drop blocks
+    const fastdrop_number = 60; //60 // amount of drops in fast drop blocks
     const drop_number = 60; //60//amount of drops in test trial blocks
 
     const distribution1_1 = [
@@ -86,16 +86,16 @@
         {name: 'wide', value: gaussian(522, 19600), color: 'orange1'} //SD 140, var 19600
     ];
     const distribution2_1 = [
-        {name: 'narrow', value: gaussian(622, 6400), color: 'blue1'}, //recenter distributions on 350 (+22 on means)
-        {name: 'wide', value: gaussian(322, 19600), color: 'orange1'} //push midpoint to 450
+        {name: 'narrow', value: gaussian(578, 6400), color: 'blue1'}, //recenter distributions on 350 (+22 on means)
+        {name: 'wide', value: gaussian(278, 19600), color: 'orange1'} //push midpoint to 450
     ];
     const distribution3_1 = [
         {name: 'wide', value: gaussian(522, 19600), color: 'blue1'}, //recenter distributions on 350 (+22 on means)
         {name: 'narrow', value: gaussian(222, 6400), color:'orange1'} //recenter distributions on 350 (+22 on means)
     ];
     const distribution4_1 = [
-        {name: 'wide', value: gaussian(322, 19600), color: 'blue1'}, //push midpoint to 450
-        {name: 'narrow', value: gaussian(622, 6400), color: 'orange1'} //recenter distributions on 350 (+22 on means)
+        {name: 'wide', value: gaussian(278, 19600), color: 'blue1'}, //push midpoint to 450
+        {name: 'narrow', value: gaussian(578, 6400), color: 'orange1'} //recenter distributions on 350 (+22 on means)
     ];
 
     distributions = [distribution1_1, distribution2_1, distribution3_1, distribution4_1];
@@ -377,28 +377,58 @@
         midline_1 = 450;
     }
 
-    let bin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length/10)); // mid-bracket - 330-370 10%
-    let bin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (spaceship_stimuli1.length/10)); // one left - 290-330 10%
-    let bin1_3 = generateTestLocations(midline_1 - 100 , midline_1 - 60, (spaceship_stimuli1.length/10)); // two left - 250-290 10%
-    let bin1_4 = generateTestLocations(midline_1 - 140 , midline_1 - 100, (spaceship_stimuli1.length/10)); // three left - 210-290 10%
-    let bin1_5 = generateTestLocations(midline_1 - 180 , midline_1 - 140, (spaceship_stimuli1.length/10)); // four left - 170-210 10%
-    let bin1_6 = generateTestLocations(midline_1 - 340 , midline_1 - 180, (spaceship_stimuli1.length/20)); // more left - 10-170 5%
-    let bin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (spaceship_stimuli1.length/10)); // one right - 370 -410 10%
-    let bin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (spaceship_stimuli1.length/10)); // two left - 410-450 10%
-    let bin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (spaceship_stimuli1.length/10)); // three left = 450-490 10%
-    let bin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (spaceship_stimuli1.length/10)); // four left 490-530 10%
-    let bin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (spaceship_stimuli1.length/20)); // more right 530-790 5%
+    if(midline_1 === 350) {
+        //widelocations
+        let widebin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (spaceship_stimuli1.length / 10) ); // one right - 370 -410 10% 8
+        let widebin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (spaceship_stimuli1.length / 10) ); // two left - 410-450 10% 9
+        let widebin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (spaceship_stimuli1.length / 10) ); // three left = 450-490 10% 10
+        let widebin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (spaceship_stimuli1.length / 10) ); // four left 490-530 10% 10
+        let widebin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (spaceship_stimuli1.length / 20) ); // more right  530-790 5% 5
+        var widetraining1_locations = widebin1_1.concat(widebin1_7, widebin1_8, widebin1_9, widebin1_10, widebin1_11);
 
-    let training_locations = bin1_1.concat(bin1_2, bin1_3, bin1_4, bin1_5, bin1_6, bin1_7, bin1_8, bin1_9, bin1_10, bin1_11);
-    let training_locations1 = shuffle(training_locations);
+        //narrowlocations
+        let narrowbin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (spaceship_stimuli1.length / 10)); // one left - 290-330 10% 3
+        let narrowbin1_3 = generateTestLocations(midline_1 - 100, midline_1 - 60, (spaceship_stimuli1.length / 10)); // two left - 250-290 10% 1
+        let narrowbin1_4 = generateTestLocations(midline_1 - 140, midline_1 - 100, (spaceship_stimuli1.length / 10)); // three left - 210-290 10% 1
+        let narrowbin1_5 = generateTestLocations(midline_1 - 180, midline_1 - 140, (spaceship_stimuli1.length / 10)); // four left - 170-210 10% 0
+        let narrowbin1_6 = generateTestLocations(midline_1 - 340, midline_1 - 180, (spaceship_stimuli1.length / 20)); // more left - 10-170 5% 0
+        var narrowtraining1_locations = narrowbin1_1.concat(narrowbin1_2, narrowbin1_3, narrowbin1_4, narrowbin1_5, narrowbin1_6);
+
+    } else{
+        //widelocations
+        let widebin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin1_2 = generateTestLocations(midline_1 - 60, midline_1 - 20, (spaceship_stimuli1.length / 10)); // one left - 290-330 10% 3
+        let widebin1_3 = generateTestLocations(midline_1 - 100, midline_1 - 60, (spaceship_stimuli1.length / 10)); // two left - 250-290 10% 1
+        let widebin1_4 = generateTestLocations(midline_1 - 140, midline_1 - 100, (spaceship_stimuli1.length / 10)); // three left - 210-290 10% 1
+        let widebin1_5 = generateTestLocations(midline_1 - 180, midline_1 - 140, (spaceship_stimuli1.length / 10)); // four left - 170-210 10% 0
+        let widebin1_6 = generateTestLocations(midline_1 - 340, midline_1 - 180, (spaceship_stimuli1.length / 20)); // more left - 10-170 5% 0
+        var widetraining1_locations = widebin1_1.concat(widebin1_2, widebin1_3, widebin1_4, widebin1_5, widebin1_6);
+
+        //narrowlocations
+        let narrowbin1_1 = generateTestLocations(midline_1 - 20, midline_1 + 20, (spaceship_stimuli1.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin1_7 = generateTestLocations(midline_1 + 20, midline_1 + 60, (spaceship_stimuli1.length / 10)); // one right - 370 -410 10% 8
+        let narrowbin1_8 = generateTestLocations(midline_1 + 60, midline_1 + 100, (spaceship_stimuli1.length / 10)); // two left - 410-450 10% 9
+        let narrowbin1_9 = generateTestLocations(midline_1 + 100, midline_1 + 140, (spaceship_stimuli1.length / 10)); // three left = 450-490 10% 10
+        let narrowbin1_10 = generateTestLocations(midline_1 + 140, midline_1 + 180, (spaceship_stimuli1.length / 10)); // four left 490-530 10% 10
+        let narrowbin1_11 = generateTestLocations(midline_1 + 180, midline_1 + 340, (spaceship_stimuli1.length / 20)); // more right 530-790 5% 5
+        var narrowtraining1_locations = narrowbin1_1.concat(narrowbin1_7, narrowbin1_8, narrowbin1_9, narrowbin1_10, narrowbin1_11);
+    }
+    let wide_training_locations1 = shuffle(widetraining1_locations);
+    let narrow_training_locations1 = shuffle(narrowtraining1_locations);
 
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli1.forEach(s => {
+        if (s.name === "wide") {
+            s.location = wide_training_locations1.pop()}
+        else {
+            s.location = narrow_training_locations1.pop()}
         cloud1_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: training_locations1.pop(),
+            location: s.location,
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -499,30 +529,58 @@
         midline_2 = 450;
     }
 
-    let bin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length/10)); // mid-bracket - 330-370 10%
-    let bin2_2 = generateTestLocations(midline_2 - 60, midline_2 - 20, (spaceship_stimuli2.length/10)); // one left - 290-330 10%
-    let bin2_3 = generateTestLocations(midline_2 - 100 , midline_2 - 60, (spaceship_stimuli2.length/10)); // two left - 250-290 10%
-    let bin2_4 = generateTestLocations(midline_2 - 140 , midline_2 - 100, (spaceship_stimuli2.length/10)); // three left - 210-290 10%
-    let bin2_5 = generateTestLocations(midline_2 - 180 , midline_2 - 140, (spaceship_stimuli2.length/10)); // four left - 170-210 10%
-    let bin2_6 = generateTestLocations(midline_2 - 340 , midline_2 - 180, (spaceship_stimuli2.length/20)); // more left - 10-170 5%
-    let bin2_7 = generateTestLocations(midline_2 + 20, midline_2 + 60, (spaceship_stimuli2.length/10)); // one right - 370 -410 10%
-    let bin2_8 = generateTestLocations(midline_2 + 60, midline_2 + 100, (spaceship_stimuli2.length/10)); // two left - 410-450 10%
-    let bin2_9 = generateTestLocations(midline_2 + 100, midline_2 + 140, (spaceship_stimuli2.length/10)); // three left = 450-490 10%
-    let bin2_10 = generateTestLocations(midline_2 + 140, midline_2 + 180, (spaceship_stimuli2.length/10)); // four left 490-530 10%
-    let bin2_11 = generateTestLocations(midline_2 + 180, midline_2 + 340, (spaceship_stimuli2.length/20)); // more right 530-790 5%
+    if(midline_2 === 350) {
+        //widelocations
+        let widebin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin2_7 = generateTestLocations(midline_2 + 20, midline_2 + 60, (spaceship_stimuli2.length / 10) ); // one right - 370 -410 10% 8
+        let widebin2_8 = generateTestLocations(midline_2 + 60, midline_2 + 100, (spaceship_stimuli2.length / 10) ); // two left - 410-450 10% 9
+        let widebin2_9 = generateTestLocations(midline_2 + 100, midline_2 + 140, (spaceship_stimuli2.length / 10) ); // three left = 450-490 10% 10
+        let widebin2_10 = generateTestLocations(midline_2 + 140, midline_2 + 180, (spaceship_stimuli2.length / 10) ); // four left 490-530 10% 10
+        let widebin2_11 = generateTestLocations(midline_2 + 180, midline_2 + 340, (spaceship_stimuli2.length / 20) ); // more right  530-790 5% 5
+        var widetraining2_locations = widebin2_1.concat(widebin2_7, widebin2_8, widebin2_9, widebin2_10, widebin2_11);
 
-    let training2_locations = bin2_1.concat(bin2_2, bin2_3, bin2_4, bin2_5, bin2_6, bin2_7, bin2_8, bin2_9, bin2_10, bin2_11);
-    let training_locations2 = shuffle(training2_locations);
+        //narrowlocations
+        let narrowbin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin2_2 = generateTestLocations(midline_2 - 60, midline_2 - 20, (spaceship_stimuli2.length / 10)); // one left - 290-330 10% 3
+        let narrowbin2_3 = generateTestLocations(midline_2 - 100, midline_2 - 60, (spaceship_stimuli2.length / 10)); // two left - 250-290 10% 1
+        let narrowbin2_4 = generateTestLocations(midline_2 - 140, midline_2 - 100, (spaceship_stimuli2.length / 10)); // three left - 210-290 10% 1
+        let narrowbin2_5 = generateTestLocations(midline_2 - 180, midline_2 - 140, (spaceship_stimuli2.length / 10)); // four left - 170-210 10% 0
+        let narrowbin2_6 = generateTestLocations(midline_2 - 340, midline_2 - 180, (spaceship_stimuli2.length / 20)); // more left - 10-170 5% 0
+        var narrowtraining2_locations = narrowbin2_1.concat(narrowbin2_2, narrowbin2_3, narrowbin2_4, narrowbin2_5, narrowbin2_6);
+
+    } else{
+        //widelocations
+        let widebin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin2_2 = generateTestLocations(midline_2 - 60, midline_2 - 20, (spaceship_stimuli2.length / 10)); // one left - 290-330 10% 3
+        let widebin2_3 = generateTestLocations(midline_2 - 100, midline_2 - 60, (spaceship_stimuli2.length / 10)); // two left - 250-290 10% 1
+        let widebin2_4 = generateTestLocations(midline_2 - 140, midline_2 - 100, (spaceship_stimuli2.length / 10)); // three left - 210-290 10% 1
+        let widebin2_5 = generateTestLocations(midline_2 - 180, midline_2 - 140, (spaceship_stimuli2.length / 10)); // four left - 170-210 10% 0
+        let widebin2_6 = generateTestLocations(midline_2 - 340, midline_2 - 180, (spaceship_stimuli2.length / 20)); // more left - 10-170 5% 0
+        var widetraining2_locations = widebin2_1.concat(widebin2_2, widebin2_3, widebin2_4, widebin2_5, widebin2_6);
+
+        //narrowlocations
+        let narrowbin2_1 = generateTestLocations(midline_2 - 20, midline_2 + 20, (spaceship_stimuli2.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin2_7 = generateTestLocations(midline_2 + 20, midline_2 + 60, (spaceship_stimuli2.length / 10)); // one right - 370 -410 10% 8
+        let narrowbin2_8 = generateTestLocations(midline_2 + 60, midline_2 + 100, (spaceship_stimuli2.length / 10)); // two left - 410-450 10% 9
+        let narrowbin2_9 = generateTestLocations(midline_2 + 100, midline_2 + 140, (spaceship_stimuli2.length / 10)); // three left = 450-490 10% 10
+        let narrowbin2_10 = generateTestLocations(midline_2 + 140, midline_2 + 180, (spaceship_stimuli2.length / 10)); // four left 490-530 10% 10
+        let narrowbin2_11 = generateTestLocations(midline_2 + 180, midline_2 + 340, (spaceship_stimuli2.length / 20)); // more right 530-790 5% 5
+        var narrowtraining2_locations = narrowbin2_1.concat(narrowbin2_7, narrowbin2_8, narrowbin2_9, narrowbin2_10, narrowbin2_11);
+    }
+    let wide_training_locations2 = shuffle(widetraining2_locations);
+    let narrow_training_locations2 = shuffle(narrowtraining2_locations);
+
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli2.forEach(s => {
-        do{
-            s.location = s.value.random(1)[0];
-        } while (s.location < lowMean2 | s.location > highMean2)
+        if (s.name === "wide") {
+            s.location = wide_training_locations2.pop()}
+        else {
+            s.location = narrow_training_locations2.pop()}
         cloud2_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: training_locations2.pop(),
+            location: s.location,
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -617,30 +675,58 @@
         midline_3 = 450;
     }
 
-    let bin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length/10)); // mid-bracket - 330-370 10%
-    let bin3_2 = generateTestLocations(midline_3 - 60, midline_3 - 20, (spaceship_stimuli3.length/10)); // one left - 290-330 10%
-    let bin3_3 = generateTestLocations(midline_3 - 100 , midline_3 - 60, (spaceship_stimuli3.length/10)); // two left - 250-290 10%
-    let bin3_4 = generateTestLocations(midline_3 - 140 , midline_3 - 100, (spaceship_stimuli3.length/10)); // three left - 210-290 10%
-    let bin3_5 = generateTestLocations(midline_3 - 180 , midline_3 - 140, (spaceship_stimuli3.length/10)); // four left - 170-210 10%
-    let bin3_6 = generateTestLocations(midline_3 - 340 , midline_3 - 180, (spaceship_stimuli3.length/20)); // more left - 10-170 5%
-    let bin3_7 = generateTestLocations(midline_3 + 20, midline_3 + 60, (spaceship_stimuli3.length/10)); // one right - 370 -410 10%
-    let bin3_8 = generateTestLocations(midline_3 + 60, midline_3 + 100, (spaceship_stimuli3.length/10)); // two left - 410-450 10%
-    let bin3_9 = generateTestLocations(midline_3 + 100, midline_3 + 140, (spaceship_stimuli3.length/10)); // three left = 450-490 10%
-    let bin3_10 = generateTestLocations(midline_3 + 140, midline_3 + 180, (spaceship_stimuli3.length/10)); // four left 490-530 10%
-    let bin3_11 = generateTestLocations(midline_3 + 180, midline_3 + 340, (spaceship_stimuli3.length/20)); // more right 530-790 5%
+    if(midline_3 === 350) {
+        //widelocations
+        let widebin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin3_7 = generateTestLocations(midline_3 + 20, midline_3 + 60, (spaceship_stimuli3.length / 10) ); // one right - 370 -410 10% 8
+        let widebin3_8 = generateTestLocations(midline_3 + 60, midline_3 + 100, (spaceship_stimuli3.length / 10) ); // two left - 410-450 10% 9
+        let widebin3_9 = generateTestLocations(midline_3 + 100, midline_3 + 140, (spaceship_stimuli3.length / 10) ); // three left = 450-490 10% 10
+        let widebin3_10 = generateTestLocations(midline_3 + 140, midline_3 + 180, (spaceship_stimuli3.length / 10) ); // four left 490-530 10% 10
+        let widebin3_11 = generateTestLocations(midline_3 + 180, midline_3 + 340, (spaceship_stimuli3.length / 20) ); // more right  530-790 5% 5
+        var widetraining3_locations = widebin3_1.concat(widebin3_7, widebin3_8, widebin3_9, widebin3_10, widebin3_11);
 
-    let training3_locations = bin3_1.concat(bin3_2, bin3_3, bin3_4, bin3_5, bin3_6, bin3_7, bin3_8, bin3_9, bin3_10, bin3_11);
-    let training_locations3 = shuffle(training3_locations);
+        //narrowlocations
+        let narrowbin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin3_2 = generateTestLocations(midline_3 - 60, midline_3 - 20, (spaceship_stimuli3.length / 10)); // one left - 290-330 10% 3
+        let narrowbin3_3 = generateTestLocations(midline_3 - 100, midline_3 - 60, (spaceship_stimuli3.length / 10)); // two left - 250-290 10% 1
+        let narrowbin3_4 = generateTestLocations(midline_3 - 140, midline_3 - 100, (spaceship_stimuli3.length / 10)); // three left - 210-290 10% 1
+        let narrowbin3_5 = generateTestLocations(midline_3 - 180, midline_3 - 140, (spaceship_stimuli3.length / 10)); // four left - 170-210 10% 0
+        let narrowbin3_6 = generateTestLocations(midline_3 - 340, midline_3 - 180, (spaceship_stimuli3.length / 20)); // more left - 10-170 5% 0
+        var narrowtraining3_locations = narrowbin3_1.concat(narrowbin3_2, narrowbin3_3, narrowbin3_4, narrowbin3_5, narrowbin3_6);
+
+    } else{
+        //widelocations
+        let widebin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin3_2 = generateTestLocations(midline_3 - 60, midline_3 - 20, (spaceship_stimuli3.length / 10)); // one left - 290-330 10% 3
+        let widebin3_3 = generateTestLocations(midline_3 - 100, midline_3 - 60, (spaceship_stimuli3.length / 10)); // two left - 250-290 10% 1
+        let widebin3_4 = generateTestLocations(midline_3 - 140, midline_3 - 100, (spaceship_stimuli3.length / 10)); // three left - 210-290 10% 1
+        let widebin3_5 = generateTestLocations(midline_3 - 180, midline_3 - 140, (spaceship_stimuli3.length / 10)); // four left - 170-210 10% 0
+        let widebin3_6 = generateTestLocations(midline_3 - 340, midline_3 - 180, (spaceship_stimuli3.length / 20)); // more left - 10-170 5% 0
+        var widetraining3_locations = widebin3_1.concat(widebin3_2, widebin3_3, widebin3_4, widebin3_5, widebin3_6);
+
+        //narrowlocations
+        let narrowbin3_1 = generateTestLocations(midline_3 - 20, midline_3 + 20, (spaceship_stimuli3.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin3_7 = generateTestLocations(midline_3 + 20, midline_3 + 60, (spaceship_stimuli3.length / 10)); // one right - 370 -410 10% 8
+        let narrowbin3_8 = generateTestLocations(midline_3 + 60, midline_3 + 100, (spaceship_stimuli3.length / 10)); // two left - 410-450 10% 9
+        let narrowbin3_9 = generateTestLocations(midline_3 + 100, midline_3 + 140, (spaceship_stimuli3.length / 10)); // three left = 450-490 10% 10
+        let narrowbin3_10 = generateTestLocations(midline_3 + 140, midline_3 + 180, (spaceship_stimuli3.length / 10)); // four left 490-530 10% 10
+        let narrowbin3_11 = generateTestLocations(midline_3 + 180, midline_3 + 340, (spaceship_stimuli3.length / 20)); // more right 530-790 5% 5
+        var narrowtraining3_locations = narrowbin3_1.concat(narrowbin3_7, narrowbin3_8, narrowbin3_9, narrowbin3_10, narrowbin3_11);
+    }
+    let wide_training_locations3 = shuffle(widetraining3_locations);
+    let narrow_training_locations3 = shuffle(narrowtraining3_locations);
+
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli3.forEach(s => {
-        do{
-            s.location = s.value.random(1)[0];
-        } while (s.location < lowMean3 | s.location > highMean3)
+        if (s.name === "wide") {
+            s.location = wide_training_locations3.pop()}
+        else {
+            s.location = narrow_training_locations3.pop()}
         cloud3_timeline.push({
             type: "jspsych-experimentscreen",
             trial_duration: 10000,
             choices: ['Retrieve', 'Zap'],
-            location: training_locations3.pop(),
+            location: s.location,
             stimulus_duration: 3000,
             spaceship_class: s.color,
             distribution_name: s.name,
@@ -727,44 +813,74 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*TEST TRIALS 4*/
     const cloud4_timeline = [];
-
     let midline_4 = [];
     if ((lowMean4 + highMean4)/2 < 400){
         midline_4 = 350;
     } else {
         midline_4 = 450;
     }
+    if(midline_4 === 350) {
+        //widelocations
+        let widebin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin4_7 = generateTestLocations(midline_4 + 20, midline_4 + 60, (spaceship_stimuli4.length / 10) ); // one right - 370 -410 10% 8
+        let widebin4_8 = generateTestLocations(midline_4 + 60, midline_4 + 100, (spaceship_stimuli4.length / 10) ); // two left - 410-450 10% 9
+        let widebin4_9 = generateTestLocations(midline_4 + 100, midline_4 + 140, (spaceship_stimuli4.length / 10) ); // three left = 450-490 10% 10
+        let widebin4_10 = generateTestLocations(midline_4 + 140, midline_4 + 180, (spaceship_stimuli4.length / 10) ); // four left 490-530 10% 10
+        let widebin4_11 = generateTestLocations(midline_4 + 180, midline_4 + 340, (spaceship_stimuli4.length / 20) ); // more right  530-790 5% 5
+        var widetraining4_locations = widebin4_1.concat(widebin4_7, widebin4_8, widebin4_9, widebin4_10, widebin4_11);
 
-    let bin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length/10)); // mid-bracket - 330-370 10%
-    let bin4_2 = generateTestLocations(midline_4 - 60, midline_4 - 20, (spaceship_stimuli4.length/10)); // one left - 290-330 10%
-    let bin4_3 = generateTestLocations(midline_4 - 100 , midline_4 - 60, (spaceship_stimuli4.length/10)); // two left - 250-290 10%
-    let bin4_4 = generateTestLocations(midline_4 - 140 , midline_4 - 100, (spaceship_stimuli4.length/10)); // three left - 210-290 10%
-    let bin4_5 = generateTestLocations(midline_4 - 180 , midline_4 - 140, (spaceship_stimuli4.length/10)); // four left - 170-210 10%
-    let bin4_6 = generateTestLocations(midline_4 - 340 , midline_4 - 180, (spaceship_stimuli4.length/20)); // more left - 10-170 5%
-    let bin4_7 = generateTestLocations(midline_4 + 20, midline_4 + 60, (spaceship_stimuli4.length/10)); // one right - 370 -410 10%
-    let bin4_8 = generateTestLocations(midline_4 + 60, midline_4 + 100, (spaceship_stimuli4.length/10)); // two left - 410-450 10%
-    let bin4_9 = generateTestLocations(midline_4 + 100, midline_4 + 140, (spaceship_stimuli4.length/10)); // three left = 450-490 10%
-    let bin4_10 = generateTestLocations(midline_4 + 140, midline_4 + 180, (spaceship_stimuli4.length/10)); // four left 490-530 10%
-    let bin4_11 = generateTestLocations(midline_4 + 180, midline_4 + 340, (spaceship_stimuli4.length/20)); // more right 530-790 5%
+        //narrowlocations
+        let narrowbin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin4_2 = generateTestLocations(midline_4 - 60, midline_4 - 20, (spaceship_stimuli4.length / 10)); // one left - 290-330 10% 3
+        let narrowbin4_3 = generateTestLocations(midline_4 - 100, midline_4 - 60, (spaceship_stimuli4.length / 10)); // two left - 250-290 10% 1
+        let narrowbin4_4 = generateTestLocations(midline_4 - 140, midline_4 - 100, (spaceship_stimuli4.length / 10)); // three left - 210-290 10% 1
+        let narrowbin4_5 = generateTestLocations(midline_4 - 180, midline_4 - 140, (spaceship_stimuli4.length / 10)); // four left - 170-210 10% 0
+        let narrowbin4_6 = generateTestLocations(midline_4 - 340, midline_4 - 180, (spaceship_stimuli4.length / 20)); // more left - 10-170 5% 0
+        var narrowtraining4_locations = narrowbin4_1.concat(narrowbin4_2, narrowbin4_3, narrowbin4_4, narrowbin4_5, narrowbin4_6);
 
-    let training4_locations = bin4_1.concat(bin4_2, bin4_3, bin4_4, bin4_5, bin4_6, bin4_7, bin4_8, bin4_9, bin4_10, bin4_11);
-    let training_locations4 = shuffle(training4_locations);
+    } else{
+        //widelocations
+        let widebin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let widebin4_2 = generateTestLocations(midline_4 - 60, midline_4 - 20, (spaceship_stimuli4.length / 10)); // one left - 290-330 10% 3
+        let widebin4_3 = generateTestLocations(midline_4 - 100, midline_4 - 60, (spaceship_stimuli4.length / 10)); // two left - 250-290 10% 1
+        let widebin4_4 = generateTestLocations(midline_4 - 140, midline_4 - 100, (spaceship_stimuli4.length / 10)); // three left - 210-290 10% 1
+        let widebin4_5 = generateTestLocations(midline_4 - 180, midline_4 - 140, (spaceship_stimuli4.length / 10)); // four left - 170-210 10% 0
+        let widebin4_6 = generateTestLocations(midline_4 - 340, midline_4 - 180, (spaceship_stimuli4.length / 20)); // more left - 10-170 5% 0
+        var widetraining4_locations = widebin4_1.concat(widebin4_2, widebin4_3, widebin4_4, widebin4_5, widebin4_6);
+
+        //narrowlocations
+        let narrowbin4_1 = generateTestLocations(midline_4 - 20, midline_4 + 20, (spaceship_stimuli4.length / 10) * .5); // mid-bracket - 330-370 10% 5
+        let narrowbin4_7 = generateTestLocations(midline_4 + 20, midline_4 + 60, (spaceship_stimuli4.length / 10)); // one right - 370 -410 10% 8
+        let narrowbin4_8 = generateTestLocations(midline_4 + 60, midline_4 + 100, (spaceship_stimuli4.length / 10)); // two left - 410-450 10% 9
+        let narrowbin4_9 = generateTestLocations(midline_4 + 100, midline_4 + 140, (spaceship_stimuli4.length / 10)); // three left = 450-490 10% 10
+        let narrowbin4_10 = generateTestLocations(midline_4 + 140, midline_4 + 180, (spaceship_stimuli4.length / 10)); // four left 490-530 10% 10
+        let narrowbin4_11 = generateTestLocations(midline_4 + 180, midline_4 + 340, (spaceship_stimuli4.length / 20)); // more right 530-790 5% 5
+        var narrowtraining4_locations = narrowbin4_1.concat(narrowbin4_7, narrowbin4_8, narrowbin4_9, narrowbin4_10, narrowbin4_11);
+    }
+    let wide_training_locations4 = shuffle(widetraining4_locations);
+    let narrow_training_locations4 = shuffle(narrowtraining4_locations);
+
     // on each trial loop through stimuli info, pull values and pass to plugin
     spaceship_stimuli4.forEach(s => {
-        cloud4_timeline.push({
-            type: "jspsych-experimentscreen",
-            trial_duration: 10000,
-            choices: ['Retrieve', 'Zap'],
-            location: training_locations4.pop(),
-            stimulus_duration: 3000,
-            spaceship_class: s.color,
-            distribution_name: s.name,
-            distribution_info: s.value,
-            confidence_trial: true,
-            trial_type: 'unclear',
-            block: 4,
-            boundary: midline_4
-        })
+        if (s.name === "wide") {
+            s.location = wide_training_locations4.pop()}
+        else {
+            s.location = narrow_training_locations4.pop()}
+            cloud4_timeline.push({
+                type: "jspsych-experimentscreen",
+                trial_duration: 10000,
+                choices: ['Retrieve', 'Zap'],
+                location: s.location,
+                stimulus_duration: 3000,
+                spaceship_class: s.color,
+                distribution_name: s.name,
+                distribution_info: s.value,
+                confidence_trial: true,
+                trial_type: 'unclear',
+                block: 4,
+                boundary: midline_4
+            })
+
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* block feedback */

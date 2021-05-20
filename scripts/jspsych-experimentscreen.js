@@ -104,7 +104,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             distribution_name: trial.distribution_name,
             spaceship_class: trial.spaceship_class,
             drop_location: trial.location,
-            boundary: trial.boundary, //this is 500 -200 / 2
+            boundary: trial.boundary,
             distance_to_bound: null,
             start_time: performance.now(),
             response_time: null,
@@ -120,12 +120,6 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
             block: trial.block,
             coins: null
         };
-
-        if (trial.location<350){
-            response.distance_to_bound = response.boundary - trial.location
-        }else{
-            response.distance_to_bound = trial.location - response.boundary
-        }
 
 
         //draw "canvas" to screen
