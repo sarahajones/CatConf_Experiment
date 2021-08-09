@@ -82,7 +82,7 @@ jsPsych.plugins['jspsych-lastScreen'] = (function () {
 
         // define what happens when people click on the final submit button
         $('#tutorial-submit').on('click', function() {
-            location.href = "https://app.prolific.co/submissions/complete?cc=16D48B9A";
+            location.href = "https://app.prolific.co/submissions/complete?cc=78119E6F";
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.msExitFullscreen) {
