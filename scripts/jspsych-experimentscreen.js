@@ -122,6 +122,7 @@ jsPsych.plugins['jspsych-experimentscreen'] = function () {
         };
 
 
+
         //draw "canvas" to screen
         var canvasDiv = document.createElement("div");
         canvasDiv.id = "jspsych-experimentscreen";

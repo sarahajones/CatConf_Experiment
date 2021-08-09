@@ -297,8 +297,7 @@
     narrow_locations_1 = generateTrainingLocations(distribution1[narrowIndex].value.mean, distribution1[narrowIndex].value.standardDeviation, fastdrop_number/2);
     wide_locations_1 = generateTrainingLocations(distribution1[wideIndex].value.mean, distribution1[wideIndex].value.standardDeviation, fastdrop_number/2);
 
-
-
+    
     fastdrop_stimuli.forEach(s => {
         if (/blue/i.test(s.color)) {
             s.spaceship_image = "../images/blue_spaceship.png";
@@ -995,7 +994,7 @@
             window.experiment_metadata = {
                 user_id: id,
                 experiment: 'zapBox',
-                version: [0, 2, 1]
+                version: [0, 2, 2]
             };
         }
 
